@@ -1,7 +1,7 @@
 import "./tabs.js";
 import "./search.js";
 import "./utils.js";
-import { TabManager } from "./tabs.js";
+// import { TabManager } from "./tabs.js";
 
 // Extend Window interface for TypeScript
 declare global {
@@ -22,7 +22,7 @@ declare global {
     };
     showPanel: (panelName: string) => void;
     hidePanel: () => void;
-    tabManager?: TabManager;
+    // tabManager?: TabManager;
     searchAutocomplete?: any;
     addToHistory?: (url: string, title: string) => void;
   }
