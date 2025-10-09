@@ -1,0 +1,46 @@
+# BiFrost Browser Frontend File Structure
+
+```
+BiFrost-browser-frontend/
+│
+├── index.html                 # Main entry point
+├── styles/
+│   ├── global.css            # Global styles and Tailwind imports
+│   └── custom.css            # Custom CSS overrides
+│
+├── components/
+│   ├── toolbar.html          # Main toolbar component
+│   ├── tabs.html             # Tab management
+│   ├── address-bar.html      # URL/search bar
+│   ├── navigation.html       # Back/forward/refresh buttons
+│   ├── bookmarks-bar.html    # Bookmarks toolbar
+│   ├── menu-dropdown.html    # Main menu dropdown
+│   ├── history-panel.html    # History sidebar/panel
+│   ├── downloads-panel.html  # Downloads manager
+│   ├── notes-panel.html      # Quick notes feature
+│   ├── tasks-panel.html      # Task manager
+│   └── settings-panel.html   # Settings interface
+│
+├── scripts/
+│   ├── toolbar.ts            # Toolbar interactions
+│   ├── tabs.ts               # Tab management logic
+│   ├── bookmarks.ts          # Bookmark operations
+│   ├── history.ts            # History management
+│   ├── downloads.ts          # Download manager
+│   ├── search.ts             # Search functionality
+│   └── utils.ts              # Utility functions
+│
+└── assets/
+    ├── icons/                # SVG icons
+    └── images/               # Images and logos
+```
+
+## Key Features Implemented:
+- Modular component structure
+- Clean separation of concerns
+- Responsive design with Tailwind CSS
+- TypeScript for type safety
+- Integration points for Rust backend via Tauri
+- Privacy-first UI elements
+- Location intelligence integration ready
+- Productivity tools (notes, tasks)

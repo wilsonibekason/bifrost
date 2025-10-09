@@ -1,0 +1,210 @@
+<div
+  class="panel fixed right-0 top-0 h-full w-96 bg-zinc-800 shadow-2xl border-l border-zinc-700 pointer-events-auto overflow-y-auto"
+>
+  Header
+  <div
+    class="sticky top-0 bg-zinc-800 border-b border-zinc-700 px-4 py-3 flex items-center justify-between z-10"
+  >
+    <h2 class="text-lg font-semibold text-zinc-100">Settings</h2>
+    <button
+      onclick="window.hidePanel()"
+      class="p-1.5 rounded hover:bg-zinc-700 transition"
+    >
+      <svg
+        class="w-5 h-5 text-zinc-300"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M6 18L18 6M6 6l12 12"
+        />
+      </svg>
+    </button>
+  </div>
+
+  Settings Content
+  <div class="px-4 py-4 space-y-6">
+    Appearance Section
+    <div>
+      <h3 class="text-sm font-semibold text-zinc-100 mb-3">Appearance</h3>
+      <div class="space-y-3">
+        Theme
+        <div class="flex items-center justify-between">
+          <span class="text-sm text-zinc-300">Theme</span>
+          <select
+            class="bg-zinc-900 text-zinc-100 text-sm rounded px-3 py-1.5 border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option>Dark</option>
+            <option>Light</option>
+            <option>System</option>
+          </select>
+        </div>
+
+        Show Bookmarks Bar
+        <div class="flex items-center justify-between">
+          <span class="text-sm text-zinc-300">Show Bookmarks Bar</span>
+          <label class="relative inline-flex items-center cursor-pointer">
+            <input type="checkbox" checked class="sr-only peer" />
+            <div
+              class="w-11 h-6 bg-zinc-700 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-500 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"
+            ></div>
+          </label>
+        </div>
+
+        Compact Mode
+        <div class="flex items-center justify-between">
+          <span class="text-sm text-zinc-300">Compact Mode</span>
+          <label class="relative inline-flex items-center cursor-pointer">
+            <input type="checkbox" class="sr-only peer" />
+            <div
+              class="w-11 h-6 bg-zinc-700 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-500 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"
+            ></div>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    Privacy & Security Section
+    <div>
+      <h3 class="text-sm font-semibold text-zinc-100 mb-3">
+        Privacy & Security
+      </h3>
+      <div class="space-y-3">
+        Block Trackers
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm text-zinc-300">Block Trackers</p>
+            <p class="text-xs text-zinc-500">Prevent third-party tracking</p>
+          </div>
+          <label class="relative inline-flex items-center cursor-pointer">
+            <input type="checkbox" checked class="sr-only peer" />
+            <div
+              class="w-11 h-6 bg-zinc-700 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-500 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"
+            ></div>
+          </label>
+        </div>
+
+        HTTPS Only
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm text-zinc-300">HTTPS-Only Mode</p>
+            <p class="text-xs text-zinc-500">Always use secure connections</p>
+          </div>
+          <label class="relative inline-flex items-center cursor-pointer">
+            <input type="checkbox" checked class="sr-only peer" />
+            <div
+              class="w-11 h-6 bg-zinc-700 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-500 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"
+            ></div>
+          </label>
+        </div>
+
+        Clear Browsing Data
+        <button
+          class="w-full text-left p-3 rounded-lg bg-zinc-900 hover:bg-zinc-700 transition"
+        >
+          <p class="text-sm text-zinc-300">Clear Browsing Data</p>
+          <p class="text-xs text-zinc-500 mt-0.5">
+            Remove history, cookies, and cache
+          </p>
+        </button>
+      </div>
+    </div>
+
+    Search Section
+    <div>
+      <h3 class="text-sm font-semibold text-zinc-100 mb-3">Search</h3>
+      <div class="space-y-3">
+        Search Engine
+        <div class="flex items-center justify-between">
+          <span class="text-sm text-zinc-300">Default Search Engine</span>
+          <select
+            class="bg-zinc-900 text-zinc-100 text-sm rounded px-3 py-1.5 border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option>Searx (Private)</option>
+            <option>DuckDuckGo</option>
+            <option>Google</option>
+          </select>
+        </div>
+
+        Search Suggestions
+        <div class="flex items-center justify-between">
+          <span class="text-sm text-zinc-300">Show Search Suggestions</span>
+          <label class="relative inline-flex items-center cursor-pointer">
+            <input type="checkbox" checked class="sr-only peer" />
+            <div
+              class="w-11 h-6 bg-zinc-700 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-500 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"
+            ></div>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    Location Intelligence Section
+    <div>
+      <h3 class="text-sm font-semibold text-zinc-100 mb-3">
+        Location Intelligence
+      </h3>
+      <div class="space-y-3">
+        Enable Location
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm text-zinc-300">Enable Location Services</p>
+            <p class="text-xs text-zinc-500">Get hyperlocal recommendations</p>
+          </div>
+          <label class="relative inline-flex items-center cursor-pointer">
+            <input type="checkbox" checked class="sr-only peer" />
+            <div
+              class="w-11 h-6 bg-zinc-700 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-500 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"
+            ></div>
+          </label>
+        </div>
+
+        Current Location
+        <div class="p-3 rounded-lg bg-zinc-900">
+          <p class="text-xs text-zinc-500 mb-1">Current Location</p>
+          <p class="text-sm text-zinc-100">Ibadan, Nigeria</p>
+        </div>
+      </div>
+    </div>
+
+    Downloads Section
+    <div>
+      <h3 class="text-sm font-semibold text-zinc-100 mb-3">Downloads</h3>
+      <div class="space-y-3">
+        Download Location
+        <button
+          class="w-full text-left p-3 rounded-lg bg-zinc-900 hover:bg-zinc-700 transition"
+        >
+          <p class="text-sm text-zinc-300">Download Location</p>
+          <p class="text-xs text-zinc-500 mt-0.5 truncate">~/Downloads</p>
+        </button>
+
+        Ask Where to Save
+        <div class="flex items-center justify-between">
+          <span class="text-sm text-zinc-300">Ask Where to Save Files</span>
+          <label class="relative inline-flex items-center cursor-pointer">
+            <input type="checkbox" class="sr-only peer" />
+            <div
+              class="w-11 h-6 bg-zinc-700 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-500 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"
+            ></div>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    About Section
+    <div>
+      <h3 class="text-sm font-semibold text-zinc-100 mb-3">About</h3>
+      <div class="p-3 rounded-lg bg-zinc-900">
+        <p class="text-sm text-zinc-100 font-medium">BiFrost Browser</p>
+        <p class="text-xs text-zinc-500 mt-1">Version 1.0.0</p>
+        <p class="text-xs text-zinc-500 mt-2">Built with Servo & Tauri</p>
+        <p class="text-xs text-zinc-500">© 2025 AGENPO</p>
+      </div>
+    </div>
+  </div>
+</div>

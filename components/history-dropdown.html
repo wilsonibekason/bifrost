@@ -1,0 +1,185 @@
+History Dropdown matching Figma design
+<div
+  id="history-dropdown"
+  class="hidden absolute top-full right-0 mt-2 w-[500px] bg-white dark:bg-zinc-900 rounded-lg shadow-2xl border border-gray-200 dark:border-zinc-700 z-50 max-h-[600px] overflow-hidden flex flex-col dropdown-enter"
+>
+  Search Bar
+  <div class="p-4 border-b border-gray-100 dark:border-zinc-800">
+    <div
+      class="flex items-center gap-2 bg-gray-50 dark:bg-zinc-800 rounded-lg px-3 py-2"
+    >
+      <svg
+        class="w-4 h-4 text-gray-400 dark:text-zinc-500"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+        />
+      </svg>
+      <input
+        type="text"
+        placeholder="Search History"
+        class="flex-1 bg-transparent text-sm text-gray-900 dark:text-zinc-100 placeholder-gray-500 dark:placeholder-zinc-500 outline-none"
+        oninput="filterHistory(this.value)"
+      />
+    </div>
+  </div>
+
+  History Items
+  <div id="history-items-list" class="flex-1 overflow-y-auto">
+    Items will be dynamically loaded here
+  </div>
+
+  Show All Button
+  <div class="p-3 border-t border-gray-100 dark:border-zinc-800">
+    <button
+      onclick="openHistoryTab()"
+      class="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-zinc-300 hover:text-gray-900 dark:hover:text-zinc-100 transition"
+    >
+      <span>Show All</span>
+      <svg
+        class="w-4 h-4"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M13 7l5 5m0 0l-5 5m5-5H6"
+        />
+      </svg>
+    </button>
+  </div>
+</div>
+
+<script>
+  // Load history items
+  function loadHistoryItems() {
+    const historyList = document.getElementById("history-items-list");
+    if (!historyList) return;
+
+    const mockHistory = [
+      {
+        title: "(148) RKG's Halloween Sleepover III- Outlast Whistleblower",
+        url: "youtube.com/channel/UCvUkUtNrKHeFVlbRkxd0A",
+        favicon: "https://www.youtube.com/favicon.ico",
+        faviconBg: "bg-red-500",
+        faviconText: "Y",
+        time: "5 hours ago",
+      },
+      {
+        title:
+          "Dribbble - Discover the World's Top Designers & Creative Professionals",
+        url: "dribbble.com",
+        favicon: "",
+        faviconBg: "bg-pink-500",
+        faviconText: "D",
+        time: "5 hours ago",
+      },
+      {
+        title: "Spotify - Web Player : Music for Everyone",
+        url: "spotify.com",
+        favicon: "",
+        faviconBg: "bg-green-500",
+        faviconText: "S",
+        time: "5 hours ago",
+      },
+      {
+        title: "(3) Feed - Linkedin",
+        url: "linkedin.com",
+        favicon: "",
+        faviconBg: "bg-blue-600",
+        faviconText: "L",
+        time: "5 hours ago",
+      },
+      {
+        title: "Netflix Nigeria - Watch Tv Shows Online,Watch Movies Online",
+        url: "netflix.com",
+        favicon: "",
+        faviconBg: "bg-red-600",
+        faviconText: "N",
+        time: "5 hours ago",
+      },
+      {
+        title: "Jarrick II Laced Leather Platform Boots in...",
+        url: "pinterest.com",
+        favicon: "",
+        faviconBg: "bg-orange-500",
+        faviconText: "P",
+        time: "5 hours ago",
+      },
+    ];
+
+    historyList.innerHTML = mockHistory
+      .map(
+        (item) => `
+      <button
+        class="w-full flex items-center gap-3 px-4 py-3 hover:bg-gray-50 dark:hover:bg-zinc-800 text-left border-b border-gray-50 dark:border-zinc-800 last:border-0 transition"
+        onclick="navigateToUrl('${item.url}')"
+      >
+        <div class="flex-shrink-0 w-8 h-8 ${item.faviconBg} rounded flex items-center justify-center">
+          <span class="text-white text-xs font-bold">${item.faviconText}</span>
+        </div>
+        <div class="flex-1 min-w-0">
+          <div class="text-sm font-medium text-gray-900 dark:text-zinc-100 truncate">${item.title}</div>
+          <div class="flex items-center gap-2 text-xs text-gray-500 dark:text-zinc-500 mt-0.5">
+            <span class="truncate">${item.url}</span>
+            <span>•</span>
+            <span>${item.time}</span>
+          </div>
+        </div>
+      </button>
+    `
+      )
+      .join("");
+  }
+
+  function filterHistory(query) {
+    // TODO: Implement history filtering
+    console.log("[v0] Filtering history:", query);
+  }
+
+  function openHistoryTab() {
+    if (window.tabManager) {
+      window.tabManager.createTab("History", "bifrost://history");
+      toggleHistoryDropdown();
+    }
+  }
+
+  function navigateToUrl(url) {
+    if (window.tabManager) {
+      const fullUrl = url.startsWith("http") ? url : `https://${url}`;
+      window.tabManager.navigateActiveTab(fullUrl);
+      toggleHistoryDropdown();
+    }
+  }
+
+  function toggleHistoryDropdown() {
+    const dropdown = document.getElementById("history-dropdown");
+    if (dropdown) {
+      dropdown.classList.toggle("hidden");
+      if (!dropdown.classList.contains("hidden")) {
+        loadHistoryItems();
+      }
+    }
+  }
+
+  // Close dropdown when clicking outside
+  document.addEventListener("click", function (event) {
+    const dropdown = document.getElementById("history-dropdown");
+    const historyButton = event.target.closest(
+      '[onclick*="toggleHistoryDropdown"]'
+    );
+
+    if (dropdown && !historyButton && !dropdown.contains(event.target)) {
+      dropdown.classList.add("hidden");
+    }
+  });
+</script>
