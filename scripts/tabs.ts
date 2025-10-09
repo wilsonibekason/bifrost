@@ -8,9 +8,9 @@ interface Tab {
   isActive: boolean;
 }
 
-class TabManager {
+export class TabManager {
   private tabs: Tab[] = [];
-  private activeTabId: string | null = null;
+  // private activeTabId: string | null = null;
   private tabBarElement: HTMLElement | null = null;
 
   constructor() {
@@ -67,7 +67,7 @@ class TabManager {
     this.tabs.forEach((tab) => {
       tab.isActive = tab.id === tabId;
     });
-    this.activeTabId = tabId;
+    // this.activeTabId = tabId;
     this.renderTabs();
     console.log("[v0] Switched to tab:", tabId);
   }
