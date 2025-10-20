@@ -9,7 +9,6 @@
       href="https://unpkg.com/lucide-static@latest/font/lucide.css"
     />
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Added Tailwind dark mode configuration -->
     <script>
       tailwind.config = {
         darkMode: "class",
@@ -25,6 +24,7 @@
                 500: "#71717a",
                 600: "#52525b",
                 700: "#3f3f46",
+                750: "#35353b",
                 800: "#27272a",
                 900: "#18181b",
               },
@@ -34,25 +34,35 @@
       };
     </script>
     <link rel="stylesheet" href="/styles/globals.css" />
+    <style>
+      body {
+        overflow: hidden;
+      }
+      #browser-content {
+        position: relative;
+        height: calc(100vh - 64px); /* Adjust based on toolbar height */
+        overflow: hidden;
+      }
+    </style>
   </head>
   <body class="bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white">
-    Main Toolbar Container
+    <!-- Main Toolbar Container -->
     <div id="toolbar-container" class="bg-zinc-800 border-b border-zinc-700">
-      Toolbar content will be loaded here
+      <!-- Toolbar content will be loaded here -->
     </div>
 
-    Main Browser Content Area
-    <div id="browser-content" class="h-screen bg-white dark:bg-zinc-900">
-      Browser rendering area / WebView container
+    <!-- Main Browser Content Area -->
+    <div id="browser-content" class="bg-white dark:bg-zinc-900">
+      <!-- Tab content panels will be dynamically injected here -->
     </div>
 
-    Overlay Panels (History, Downloads, etc.)
+    <!-- Overlay Panels (for legacy panels if needed) -->
     <div
       id="overlay-panels"
       class="fixed inset-0 pointer-events-none z-50"
     ></div>
 
-    Scripts
+    <!-- Scripts -->
     <script type="module" src="/scripts/main.ts"></script>
   </body>
 </html>
