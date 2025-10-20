@@ -389,6 +389,7 @@
     <div class="flex-1 flex items-center justify-center gap-2">
       <!-- Bookmark Icon (Outside) -->
       <button
+        onclick="toggleBookmarksDropdown()"
         class="p-1.5 hover:text-yellow-400 transition text-zinc-400"
         title="Bookmark this page"
       >
@@ -688,8 +689,9 @@
       </button>
 
       <!-- Bookmarks -->
+      <!-- onclick="window.showPanel('bookmarks')"-->
       <button
-        onclick="window.showPanel('bookmarks')"
+        onclick="toggleBookmarksDropdown()"
         class="flex items-center space-x-3 w-full px-4 py-2.5 hover:bg-zinc-700 transition text-left"
       >
         <svg
@@ -783,20 +785,163 @@
     </div>
   </div>
 
-  <!-- Bookmarks Dropdown Container -->
+  <!-- Bookmarks Panel Container -->
+
   <div
     id="bookmarks-dropdown"
-    class="hidden absolute top-16 right-20 bg-zinc-800 rounded-lg shadow-2xl border border-zinc-700 w-80 max-h-96 overflow-y-auto z-50 no-drag"
+    class="hidden fixed top-16 right-20 bg-white dark:bg-zinc-800 rounded-lg shadow-2xl border border-zinc-200 dark:border-zinc-700 w-64 max-h-96 overflow-hidden z-50"
   >
-    <div class="p-4">
-      <h3 class="text-sm font-semibold text-zinc-100 mb-3">Bookmarks</h3>
-      <div class="space-y-2">
-        <div class="text-xs text-zinc-400 text-center py-4">
-          No bookmarks yet
-        </div>
+    <!-- Search Bar -->
+    <div class="p-3 border-b border-zinc-200">
+      <div class="relative">
+        <svg
+          class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-zinc-400"
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M17.5 17.5L13.9167 13.9167M15.8333 9.16667C15.8333 12.8486 12.8486 15.8333 9.16667 15.8333C5.48477 15.8333 2.5 12.8486 2.5 9.16667C2.5 5.48477 5.48477 2.5 9.16667 2.5C12.8486 2.5 15.8333 5.48477 15.8333 9.16667Z"
+            stroke="currentColor"
+            stroke-width="1.66667"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+        <input
+          type="text"
+          placeholder="Search Bookmarks"
+          class="w-full bg-white border border-zinc-200 text-sm text-zinc-900 placeholder-zinc-400 rounded-md pl-9 pr-3 py-1.5 focus:outline-none focus:ring-1 focus:ring-zinc-300 focus:border-zinc-300"
+        />
       </div>
     </div>
+
+    <!-- Bookmarks List -->
+    <div class="py-2 max-h-80 overflow-y-auto">
+      <!-- Bookmark Item 1 -->
+      <a
+        href="#"
+        class="flex items-center gap-3 px-3 py-2 hover:bg-zinc-50 transition group"
+      >
+        <div
+          class="flex-shrink-0 w-4 h-4 bg-red-500 rounded flex items-center justify-center"
+        >
+          <span class="text-white text-xs font-semibold">Y</span>
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="text-sm text-zinc-900 font-medium truncate">
+            (148) RKG's Halloween Sleepover - Outfi...
+          </p>
+          <p class="text-xs text-zinc-500 truncate">
+            youtube.com • 5 hours ago
+          </p>
+        </div>
+      </a>
+
+      <!-- Bookmark Item 2 -->
+      <a
+        href="#"
+        class="flex items-center gap-3 px-3 py-2 hover:bg-zinc-50 transition group"
+      >
+        <div
+          class="flex-shrink-0 w-4 h-4 bg-purple-500 rounded flex items-center justify-center"
+        >
+          <span class="text-white text-xs font-semibold">M</span>
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="text-sm text-zinc-900 font-medium truncate">
+            Midjourney - Discover the World's Top Desig...
+          </p>
+          <p class="text-xs text-zinc-500 truncate">
+            midcode.com • 6 hours ago
+          </p>
+        </div>
+      </a>
+
+      <!-- Bookmark Item 3 -->
+      <a
+        href="#"
+        class="flex items-center gap-3 px-3 py-2 hover:bg-zinc-50 transition group"
+      >
+        <div
+          class="flex-shrink-0 w-4 h-4 bg-green-500 rounded flex items-center justify-center"
+        >
+          <span class="text-white text-xs font-semibold">S</span>
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="text-sm text-zinc-900 font-medium truncate">
+            Spotify - Web Player: Music for Everyone...
+          </p>
+          <p class="text-xs text-zinc-500 truncate">
+            open.spotify.com • 2 hours ago
+          </p>
+        </div>
+      </a>
+
+      <!-- Bookmark Item 4 -->
+      <a
+        href="#"
+        class="flex items-center gap-3 px-3 py-2 hover:bg-zinc-50 transition group"
+      >
+        <div
+          class="flex-shrink-0 w-4 h-4 bg-blue-500 rounded flex items-center justify-center"
+        >
+          <span class="text-white text-xs font-semibold">(3)</span>
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="text-sm text-zinc-900 font-medium truncate">
+            (3) Feed - LinkedIn
+          </p>
+          <p class="text-xs text-zinc-500 truncate">
+            linkedin.com • 4 hours ago
+          </p>
+        </div>
+      </a>
+
+      <!-- Bookmark Item 5 -->
+      <a
+        href="#"
+        class="flex items-center gap-3 px-3 py-2 hover:bg-zinc-50 transition group"
+      >
+        <div
+          class="flex-shrink-0 w-4 h-4 bg-red-600 rounded flex items-center justify-center"
+        >
+          <span class="text-white text-xs font-semibold">N</span>
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="text-sm text-zinc-900 font-medium truncate">
+            Netflix Nigeria - Watch TV Shows Online W...
+          </p>
+          <p class="text-xs text-zinc-500 truncate">
+            netflix.com • 4 hours ago
+          </p>
+        </div>
+      </a>
+
+      <!-- Bookmark Item 6 -->
+      <a
+        href="#"
+        class="flex items-center gap-3 px-3 py-2 hover:bg-zinc-50 transition group"
+      >
+        <div
+          class="flex-shrink-0 w-4 h-4 bg-orange-500 rounded flex items-center justify-center"
+        >
+          <span class="text-white text-xs font-semibold">J</span>
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="text-sm text-zinc-900 font-medium truncate">
+            Jamick || Loved Leather Platform Boots in...
+          </p>
+          <p class="text-xs text-zinc-500 truncate">
+            nordstrom.com • 1 hours ago
+          </p>
+        </div>
+      </a>
+    </div>
   </div>
+  <!--  -->
 </div>
 
 <script>
@@ -851,6 +996,45 @@
     );
   }
 
+  // Show panel function - displays the appropriate panel
+  window.showPanel = function (panelName) {
+    // Close main menu
+    const menu = document.getElementById("main-menu-dropdown");
+    menu?.classList.add("hidden");
+
+    // Close all other panels first
+    const allPanels = [
+      "bookmarks-panel",
+      "notes-panel",
+      "tasks-panel",
+      "downloads-panel",
+      "history-panel",
+      "settings-panel",
+    ];
+    allPanels.forEach((id) => {
+      const panel = document.getElementById(id);
+      if (panel) {
+        panel.classList.add("hidden");
+      }
+    });
+
+    // Show the requested panel
+    const panelId = panelName + "-panel";
+    const panel = document.getElementById(panelId);
+    if (panel) {
+      panel.classList.remove("hidden");
+    }
+  };
+
+  // Close panel function
+  window.closePanel = function (panelName) {
+    const panelId = panelName + "-panel";
+    const panel = document.getElementById(panelId);
+    if (panel) {
+      panel.classList.add("hidden");
+    }
+  };
+
   function toggleMainMenu() {
     const menu = document.getElementById("main-menu-dropdown");
     const historyDropdown = document.getElementById("history-dropdown");
@@ -862,33 +1046,6 @@
 
     menu.classList.toggle("hidden");
   }
-
-  // Close menu when clicking outside
-  document.addEventListener("click", function (event) {
-    const menu = document.getElementById("main-menu-dropdown");
-    const historyDropdown = document.getElementById("history-dropdown");
-    const bookmarksDropdown = document.getElementById("bookmarks-dropdown");
-
-    const menuButton = event.target.closest('[onclick="toggleMainMenu()"]');
-    const historyButton = event.target.closest(
-      '[onclick="toggleHistoryDropdown()"]'
-    );
-    const bookmarksButton = event.target.closest(
-      '[onclick="toggleBookmarksDropdown()"]'
-    );
-
-    if (!menuButton && !menu?.contains(event.target)) {
-      menu?.classList.add("hidden");
-    }
-
-    if (!historyButton && !historyDropdown?.contains(event.target)) {
-      historyDropdown?.classList.add("hidden");
-    }
-
-    if (!bookmarksButton && !bookmarksDropdown?.contains(event.target)) {
-      bookmarksDropdown?.classList.add("hidden");
-    }
-  });
 
   function toggleHistoryDropdown() {
     const dropdown = document.getElementById("history-dropdown");
@@ -913,6 +1070,103 @@
 
     dropdown.classList.toggle("hidden");
   }
+
+  // Close dropdowns and panels when clicking outside
+  document.addEventListener("click", function (event) {
+    const menu = document.getElementById("main-menu-dropdown");
+    const historyDropdown = document.getElementById("history-dropdown");
+    const bookmarksDropdown = document.getElementById("bookmarks-dropdown");
+
+    // Get all panels
+    const bookmarksPanel = document.getElementById("bookmarks-panel");
+    const notesPanel = document.getElementById("notes-panel");
+    const tasksPanel = document.getElementById("tasks-panel");
+    const downloadsPanel = document.getElementById("downloads-panel");
+    const historyPanel = document.getElementById("history-panel");
+    const settingsPanel = document.getElementById("settings-panel");
+
+    // Check if click is on a toggle button or panel trigger
+    const menuButton = event.target.closest('[onclick*="toggleMainMenu"]');
+    const historyButton = event.target.closest(
+      '[onclick*="toggleHistoryDropdown"]'
+    );
+    const bookmarksButton = event.target.closest(
+      '[onclick*="toggleBookmarksDropdown"]'
+    );
+    const panelButton = event.target.closest('[onclick*="showPanel"]');
+
+    // Close main menu if clicked outside
+    if (!menuButton && menu && !menu.contains(event.target)) {
+      menu.classList.add("hidden");
+    }
+
+    // Close history dropdown if clicked outside
+    if (
+      !historyButton &&
+      historyDropdown &&
+      !historyDropdown.contains(event.target)
+    ) {
+      historyDropdown.classList.add("hidden");
+    }
+
+    // Close bookmarks dropdown if clicked outside
+    if (
+      !bookmarksButton &&
+      bookmarksDropdown &&
+      !bookmarksDropdown.contains(event.target)
+    ) {
+      bookmarksDropdown.classList.add("hidden");
+    }
+
+    // Close panels if clicked outside
+    if (!panelButton) {
+      if (bookmarksPanel && !bookmarksPanel.contains(event.target)) {
+        bookmarksPanel.classList.add("hidden");
+      }
+      if (notesPanel && !notesPanel.contains(event.target)) {
+        notesPanel.classList.add("hidden");
+      }
+      if (tasksPanel && !tasksPanel.contains(event.target)) {
+        tasksPanel.classList.add("hidden");
+      }
+      if (downloadsPanel && !downloadsPanel.contains(event.target)) {
+        downloadsPanel.classList.add("hidden");
+      }
+      if (historyPanel && !historyPanel.contains(event.target)) {
+        historyPanel.classList.add("hidden");
+      }
+      if (settingsPanel && !settingsPanel.contains(event.target)) {
+        settingsPanel.classList.add("hidden");
+      }
+    }
+  });
+
+  // Also close dropdowns and panels when pressing Escape key
+  document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape") {
+      const menu = document.getElementById("main-menu-dropdown");
+      const historyDropdown = document.getElementById("history-dropdown");
+      const bookmarksDropdown = document.getElementById("bookmarks-dropdown");
+
+      menu?.classList.add("hidden");
+      historyDropdown?.classList.add("hidden");
+      bookmarksDropdown?.classList.add("hidden");
+
+      // Close all panels
+      const allPanels = [
+        "bookmarks-panel",
+        "notes-panel",
+        "tasks-panel",
+        "downloads-panel",
+        "history-panel",
+        "settings-panel",
+      ];
+      allPanels.forEach((id) => {
+        const panel = document.getElementById(id);
+        panel?.classList.add("hidden");
+      });
+    }
+  });
 
   // Initialize theme when the page loads
   if (typeof window !== "undefined") {
