@@ -188,6 +188,15 @@ function toggleNotesDropdown() {
 
   // Toggle notes dropdown
   dropdown.classList.toggle("hidden");
+
+  // Load note content when opening
+  if (!dropdown.classList.contains("hidden")) {
+    loadNote();
+  } else {
+    // Save note content when closing
+    saveNote();
+  }
+
   console.log("[BiFrost] Notes dropdown toggled");
 }
 
@@ -215,6 +224,12 @@ function toggleTasksDropdown() {
 
   // Toggle tasks dropdown
   dropdown.classList.toggle("hidden");
+
+  // Render tasks when opening
+  if (!dropdown.classList.contains("hidden")) {
+    renderTasks();
+  }
+
   console.log("[BiFrost] Tasks dropdown toggled");
 }
 
@@ -314,6 +329,162 @@ function addBookmark(url: string, title: string) {
   }
 }
 
+// Tasks Management
+let tasks: Array<{ id: number; text: string; completed: boolean }> = [];
+
+function addTask() {
+  const input = document.getElementById("task-input") as HTMLInputElement;
+  if (!input) {
+    console.error("[BiFrost] Task input not found");
+    return;
+  }
+
+  const text = input.value.trim();
+
+  if (text) {
+    tasks.push({
+      id: Date.now(),
+      text: text,
+      completed: false,
+    });
+    input.value = "";
+    renderTasks();
+    console.log("[BiFrost] Task added:", text);
+  }
+}
+
+function toggleTask(id: number) {
+  const task = tasks.find((t) => t.id === id);
+  if (task) {
+    task.completed = !task.completed;
+    renderTasks();
+    console.log("[BiFrost] Task toggled:", id);
+  }
+}
+
+function deleteTask(id: number) {
+  tasks = tasks.filter((t) => t.id !== id);
+  renderTasks();
+  console.log("[BiFrost] Task deleted:", id);
+}
+
+function renderTasks() {
+  const list = document.getElementById("tasks-list");
+  const empty = document.getElementById("tasks-empty");
+
+  if (!list || !empty) {
+    console.error("[BiFrost] Tasks list or empty state not found");
+    return;
+  }
+
+  if (tasks.length === 0) {
+    list.classList.add("hidden");
+    empty.classList.remove("hidden");
+  } else {
+    list.classList.remove("hidden");
+    empty.classList.add("hidden");
+
+    list.innerHTML = tasks
+      .map(
+        (task) => `
+      <div class="flex items-center gap-3 px-3 py-2 hover:bg-zinc-50 dark:hover:bg-zinc-700 transition group">
+        <button
+          onclick="toggleTask(${task.id})"
+          class="flex-shrink-0 w-4 h-4 border-2 ${
+            task.completed
+              ? "bg-zinc-900 border-zinc-900"
+              : "border-zinc-300 dark:border-zinc-600"
+          } rounded flex items-center justify-center"
+        >
+          ${
+            task.completed
+              ? '<svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>'
+              : ""
+          }
+        </button>
+        <div class="flex-1 min-w-0">
+          <p class="text-sm ${
+            task.completed
+              ? "line-through text-zinc-400"
+              : "text-zinc-900 dark:text-white"
+          } font-medium truncate">
+            ${task.text}
+          </p>
+        </div>
+        <button
+          onclick="deleteTask(${task.id})"
+          class="flex-shrink-0 opacity-0 group-hover:opacity-100 text-zinc-400 hover:text-red-500 transition"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+          </svg>
+        </button>
+      </div>
+    `
+      )
+      .join("");
+  }
+}
+
+// Notes Management
+let noteContent = "";
+
+function saveNote() {
+  const textarea = document.getElementById(
+    "note-textarea"
+  ) as HTMLTextAreaElement;
+  if (textarea) {
+    noteContent = textarea.value;
+    console.log("[BiFrost] Note saved");
+  }
+}
+
+function loadNote() {
+  const textarea = document.getElementById(
+    "note-textarea"
+  ) as HTMLTextAreaElement;
+  if (textarea) {
+    textarea.value = noteContent;
+    updateCharCount();
+    console.log("[BiFrost] Note loaded");
+  }
+}
+
+function clearNote() {
+  if (confirm("Are you sure you want to clear this note?")) {
+    const textarea = document.getElementById(
+      "note-textarea"
+    ) as HTMLTextAreaElement;
+    if (textarea) {
+      textarea.value = "";
+      noteContent = "";
+      updateCharCount();
+      console.log("[BiFrost] Note cleared");
+    }
+  }
+}
+
+function updateCharCount() {
+  const textarea = document.getElementById(
+    "note-textarea"
+  ) as HTMLTextAreaElement;
+  const count = document.getElementById("char-count");
+
+  if (textarea && count) {
+    count.textContent = `${textarea.value.length} characters`;
+  }
+}
+
+function initializeNotesTextarea() {
+  const textarea = document.getElementById(
+    "note-textarea"
+  ) as HTMLTextAreaElement;
+  if (textarea) {
+    textarea.addEventListener("input", updateCharCount);
+    console.log("[BiFrost] Notes textarea initialized");
+  }
+}
+
 // Helper functions
 function getFaviconUrl(url: string): string {
   try {
@@ -338,6 +509,22 @@ function getFaviconUrl(url: string): string {
 (window as any).closeAllDropdowns = closeAllDropdowns;
 (window as any).addToHistory = addToHistory;
 (window as any).addBookmark = addBookmark;
+
+// Export new Tasks functions
+(window as any).addTask = addTask;
+(window as any).toggleTask = toggleTask;
+(window as any).deleteTask = deleteTask;
+(window as any).renderTasks = renderTasks;
+
+// Export new Notes functions
+(window as any).saveNote = saveNote;
+(window as any).loadNote = loadNote;
+(window as any).clearNote = clearNote;
+(window as any).updateCharCount = updateCharCount;
+
+// Export close button handlers (aliases for consistency)
+(window as any).toggleQuickNote = toggleNotesDropdown;
+(window as any).toggleTasks = toggleTasksDropdown;
 
 // Close dropdowns and panels when clicking outside
 document.addEventListener("click", (event) => {
@@ -385,8 +572,11 @@ document.addEventListener("click", (event) => {
     bookmarksDropdown.classList.add("hidden");
   }
 
-  // Close notes dropdown if clicked outside
+  // Close notes dropdown if clicked outside (and save content)
   if (!notesButton && notesDropdown && !notesDropdown.contains(target)) {
+    if (!notesDropdown.classList.contains("hidden")) {
+      saveNote();
+    }
     notesDropdown.classList.add("hidden");
   }
 
@@ -434,6 +624,11 @@ document.addEventListener("keydown", (event) => {
     const downloadsDropdown = document.getElementById("downloads-dropdown");
     const settingsDropdown = document.getElementById("settings-dropdown");
 
+    // Save note before closing
+    if (notesDropdown && !notesDropdown.classList.contains("hidden")) {
+      saveNote();
+    }
+
     // Close all dropdowns
     menu?.classList.add("hidden");
     historyDropdown?.classList.add("hidden");
@@ -448,7 +643,19 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
-// Initialize theme when the page loads
+// Handle Enter key in task input
+document.addEventListener("keypress", (event) => {
+  const target = event.target as HTMLElement;
+
+  if (event.key === "Enter" && target.id === "task-input") {
+    addTask();
+  }
+});
+
+// Initialize theme and notes textarea when the page loads
 if (typeof window !== "undefined") {
-  window.addEventListener("DOMContentLoaded", initializeTheme);
+  window.addEventListener("DOMContentLoaded", () => {
+    initializeTheme();
+    initializeNotesTextarea();
+  });
 }

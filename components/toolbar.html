@@ -615,8 +615,9 @@
   >
     <div class="py-2">
       <!-- Notes -->
+      <!-- onclick="window.showPanel('notes')" -->
       <button
-        onclick="window.showPanel('notes')"
+        onclick="toggleNotesDropdown()"
         class="flex items-center space-x-3 w-full px-4 py-2.5 hover:bg-zinc-700 transition text-left"
       >
         <svg
@@ -639,8 +640,9 @@
       </button>
 
       <!-- Tasks -->
+      <!-- onclick="window.showPanel('tasks')" -->
       <button
-        onclick="window.showPanel('tasks')"
+        onclick="toggleTasksDropdown()"
         class="flex items-center space-x-3 w-full px-4 py-2.5 hover:bg-zinc-700 transition text-left"
       >
         <svg
@@ -665,8 +667,9 @@
       <hr class="my-2 border-zinc-700" />
 
       <!-- Downloads -->
+      <!-- onclick="window.showPanel('downloads')" -->
       <button
-        onclick="window.showPanel('downloads')"
+        onclick="toggleDownloadsDropdown()"
         class="flex items-center space-x-3 w-full px-4 py-2.5 hover:bg-zinc-700 transition text-left"
       >
         <svg
@@ -714,8 +717,9 @@
       </button>
 
       <!-- History -->
+      <!-- onclick="window.showPanel('history')" -->
       <button
-        onclick="window.showPanel('history')"
+        onclick="toggleHistoryDropdown()"
         class="flex items-center space-x-3 w-full px-4 py-2.5 hover:bg-zinc-700 transition text-left"
       >
         <svg
@@ -740,8 +744,9 @@
       <hr class="my-2 border-zinc-700" />
 
       <!-- Settings -->
+      <!-- onclick="window.showPanel('settings')" -->
       <button
-        onclick="window.showPanel('settings')"
+        onclick="toggleSettingsDropdown()"
         class="flex items-center space-x-3 w-full px-4 py-2.5 hover:bg-zinc-700 transition text-left"
       >
         <svg
@@ -769,19 +774,6 @@
         </svg>
         <span class="text-sm text-zinc-100">Settings</span>
       </button>
-    </div>
-  </div>
-
-  <!-- History Dropdown Container -->
-  <div
-    id="history-dropdown"
-    class="hidden absolute top-16 right-32 bg-zinc-800 rounded-lg shadow-2xl border border-zinc-700 w-80 max-h-96 overflow-y-auto z-50 no-drag"
-  >
-    <div class="p-4">
-      <h3 class="text-sm font-semibold text-zinc-100 mb-3">Recent History</h3>
-      <div class="space-y-2">
-        <div class="text-xs text-zinc-400 text-center py-4">No history yet</div>
-      </div>
     </div>
   </div>
 
@@ -941,5 +933,697 @@
       </a>
     </div>
   </div>
+
+  <!-- History Dropdown -->
+  <div
+    id="history-dropdown"
+    class="hidden fixed top-16 right-20 bg-white dark:bg-zinc-800 rounded-lg shadow-2xl border border-zinc-200 dark:border-zinc-700 w-72 max-h-96 overflow-hidden z-50"
+  >
+    <!-- Search Bar -->
+    <div class="p-3 border-b border-zinc-200">
+      <div class="relative">
+        <svg
+          class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-zinc-400"
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M17.5 17.5L13.9167 13.9167M15.8333 9.16667C15.8333 12.8486 12.8486 15.8333 9.16667 15.8333C5.48477 15.8333 2.5 12.8486 2.5 9.16667C2.5 5.48477 5.48477 2.5 9.16667 2.5C12.8486 2.5 15.8333 5.48477 15.8333 9.16667Z"
+            stroke="currentColor"
+            stroke-width="1.66667"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+        <input
+          type="text"
+          placeholder="Search History"
+          class="w-full bg-white border border-zinc-200 text-sm text-zinc-900 placeholder-zinc-400 rounded-md pl-9 pr-3 py-1.5 focus:outline-none focus:ring-1 focus:ring-zinc-300 focus:border-zinc-300"
+        />
+      </div>
+    </div>
+    <!-- History List -->
+    <div class="py-2 max-h-80 overflow-y-auto">
+      <!-- History Item 1 -->
+      <a
+        href="#"
+        class="flex items-center gap-3 px-3 py-2 hover:bg-zinc-50 transition group"
+      >
+        <div
+          class="flex-shrink-0 w-4 h-4 bg-red-500 rounded flex items-center justify-center"
+        >
+          <span class="text-white text-xs font-semibold">Y</span>
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="text-sm text-zinc-900 font-medium truncate">
+            (148) RKG's Halloween Sleepover - Outfi...
+          </p>
+          <p class="text-xs text-zinc-500 truncate">
+            youtube.com • 5 hours ago
+          </p>
+        </div>
+      </a>
+
+      <!-- History Item 2 -->
+      <a
+        href="#"
+        class="flex items-center gap-3 px-3 py-2 hover:bg-zinc-50 transition group"
+      >
+        <div
+          class="flex-shrink-0 w-4 h-4 bg-purple-500 rounded flex items-center justify-center"
+        >
+          <span class="text-white text-xs font-semibold">D</span>
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="text-sm text-zinc-900 font-medium truncate">
+            Dribbble - Discover the World's Top Desig...
+          </p>
+          <p class="text-xs text-zinc-500 truncate">
+            dribbble.com • 6 hours ago
+          </p>
+        </div>
+      </a>
+
+      <!-- History Item 3 -->
+      <a
+        href="#"
+        class="flex items-center gap-3 px-3 py-2 hover:bg-zinc-50 transition group"
+      >
+        <div
+          class="flex-shrink-0 w-4 h-4 bg-green-500 rounded flex items-center justify-center"
+        >
+          <span class="text-white text-xs font-semibold">S</span>
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="text-sm text-zinc-900 font-medium truncate">
+            Spotify - Web Player: Music for Everyone...
+          </p>
+          <p class="text-xs text-zinc-500 truncate">
+            open.spotify.com • 2 hours ago
+          </p>
+        </div>
+      </a>
+
+      <!-- History Item 4 -->
+      <a
+        href="#"
+        class="flex items-center gap-3 px-3 py-2 hover:bg-zinc-50 transition group"
+      >
+        <div
+          class="flex-shrink-0 w-4 h-4 bg-blue-500 rounded flex items-center justify-center"
+        >
+          <span class="text-white text-xs font-semibold">L</span>
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="text-sm text-zinc-900 font-medium truncate">
+            (3) Feed - LinkedIn
+          </p>
+          <p class="text-xs text-zinc-500 truncate">
+            linkedin.com • 4 hours ago
+          </p>
+        </div>
+      </a>
+
+      <!-- History Item 5 -->
+      <a
+        href="#"
+        class="flex items-center gap-3 px-3 py-2 hover:bg-zinc-50 transition group"
+      >
+        <div
+          class="flex-shrink-0 w-4 h-4 bg-red-600 rounded flex items-center justify-center"
+        >
+          <span class="text-white text-xs font-semibold">N</span>
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="text-sm text-zinc-900 font-medium truncate">
+            Netflix Nigeria - Watch TV Shows Online W...
+          </p>
+          <p class="text-xs text-zinc-500 truncate">
+            netflix.com • 4 hours ago
+          </p>
+        </div>
+      </a>
+
+      <!-- History Item 6 -->
+      <a
+        href="#"
+        class="flex items-center gap-3 px-3 py-2 hover:bg-zinc-50 transition group"
+      >
+        <div
+          class="flex-shrink-0 w-4 h-4 bg-orange-500 rounded flex items-center justify-center"
+        >
+          <span class="text-white text-xs font-semibold">J</span>
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="text-sm text-zinc-900 font-medium truncate">
+            Jamick || Loved Leather Platform Boots in...
+          </p>
+          <p class="text-xs text-zinc-500 truncate">
+            pinterest.com • 5 hours ago
+          </p>
+        </div>
+      </a>
+
+      <!-- Show All Button -->
+      <div class="border-t border-zinc-200 dark:border-zinc-700 p-2">
+        <button
+          class="w-full text-sm text-zinc-700 dark:text-zinc-300 font-medium py-1.5 hover:bg-zinc-50 dark:hover:bg-zinc-700 rounded flex items-center justify-start gap-1 px-3"
+        >
+          Show All
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M3.33398 7.9987H12.6673M12.6673 7.9987L8.00065 3.33203M12.6673 7.9987L8.00065 12.6654"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Downloads Dropdown -->
+  <div
+    id="downloads-dropdown"
+    class="hidden fixed top-16 right-96 bg-white dark:bg-zinc-800 rounded-lg shadow-2xl border border-zinc-200 dark:border-zinc-700 w-72 max-h-96 overflow-hidden z-50"
+  >
+    <!-- Search Bar -->
+    <div class="p-3 border-b border-zinc-200">
+      <div class="relative">
+        <svg
+          class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-zinc-400"
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M17.5 17.5L13.9167 13.9167M15.8333 9.16667C15.8333 12.8486 12.8486 15.8333 9.16667 15.8333C5.48477 15.8333 2.5 12.8486 2.5 9.16667C2.5 5.48477 5.48477 2.5 9.16667 2.5C12.8486 2.5 15.8333 5.48477 15.8333 9.16667Z"
+            stroke="currentColor"
+            stroke-width="1.66667"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+        <input
+          type="text"
+          placeholder="Search Downloads"
+          class="w-full bg-white border border-zinc-200 text-sm text-zinc-900 placeholder-zinc-400 rounded-md pl-9 pr-3 py-1.5 focus:outline-none focus:ring-1 focus:ring-zinc-300 focus:border-zinc-300"
+        />
+      </div>
+    </div>
+
+    <!-- Downloads List -->
+    <div class="py-2 max-h-80 overflow-y-auto">
+      <!-- Download Item 1 -->
+      <div
+        class="flex items-center gap-3 px-3 py-2 hover:bg-zinc-50 transition group"
+      >
+        <div
+          class="flex-shrink-0 w-8 h-8 bg-zinc-100 rounded flex items-center justify-center"
+        >
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 20 20"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M17.5 12.5V15.8333C17.5 16.2754 17.3244 16.6993 17.0118 17.0118C16.6993 17.3244 16.2754 17.5 15.8333 17.5H4.16667C3.72464 17.5 3.30072 17.3244 2.98816 17.0118C2.67559 16.6993 2.5 16.2754 2.5 15.8333V12.5M5.83333 8.33333L10 12.5M10 12.5L14.1667 8.33333M10 12.5V2.5"
+              stroke="#868E96"
+              stroke-width="1.66667"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="text-sm text-zinc-900 font-medium truncate">
+            AUDIO-2020-05-05-10-30-22.rt
+          </p>
+          <div class="flex items-center gap-2 text-xs text-zinc-500">
+            <span>35 MB</span>
+            <span>•</span>
+            <span>5 hours ago</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-1">
+          <button class="p-1 hover:bg-zinc-200 rounded" title="Pause">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.1667 3.33203H12.5C12.0398 3.33203 11.6667 3.70513 11.6667 4.16536V15.832C11.6667 16.2923 12.0398 16.6654 12.5 16.6654H14.1667C14.6269 16.6654 15 16.2923 15 15.832V4.16536C15 3.70513 14.6269 3.33203 14.1667 3.33203Z"
+                stroke="#868E96"
+                stroke-width="1.66667"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M7.5 3.33203H5.83333C5.3731 3.33203 5 3.70513 5 4.16536V15.832C5 16.2923 5.3731 16.6654 5.83333 16.6654H7.5C7.96024 16.6654 8.33333 16.2923 8.33333 15.832V4.16536C8.33333 3.70513 7.96024 3.33203 7.5 3.33203Z"
+                stroke="#868E96"
+                stroke-width="1.66667"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+          <button class="p-1 hover:bg-zinc-200 rounded" title="Cancel">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M15 5L5 15M5 5L15 15"
+                stroke="#868E96"
+                stroke-width="1.66667"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Download Item 2 -->
+      <div
+        class="flex items-center gap-3 px-3 py-2 hover:bg-zinc-50 transition group"
+      >
+        <div
+          class="flex-shrink-0 w-8 h-8 bg-zinc-100 rounded flex items-center justify-center"
+        >
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 20 20"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M17.5 12.5V15.8333C17.5 16.2754 17.3244 16.6993 17.0118 17.0118C16.6993 17.3244 16.2754 17.5 15.8333 17.5H4.16667C3.72464 17.5 3.30072 17.3244 2.98816 17.0118C2.67559 16.6993 2.5 16.2754 2.5 15.8333V12.5M5.83333 8.33333L10 12.5M10 12.5L14.1667 8.33333M10 12.5V2.5"
+              stroke="#868E96"
+              stroke-width="1.66667"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="text-sm text-zinc-900 font-medium truncate">
+            AUDIO-2020-05-05-10-30-22.rt
+          </p>
+          <div class="flex items-center gap-2 text-xs text-zinc-500">
+            <span>40 MB</span>
+            <span>•</span>
+            <span>5 hours ago</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-1">
+          <button class="p-1 hover:bg-zinc-200 rounded" title="Pause">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.1667 3.33203H12.5C12.0398 3.33203 11.6667 3.70513 11.6667 4.16536V15.832C11.6667 16.2923 12.0398 16.6654 12.5 16.6654H14.1667C14.6269 16.6654 15 16.2923 15 15.832V4.16536C15 3.70513 14.6269 3.33203 14.1667 3.33203Z"
+                stroke="#868E96"
+                stroke-width="1.66667"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M7.5 3.33203H5.83333C5.3731 3.33203 5 3.70513 5 4.16536V15.832C5 16.2923 5.3731 16.6654 5.83333 16.6654H7.5C7.96024 16.6654 8.33333 16.2923 8.33333 15.832V4.16536C8.33333 3.70513 7.96024 3.33203 7.5 3.33203Z"
+                stroke="#868E96"
+                stroke-width="1.66667"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+          <button class="p-1 hover:bg-zinc-200 rounded" title="Cancel">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M15 5L5 15M5 5L15 15"
+                stroke="#868E96"
+                stroke-width="1.66667"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Download Item 3 -->
+      <div
+        class="flex items-center gap-3 px-3 py-2 hover:bg-zinc-50 transition group"
+      >
+        <div
+          class="flex-shrink-0 w-8 h-8 bg-zinc-100 rounded flex items-center justify-center"
+        >
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 20 20"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M17.5 12.5V15.8333C17.5 16.2754 17.3244 16.6993 17.0118 17.0118C16.6993 17.3244 16.2754 17.5 15.8333 17.5H4.16667C3.72464 17.5 3.30072 17.3244 2.98816 17.0118C2.67559 16.6993 2.5 16.2754 2.5 15.8333V12.5M5.83333 8.33333L10 12.5M10 12.5L14.1667 8.33333M10 12.5V2.5"
+              stroke="#868E96"
+              stroke-width="1.66667"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="text-sm text-zinc-900 font-medium truncate">
+            AUDIO-2020-05-05-10-30-22.rt
+          </p>
+          <div class="flex items-center gap-2 text-xs text-zinc-500">
+            <span>36 MB</span>
+            <span>•</span>
+            <span>5 hours ago</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-1">
+          <button class="p-1 hover:bg-zinc-200 rounded" title="Pause">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.1667 3.33203H12.5C12.0398 3.33203 11.6667 3.70513 11.6667 4.16536V15.832C11.6667 16.2923 12.0398 16.6654 12.5 16.6654H14.1667C14.6269 16.6654 15 16.2923 15 15.832V4.16536C15 3.70513 14.6269 3.33203 14.1667 3.33203Z"
+                stroke="#868E96"
+                stroke-width="1.66667"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M7.5 3.33203H5.83333C5.3731 3.33203 5 3.70513 5 4.16536V15.832C5 16.2923 5.3731 16.6654 5.83333 16.6654H7.5C7.96024 16.6654 8.33333 16.2923 8.33333 15.832V4.16536C8.33333 3.70513 7.96024 3.33203 7.5 3.33203Z"
+                stroke="#868E96"
+                stroke-width="1.66667"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+          <button class="p-1 hover:bg-zinc-200 rounded" title="Cancel">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M15 5L5 15M5 5L15 15"
+                stroke="#868E96"
+                stroke-width="1.66667"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Download Item 4 with Progress Bar -->
+      <div class="px-3 py-2 hover:bg-zinc-50 transition group">
+        <div class="flex items-center gap-3 mb-2">
+          <div
+            class="flex-shrink-0 w-8 h-8 bg-zinc-100 rounded flex items-center justify-center"
+          >
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M17.5 12.5V15.8333C17.5 16.2754 17.3244 16.6993 17.0118 17.0118C16.6993 17.3244 16.2754 17.5 15.8333 17.5H4.16667C3.72464 17.5 3.30072 17.3244 2.98816 17.0118C2.67559 16.6993 2.5 16.2754 2.5 15.8333V12.5M5.83333 8.33333L10 12.5M10 12.5L14.1667 8.33333M10 12.5V2.5"
+                stroke="#868E96"
+                stroke-width="1.66667"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+          <div class="flex-1 min-w-0">
+            <p class="text-sm text-zinc-900 font-medium truncate">
+              AUDIO-2020-05-05-10-30-22.rt
+            </p>
+            <div class="flex items-center gap-2 text-xs text-zinc-500">
+              <span>20/36 MB</span>
+            </div>
+          </div>
+          <div class="flex items-center gap-1">
+            <button class="p-1 hover:bg-zinc-200 rounded" title="Pause">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M14.1667 3.33203H12.5C12.0398 3.33203 11.6667 3.70513 11.6667 4.16536V15.832C11.6667 16.2923 12.0398 16.6654 12.5 16.6654H14.1667C14.6269 16.6654 15 16.2923 15 15.832V4.16536C15 3.70513 14.6269 3.33203 14.1667 3.33203Z"
+                  stroke="#868E96"
+                  stroke-width="1.66667"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M7.5 3.33203H5.83333C5.3731 3.33203 5 3.70513 5 4.16536V15.832C5 16.2923 5.3731 16.6654 5.83333 16.6654H7.5C7.96024 16.6654 8.33333 16.2923 8.33333 15.832V4.16536C8.33333 3.70513 7.96024 3.33203 7.5 3.33203Z"
+                  stroke="#868E96"
+                  stroke-width="1.66667"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </button>
+            <button class="p-1 hover:bg-zinc-200 rounded" title="Cancel">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M15 5L5 15M5 5L15 15"
+                  stroke="#868E96"
+                  stroke-width="1.66667"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div class="ml-11 mr-14">
+          <div class="w-full bg-zinc-200 rounded-full h-1.5">
+            <div
+              class="bg-blue-600 h-1.5 rounded-full"
+              style="width: 55%"
+            ></div>
+          </div>
+          <p class="text-xs text-zinc-500 mt-1">55%</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tasks Dropdown -->
+  <div
+    id="tasks-dropdown"
+    class="hidden fixed top-16 right-20 bg-white dark:bg-zinc-800 rounded-lg shadow-2xl border border-zinc-200 dark:border-zinc-700 w-72 overflow-hidden z-50"
+  >
+    <!-- Header -->
+    <div
+      class="flex items-center justify-between p-3 border-b border-zinc-200 dark:border-zinc-700 bg-zinc-900"
+    >
+      <div class="flex items-center gap-2">
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g clip-path="url(#clip0_1_145499)">
+            <path
+              d="M16.6667 2.50151V5.83484M18.3334 4.16818H15M3.33336 14.1682V15.8348M4.1667 15.0015H2.50003M8.28086 12.9182C8.20647 12.6298 8.05615 12.3666 7.84555 12.156C7.63494 11.9454 7.37176 11.7951 7.08336 11.7207L1.97086 10.4023C1.88364 10.3776 1.80687 10.3251 1.75221 10.2527C1.69754 10.1804 1.66797 10.0922 1.66797 10.0015C1.66797 9.91084 1.69754 9.82264 1.75221 9.7503C1.80687 9.67797 1.88364 9.62543 1.97086 9.60068L7.08336 8.28151C7.37166 8.20718 7.63477 8.05699 7.84537 7.84654C8.05596 7.6361 8.20634 7.37308 8.28086 7.08484L9.5992 1.97234C9.6237 1.88477 9.67618 1.80763 9.74863 1.75267C9.82108 1.69772 9.90951 1.66797 10.0004 1.66797C10.0914 1.66797 10.1798 1.69772 10.2523 1.75267C10.3247 1.80763 10.3772 1.88477 10.4017 1.97234L11.7192 7.08484C11.7936 7.37324 11.9439 7.63642 12.1545 7.84702C12.3651 8.05762 12.6283 8.20794 12.9167 8.28234L18.0292 9.59984C18.1171 9.62409 18.1946 9.67652 18.2499 9.74907C18.3051 9.82163 18.3351 9.91031 18.3351 10.0015C18.3351 10.0927 18.3051 10.1814 18.2499 10.2539C18.1946 10.3265 18.1171 10.3789 18.0292 10.4032L12.9167 11.7207C12.6283 11.7951 12.3651 11.9454 12.1545 12.156C11.9439 12.3666 11.7936 12.6298 11.7192 12.9182L10.4009 18.0307C10.3764 18.1182 10.3239 18.1954 10.2514 18.2503C10.179 18.3053 10.0905 18.3351 9.99961 18.3351C9.90868 18.3351 9.82025 18.3053 9.7478 18.2503C9.67535 18.1954 9.62287 18.1182 9.59836 18.0307L8.28086 12.9182Z"
+              stroke="white"
+              stroke-width="1.41667"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </g>
+          <defs>
+            <clipPath id="clip0_1_145499">
+              <rect width="20" height="20" fill="white" />
+            </clipPath>
+          </defs>
+        </svg>
+        <h3 class="text-white font-medium text-sm">Tasks</h3>
+      </div>
+      <button onclick="toggleTasks()" class="text-white hover:text-zinc-300">
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M15 5L5 15M5 5L15 15"
+            stroke="currentColor"
+            stroke-width="1.25"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Add Task Input -->
+    <div class="p-3 border-b border-zinc-200 dark:border-zinc-700">
+      <div class="flex gap-2">
+        <input
+          id="task-input"
+          type="text"
+          placeholder="Add a new task..."
+          class="flex-1 bg-white dark:bg-zinc-700 border border-zinc-200 dark:border-zinc-600 text-sm text-zinc-900 dark:text-white placeholder-zinc-400 rounded-md px-3 py-1.5 focus:outline-none focus:ring-1 focus:ring-zinc-300 focus:border-zinc-300"
+          onkeypress="if(event.key === 'Enter') addTask()"
+        />
+        <button
+          onclick="addTask()"
+          class="px-3 py-1.5 bg-zinc-900 text-white text-sm rounded-md hover:bg-zinc-800"
+        >
+          Add
+        </button>
+      </div>
+    </div>
+
+    <!-- Tasks List -->
+    <div id="tasks-list" class="py-2 max-h-80 overflow-y-auto">
+      <!-- Tasks will be dynamically added here -->
+    </div>
+
+    <!-- Empty State -->
+    <div id="tasks-empty" class="py-8 text-center text-zinc-400 text-sm hidden">
+      No tasks yet. Add one above!
+    </div>
+  </div>
+
+  <!-- Quick Note Dropdown -->
+  <div
+    id="notes-dropdown"
+    class="hidden fixed top-16 right-20 bg-white dark:bg-zinc-800 rounded-lg shadow-2xl border border-zinc-200 dark:border-zinc-700 w-[400px] overflow-hidden z-50"
+  >
+    <!-- Header -->
+    <div
+      class="flex items-center justify-between p-3 border-b border-zinc-200 dark:border-zinc-700 bg-zinc-900"
+    >
+      <div class="flex items-center gap-2">
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g clip-path="url(#clip0_1_145499_2)">
+            <path
+              d="M16.6667 2.50151V5.83484M18.3334 4.16818H15M3.33336 14.1682V15.8348M4.1667 15.0015H2.50003M8.28086 12.9182C8.20647 12.6298 8.05615 12.3666 7.84555 12.156C7.63494 11.9454 7.37176 11.7951 7.08336 11.7207L1.97086 10.4023C1.88364 10.3776 1.80687 10.3251 1.75221 10.2527C1.69754 10.1804 1.66797 10.0922 1.66797 10.0015C1.66797 9.91084 1.69754 9.82264 1.75221 9.7503C1.80687 9.67797 1.88364 9.62543 1.97086 9.60068L7.08336 8.28151C7.37166 8.20718 7.63477 8.05699 7.84537 7.84654C8.05596 7.6361 8.20634 7.37308 8.28086 7.08484L9.5992 1.97234C9.6237 1.88477 9.67618 1.80763 9.74863 1.75267C9.82108 1.69772 9.90951 1.66797 10.0004 1.66797C10.0914 1.66797 10.1798 1.69772 10.2523 1.75267C10.3247 1.80763 10.3772 1.88477 10.4017 1.97234L11.7192 7.08484C11.7936 7.37324 11.9439 7.63642 12.1545 7.84702C12.3651 8.05762 12.6283 8.20794 12.9167 8.28234L18.0292 9.59984C18.1171 9.62409 18.1946 9.67652 18.2499 9.74907C18.3051 9.82163 18.3351 9.91031 18.3351 10.0015C18.3351 10.0927 18.3051 10.1814 18.2499 10.2539C18.1946 10.3265 18.1171 10.3789 18.0292 10.4032L12.9167 11.7207C12.6283 11.7951 12.3651 11.9454 12.1545 12.156C11.9439 12.3666 11.7936 12.6298 11.7192 12.9182L10.4009 18.0307C10.3764 18.1182 10.3239 18.1954 10.2514 18.2503C10.179 18.3053 10.0905 18.3351 9.99961 18.3351C9.90868 18.3351 9.82025 18.3053 9.7478 18.2503C9.67535 18.1954 9.62287 18.1182 9.59836 18.0307L8.28086 12.9182Z"
+              stroke="white"
+              stroke-width="1.41667"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </g>
+          <defs>
+            <clipPath id="clip0_1_145499_2">
+              <rect width="20" height="20" fill="white" />
+            </clipPath>
+          </defs>
+        </svg>
+        <h3 class="text-white font-medium text-sm">Quick Note</h3>
+      </div>
+      <button
+        onclick="toggleQuickNote()"
+        class="text-white hover:text-zinc-300"
+      >
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M15 5L5 15M5 5L15 15"
+            stroke="currentColor"
+            stroke-width="1.25"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Note Textarea -->
+    <div class="p-3">
+      <textarea
+        id="quicknote-textarea"
+        placeholder="Start typing your note..."
+        class="w-full h-64 bg-white dark:bg-zinc-700 border border-zinc-200 dark:border-zinc-600 text-sm text-zinc-900 dark:text-white placeholder-zinc-400 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-zinc-300 focus:border-zinc-300 resize-none"
+      ></textarea>
+      <div class="mt-2 flex justify-between items-center">
+        <span id="char-count" class="text-xs text-zinc-400">0 characters</span>
+        <button
+          onclick="clearNote()"
+          class="text-xs text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-300"
+        >
+          Clear Note
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!--  -->
 </div>
