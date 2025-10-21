@@ -1,6 +1,7 @@
 import "./tabs.js";
 import "./search.js";
 import "./utils.js";
+import "./settings.js";
 
 // Extend Window interface for TypeScript
 declare global {
