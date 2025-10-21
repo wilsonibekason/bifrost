@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tab Groups</title>
+    <!-- <link rel="stylesheet" href="styles.css" /> -->
+  </head>
+  <body>
+    <div class="tab-groups-wrapper">
+      <!-- Header with Search -->
+      <div class="header">
+        <div class="search-container">
+          <svg
+            class="search-icon"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="m21 21-4.35-4.35"></path>
+          </svg>
+          <input
+            type="text"
+            id="search-input"
+            placeholder="Search Tabs"
+            class="search-input"
+          />
+        </div>
+      </div>
+
+      <!-- Main Content Area -->
+      <div class="content-area">
+        <!-- Tabs View -->
+        <div id="tabs-view" class="view active">
+          <div class="stacked-tabs-container">
+            <div id="tabs-stack" class="tabs-stack">
+              <!-- Stacked tabs will be rendered here -->
+            </div>
+            <div class="tabs-preview-area">
+              <div id="preview-window" class="preview-window">
+                <div class="preview-header">
+                  <div class="traffic-lights">
+                    <div class="light red"></div>
+                    <div class="light yellow"></div>
+                    <div class="light green"></div>
+                  </div>
+                  <div class="preview-url" id="preview-url">
+                    https://example.com
+                  </div>
+                </div>
+                <div class="preview-content" id="preview-content">
+                  <div class="preview-placeholder">Select a tab to preview</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab Groups View -->
+        <div id="tab-groups-view" class="view">
+          <div class="tab-groups-grid">
+            <div id="groups-container" class="groups-container">
+              <!-- Tab groups will be rendered here -->
+            </div>
+            <div class="add-group-card">
+              <button id="add-group-btn" class="add-group-btn">
+                <svg
+                  width="48"
+                  height="48"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <line x1="12" y1="5" x2="12" y2="19"></line>
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Navigation -->
+      <div class="bottom-nav">
+        <button class="nav-tab active" data-view="tabs-view">
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+            <path d="M3 9h18"></path>
+          </svg>
+          <span>Tabs</span>
+        </button>
+        <button class="nav-tab" data-view="tab-groups-view">
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <rect x="3" y="3" width="7" height="7"></rect>
+            <rect x="14" y="3" width="7" height="7"></rect>
+            <rect x="14" y="14" width="7" height="7"></rect>
+            <rect x="3" y="14" width="7" height="7"></rect>
+          </svg>
+          <span>Tab Groups</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Click Popup Modal -->
+    <div id="click-modal" class="modal hidden">
+      <div class="modal-overlay"></div>
+      <div class="modal-content">
+        <div class="modal-message">I AM CLICKED</div>
+        <button class="modal-close-btn">Close</button>
+      </div>
+    </div>
+
+    <!-- <script src="tab-groups-manager.ts"></script> -->
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Oxygen, Ubuntu, Cantarell, sans-serif;
+        background-color: #f5f5f5;
+        color: #1f2937;
+      }
+
+      .tab-groups-wrapper {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);
+      }
+
+      /* Header */
+      .header {
+        padding: 20px 24px;
+        border-bottom: 1px solid #e5e7eb;
+        background: white;
+      }
+
+      .search-container {
+        display: flex;
+        align-items: center;
+        max-width: 400px;
+        margin-left: auto;
+        position: relative;
+      }
+
+      .search-icon {
+        position: absolute;
+        left: 12px;
+        color: #9ca3af;
+        pointer-events: none;
+      }
+
+      .search-input {
+        width: 100%;
+        padding: 8px 12px 8px 36px;
+        border: 1px solid #e5e7eb;
+        border-radius: 6px;
+        font-size: 14px;
+        background: white;
+        transition: all 0.2s;
+      }
+
+      .search-input:focus {
+        outline: none;
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+      }
+
+      /* Content Area */
+      .content-area {
+        flex: 1;
+        overflow: hidden;
+        padding: 32px 24px;
+      }
+
+      .view {
+        display: none;
+        height: 100%;
+        overflow-y: auto;
+      }
+
+      .view.active {
+        display: block;
+      }
+
+      /* Tabs View */
+      .stacked-tabs-container {
+        display: flex;
+        gap: 32px;
+        height: 100%;
+        align-items: flex-start;
+      }
+
+      .tabs-stack {
+        flex: 0 0 auto;
+        position: relative;
+        height: 420px;
+        width: 320px;
+      }
+
+      .stacked-tab {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 280px;
+        padding: 12px 16px;
+        background: #1f2937;
+        color: white;
+        border-radius: 12px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 14px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .stacked-tab:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+      }
+
+      .stacked-tab.active {
+        z-index: 1000;
+      }
+
+      .tab-favicon {
+        width: 20px;
+        height: 20px;
+        border-radius: 4px;
+        flex-shrink: 0;
+        background: rgba(255, 255, 255, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+      }
+
+      .tab-title {
+        flex: 1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: 13px;
+      }
+
+      .tab-close {
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        opacity: 0.6;
+        transition: opacity 0.2s;
+      }
+
+      .tab-close:hover {
+        opacity: 1;
+      }
+
+      /* Preview Area */
+      .tabs-preview-area {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .preview-window {
+        width: 100%;
+        max-width: 600px;
+        background: #0f1117;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .preview-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 16px;
+        background: #1f2937;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .traffic-lights {
+        display: flex;
+        gap: 8px;
+      }
+
+      .light {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+      }
+
+      .light.red {
+        background: #ff5f57;
+      }
+
+      .light.yellow {
+        background: #febc2e;
+      }
+
+      .light.green {
+        background: #28c840;
+      }
+
+      .preview-url {
+        flex: 1;
+        font-size: 12px;
+        color: #9ca3af;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .preview-content {
+        height: 320px;
+        background: #0b0c0d;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #6b7280;
+        font-size: 14px;
+      }
+
+      .preview-placeholder {
+        text-align: center;
+      }
+
+      /* Tab Groups View */
+      .tab-groups-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 24px;
+      }
+
+      .groups-container {
+        display: contents;
+      }
+
+      .group-card {
+        position: relative;
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        cursor: pointer;
+        transition: all 0.3s;
+        border: 1px solid #e5e7eb;
+      }
+
+      .group-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+        border-color: #3b82f6;
+      }
+
+      .group-preview {
+        position: relative;
+        height: 160px;
+        background: #1f2937;
+        overflow: hidden;
+      }
+
+      .stacked-preview-tab {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: #0f1117;
+        border-radius: 8px;
+        padding: 8px 12px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 12px;
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.3s;
+      }
+
+      .stacked-preview-tab:nth-child(1) {
+        transform: translate(8px, 8px) scale(0.95);
+        z-index: 1;
+      }
+
+      .stacked-preview-tab:nth-child(2) {
+        transform: translate(4px, 4px) scale(0.975);
+        z-index: 2;
+      }
+
+      .stacked-preview-tab:nth-child(3) {
+        transform: translate(0, 0) scale(1);
+        z-index: 3;
+      }
+
+      .group-card:hover .stacked-preview-tab:nth-child(1) {
+        transform: translate(12px, 12px) scale(0.92);
+      }
+
+      .group-card:hover .stacked-preview-tab:nth-child(2) {
+        transform: translate(6px, 6px) scale(0.96);
+      }
+
+      .group-info {
+        padding: 16px;
+      }
+
+      .group-name {
+        font-size: 16px;
+        font-weight: 600;
+        color: #111827;
+        margin-bottom: 8px;
+      }
+
+      .group-count {
+        font-size: 13px;
+        color: #6b7280;
+      }
+
+      /* Add Group Card */
+      .add-group-card {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: white;
+        border: 2px dashed #d1d5db;
+        border-radius: 12px;
+        min-height: 240px;
+        transition: all 0.3s;
+      }
+
+      .add-group-card:hover {
+        border-color: #3b82f6;
+        background: #f0f9ff;
+      }
+
+      .add-group-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: #9ca3af;
+        transition: color 0.3s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .add-group-card:hover .add-group-btn {
+        color: #3b82f6;
+      }
+
+      /* Bottom Navigation */
+      .bottom-nav {
+        display: flex;
+        gap: 16px;
+        padding: 16px 24px;
+        border-top: 1px solid #e5e7eb;
+        background: white;
+        justify-content: center;
+      }
+
+      .nav-tab {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 16px;
+        background: none;
+        border: 1px solid #e5e7eb;
+        border-radius: 6px;
+        cursor: pointer;
+        color: #6b7280;
+        font-size: 14px;
+        font-weight: 500;
+        transition: all 0.2s;
+      }
+
+      .nav-tab:hover {
+        color: #3b82f6;
+        border-color: #3b82f6;
+      }
+
+      .nav-tab.active {
+        background: #3b82f6;
+        color: white;
+        border-color: #3b82f6;
+      }
+
+      /* Modal */
+      .modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 2000;
+      }
+
+      .modal.hidden {
+        display: none;
+      }
+
+      .modal-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+      }
+
+      .modal-content {
+        position: relative;
+        background: white;
+        border-radius: 12px;
+        padding: 32px;
+        text-align: center;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        min-width: 300px;
+      }
+
+      .modal-message {
+        font-size: 24px;
+        font-weight: 700;
+        color: #111827;
+        margin-bottom: 24px;
+      }
+
+      .modal-close-btn {
+        padding: 10px 24px;
+        background: #3b82f6;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 500;
+        transition: all 0.2s;
+      }
+
+      .modal-close-btn:hover {
+        background: #2563eb;
+      }
+
+      /* Responsive */
+      @media (max-width: 1024px) {
+        .stacked-tabs-container {
+          flex-direction: column;
+          gap: 24px;
+        }
+
+        .tabs-stack {
+          width: 100%;
+          max-width: 400px;
+        }
+
+        .tab-groups-grid {
+          grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        }
+      }
+
+      @media (max-width: 768px) {
+        .content-area {
+          padding: 16px;
+        }
+
+        .header {
+          padding: 16px;
+        }
+
+        .search-container {
+          max-width: 100%;
+        }
+
+        .stacked-tab {
+          width: 240px;
+        }
+
+        .tab-groups-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .bottom-nav {
+          gap: 8px;
+          padding: 12px 16px;
+        }
+
+        .nav-tab {
+          flex: 1;
+          justify-content: center;
+        }
+      }
+    </style>
+  </body>
+</html>

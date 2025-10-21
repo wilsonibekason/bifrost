@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tab Groups</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="bg-white">
+    <div class="tab-groups-container">
+      <!-- Header -->
+      <div class="header">
+        <h1 class="title">Tab Groups</h1>
+        <p class="subtitle">Save and manage your tab groups</p>
+        <div class="search-bar">
+          <input
+            type="text"
+            id="search-groups"
+            placeholder="Search groups..."
+            class="search-input"
+          />
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="action-buttons">
+        <button id="create-group-btn" class="btn btn-primary">
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+          Create Group
+        </button>
+      </div>
+
+      <!-- Tab Groups List -->
+      <div id="groups-list" class="groups-list">
+        <!-- Groups will be rendered here -->
+      </div>
+
+      <!-- Empty State -->
+      <div id="empty-state" class="empty-state">
+        <div class="empty-icon">📁</div>
+        <p class="empty-text">No tab groups yet</p>
+        <p class="empty-subtext">Create a group to save your current tabs</p>
+      </div>
+    </div>
+
+    <!-- Create Group Modal -->
+    <div id="create-modal" class="modal hidden">
+      <div class="modal-overlay"></div>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Create New Tab Group</h2>
+          <button class="modal-close">&times;</button>
+        </div>
+        <div class="modal-body">
+          <label class="form-label">Group Name</label>
+          <input
+            type="text"
+            id="group-name-input"
+            placeholder="Enter group name..."
+            class="form-input"
+          />
+          <div class="tabs-preview">
+            <p class="preview-label">Current tabs:</p>
+            <div id="tabs-preview-list" class="preview-list"></div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button id="cancel-create-btn" class="btn btn-secondary">
+            Cancel
+          </button>
+          <button id="confirm-create-btn" class="btn btn-primary">
+            Create Group
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Rename Group Modal -->
+    <div id="rename-modal" class="modal hidden">
+      <div class="modal-overlay"></div>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Rename Tab Group</h2>
+          <button class="modal-close">&times;</button>
+        </div>
+        <div class="modal-body">
+          <label class="form-label">New Name</label>
+          <input
+            type="text"
+            id="rename-input"
+            placeholder="Enter new name..."
+            class="form-input"
+          />
+        </div>
+        <div class="modal-footer">
+          <button id="cancel-rename-btn" class="btn btn-secondary">
+            Cancel
+          </button>
+          <button id="confirm-rename-btn" class="btn btn-primary">
+            Rename
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="tab-groups-manager.ts"></script>
+  </body>
+</html>

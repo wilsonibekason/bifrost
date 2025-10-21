@@ -179,6 +179,17 @@ export class TabManager {
     });
   }
 
+  openTabGroups(): string {
+    return this.addOrActivateTab({
+      id: "tab-groups",
+      title: "Tab Groups",
+      url: "tabgroups",
+      closable: true,
+      isSpecial: true,
+      contentType: "html",
+    });
+  }
+
   private createContentPanel(tab: Tab) {
     if (!this.contentContainer) return;
 
@@ -211,7 +222,6 @@ export class TabManager {
 
     try {
       if (tab.contentType === "html" && tab.isSpecial) {
-        // <CHANGE> Load special tab content from external files
         if (tab.url === "history") {
           const historyContent = await this.loadExternalHTML(
             "../components/tabs/history/history.html"
@@ -219,11 +229,17 @@ export class TabManager {
           element.innerHTML = historyContent;
           this.executeScripts(element);
         } else if (tab.url === "settings") {
-          // <CHANGE> Load settings from external file instead of hardcoded string
           const settingsContent = await this.loadExternalHTML(
             "../components/tabs/settings/settings.html"
           );
           element.innerHTML = settingsContent;
+          this.executeScripts(element);
+        } else if (tab.url === "tabgroups") {
+          // ✅ FIXED
+          const tabGroupsContent = await this.loadExternalHTML(
+            "../components/tabs/tabGroups/tabGroups.html"
+          );
+          element.innerHTML = tabGroupsContent;
           this.executeScripts(element);
         }
       } else if (tab.contentType === "iframe") {
@@ -557,6 +573,14 @@ if (document.readyState === "loading") {
 (window as any).openSettings = () => {
   if (tabManager) {
     return tabManager.openSettings();
+  } else {
+    console.error("[BiFrost] TabManager not initialized");
+  }
+};
+
+(window as any).openTabGroups = () => {
+  if (tabManager) {
+    return tabManager.openTabGroups();
   } else {
     console.error("[BiFrost] TabManager not initialized");
   }
