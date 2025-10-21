@@ -240,6 +240,13 @@ export class TabManager {
             "../components/tabs/tabGroups/tabGroups.html"
           );
           element.innerHTML = tabGroupsContent;
+
+          // Initialize TabGroups after DOM is ready
+          setTimeout(() => {
+            if (typeof (window as any).initializeTabGroups === "function") {
+              (window as any).initializeTabGroups();
+            }
+          }, 100);
           this.executeScripts(element);
         }
       } else if (tab.contentType === "iframe") {

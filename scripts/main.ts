@@ -3,7 +3,10 @@ import "./search.js";
 import "./utils.js";
 import { SettingsManager } from "./settings.ts";
 import "./history.js";
-import "./tab-groups.js";
+// import "./tab-groups.ts";
+import { initializeTabGroups } from "./tab-groups.ts";
+
+(window as any).initializeTabGroups = initializeTabGroups;
 
 declare global {
   interface Window {
@@ -153,6 +156,8 @@ window.addEventListener("DOMContentLoaded", () => {
 
   // Initialize settings
   initializeSettings();
+
+  // (window as any).initializeTabGroups = initializeTabGroups;
 
   // Setup keyboard shortcuts
   document.addEventListener("keydown", (e) => {

@@ -1,4 +1,4 @@
-<div class="w-full h-full bg-[#0a0a0a] text-white flex flex-col">
+<div class="w-full h-screen bg-[#0a0a0a] text-white flex flex-col">
   <!-- Header with Search -->
   <div class="flex-shrink-0 px-8 py-6 border-b border-zinc-800/50">
     <div class="max-w-sm ml-auto relative">
@@ -386,3 +386,196 @@
     animation: scale-in 0.2s ease-out;
   }
 </style>
+<script>
+  // Sample data
+  const tabsData = [
+    {
+      id: 1,
+      title: "The Blair Witch Project - Wikipedi...",
+      favicon: "📖",
+      url: "https://wikipedia.org",
+    },
+    { id: 2, title: "Google", favicon: "🔍", url: "https://google.com" },
+    {
+      id: 3,
+      title: "Dribbble - Discover the World's Top Designers...",
+      favicon: "🎨",
+      url: "https://dribbble.com",
+    },
+    {
+      id: 4,
+      title: "Jarrick II Laced Leather Platform Boots in...",
+      favicon: "👢",
+      url: "https://pinterest.com",
+    },
+    {
+      id: 5,
+      title: "Netflix Nigeria - Watch Tv Shows Online...",
+      favicon: "🎬",
+      url: "https://netflix.com",
+    },
+    { id: 6, title: "ChatGPT", favicon: "🤖", url: "https://chatgpt.com" },
+    {
+      id: 7,
+      title: "(3) Feed - LinkedIn",
+      favicon: "💼",
+      url: "https://linkedin.com",
+    },
+    {
+      id: 8,
+      title: "(148) RKG's Halloween Sleepover III- Outlast...",
+      favicon: "▶️",
+      url: "https://youtube.com",
+    },
+  ];
+
+  const groupsData = [
+    { id: 1, name: "Research Tabs", tabCount: 52, tabs: tabsData.slice(0, 3) },
+    { id: 2, name: "Shopping Tabs", tabCount: 52, tabs: tabsData.slice(3, 6) },
+    {
+      id: 3,
+      name: "Inspiration Tabs",
+      tabCount: 52,
+      tabs: tabsData.slice(6, 8),
+    },
+    { id: 4, name: "Stream Tabs", tabCount: 53, tabs: tabsData.slice(0, 2) },
+  ];
+
+  let currentGroupId = null;
+
+  // Render stacked tabs
+  function renderTabs(tabs = tabsData) {
+    const tabsStack = document.getElementById("tabs-stack");
+    tabsStack.innerHTML = "";
+
+    const totalTabs = tabs.length;
+
+    tabs.forEach((tab, index) => {
+      const zIndex = totalTabs - index;
+      const offsetY = index * 18;
+
+      const tabEl = document.createElement("div");
+      tabEl.className = "stacked-tab";
+      tabEl.style.zIndex = zIndex;
+      tabEl.style.transform = `translateY(${offsetY}px)`;
+      tabEl.innerHTML = `
+          <div class="tab-favicon">${tab.favicon}</div>
+          <div class="tab-title">${tab.title}</div>
+          <button class="tab-close">×</button>
+        `;
+
+      tabEl.addEventListener("click", () => {
+        document
+          .querySelectorAll(".stacked-tab")
+          .forEach((t) => t.classList.remove("active"));
+        tabEl.classList.add("active");
+        document.getElementById("preview-url").textContent = tab.url;
+        document.getElementById("preview-content").innerHTML = `
+            <div class="text-center text-zinc-600">
+              <div class="text-6xl mb-4">${tab.favicon}</div>
+              <div class="text-sm">${tab.title}</div>
+            </div>
+          `;
+      });
+
+      tabEl.querySelector(".tab-close").addEventListener("click", (e) => {
+        e.stopPropagation();
+        document.getElementById("click-modal").classList.add("flex");
+      });
+
+      tabsStack.appendChild(tabEl);
+    });
+  }
+
+  // Render tab groups
+  function renderGroups() {
+    const groupsContainer = document.getElementById("groups-container");
+    groupsContainer.innerHTML = "";
+
+    groupsData.forEach((group) => {
+      const groupCard = document.createElement("div");
+      groupCard.className = "group-card";
+      groupCard.innerHTML = `
+          <div class="group-preview">
+            ${group.tabs
+              .map((tab, index) => {
+                const zIndex = group.tabs.length - index;
+                const offsetX = index * 12;
+                const offsetY = index * 12;
+                return `
+                <div class="stacked-preview-tab" style="z-index: ${zIndex}; transform: translate(${offsetX}px, ${offsetY}px)">
+                  <div class="tab-favicon" style="width: 20px; height: 20px; font-size: 14px;">${tab.favicon}</div>
+                  <div class="tab-title" style="font-size: 11px;">${tab.title}</div>
+                </div>
+              `;
+              })
+              .join("")}
+          </div>
+          <div class="group-info">
+            <div class="group-name">${group.name}</div>
+            <div class="group-count">${group.tabCount} Tabs</div>
+          </div>
+        `;
+
+      groupCard.addEventListener("click", () => {
+        currentGroupId = group.id;
+        switchView("tabs-view");
+        renderTabs(group.tabs);
+      });
+
+      groupsContainer.appendChild(groupCard);
+    });
+  }
+
+  // Switch between views
+  function switchView(viewId) {
+    const tabsView = document.getElementById("tabs-view");
+    const groupsView = document.getElementById("tab-groups-view");
+    const navTabs = document.querySelectorAll(".nav-tab");
+
+    if (viewId === "tabs-view") {
+      tabsView.classList.add("view-active");
+      tabsView.classList.remove("hidden");
+      groupsView.classList.remove("view-active");
+      groupsView.classList.add("hidden");
+      navTabs[0].classList.add("nav-tab-active");
+      navTabs[1].classList.remove("nav-tab-active");
+    } else {
+      tabsView.classList.remove("view-active");
+      tabsView.classList.add("hidden");
+      groupsView.classList.add("view-active");
+      groupsView.classList.remove("hidden");
+      navTabs[0].classList.remove("nav-tab-active");
+      navTabs[1].classList.add("nav-tab-active");
+    }
+  }
+
+  // Event listeners
+  document.querySelectorAll(".nav-tab").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const viewId = btn.getAttribute("data-view");
+      switchView(viewId);
+    });
+  });
+
+  document.getElementById("modal-close-btn").addEventListener("click", () => {
+    document.getElementById("click-modal").classList.remove("flex");
+  });
+
+  document.getElementById("modal-overlay").addEventListener("click", () => {
+    document.getElementById("click-modal").classList.remove("flex");
+  });
+
+  // Search functionality
+  document.getElementById("search-input").addEventListener("input", (e) => {
+    const query = e.target.value.toLowerCase();
+    const filtered = tabsData.filter((tab) =>
+      tab.title.toLowerCase().includes(query)
+    );
+    renderTabs(filtered.length > 0 ? filtered : tabsData);
+  });
+
+  // Initialize
+  renderTabs();
+  renderGroups();
+</script>
