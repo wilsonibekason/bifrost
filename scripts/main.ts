@@ -2,6 +2,7 @@ import "./tabs.js";
 import "./search.js";
 import "./utils.js";
 import { SettingsManager } from "./settings.ts";
+import "./history.js";
 
 declare global {
   interface Window {

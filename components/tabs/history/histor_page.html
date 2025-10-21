@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>History</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          sans-serif;
+        background: #18181b;
+        color: #ffffff;
+        padding: 2rem;
+        min-height: 100vh;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      h1 {
+        font-size: 2rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      .subtitle {
+        color: #a1a1aa;
+        margin-bottom: 2rem;
+        font-size: 0.95rem;
+      }
+
+      .controls {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+      }
+
+      .search-box {
+        background: #27272a;
+        border: 1px solid #3f3f46;
+        border-radius: 8px;
+        padding: 0.75rem 1rem;
+        flex: 1;
+        min-width: 300px;
+        color: white;
+        font-size: 0.95rem;
+      }
+
+      .search-box:focus {
+        outline: none;
+        border-color: #52525b;
+      }
+
+      .clear-all-btn {
+        background: #3f3f46;
+        border: 1px solid #52525b;
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 0.95rem;
+        font-weight: 500;
+        transition: all 0.2s;
+        white-space: nowrap;
+      }
+
+      .clear-all-btn:hover {
+        background: #52525b;
+      }
+
+      .history-group {
+        margin-bottom: 2rem;
+      }
+
+      .group-title {
+        color: #a1a1aa;
+        font-size: 0.875rem;
+        font-weight: 600;
+        margin-bottom: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .group-title::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: #3f3f46;
+      }
+
+      .history-item {
+        background: #27272a;
+        border: 1px solid #3f3f46;
+        border-radius: 8px;
+        padding: 1rem;
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .history-item:hover {
+        background: #3f3f46;
+        border-color: #52525b;
+        transform: translateX(4px);
+      }
+
+      .favicon {
+        width: 32px;
+        height: 32px;
+        border-radius: 6px;
+        background: #3f3f46;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.25rem;
+        flex-shrink: 0;
+      }
+
+      .favicon img {
+        width: 20px;
+        height: 20px;
+        object-fit: contain;
+      }
+
+      .item-content {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .item-title {
+        font-weight: 500;
+        margin-bottom: 0.25rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .item-url {
+        color: #71717a;
+        font-size: 0.875rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .item-time {
+        color: #a1a1aa;
+        font-size: 0.875rem;
+        flex-shrink: 0;
+      }
+
+      .delete-btn {
+        background: transparent;
+        border: none;
+        color: #71717a;
+        cursor: pointer;
+        padding: 0.5rem;
+        border-radius: 6px;
+        transition: all 0.2s;
+        flex-shrink: 0;
+      }
+
+      .delete-btn:hover {
+        background: #3f3f46;
+        color: #ef4444;
+      }
+
+      .empty-state {
+        text-align: center;
+        padding: 4rem 2rem;
+        color: #71717a;
+      }
+
+      .empty-icon {
+        font-size: 4rem;
+        margin-bottom: 1rem;
+      }
+
+      .stats {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+      }
+
+      .stat-card {
+        background: #27272a;
+        border: 1px solid #3f3f46;
+        border-radius: 8px;
+        padding: 1rem 1.5rem;
+        flex: 1;
+        min-width: 200px;
+      }
+
+      .stat-label {
+        color: #a1a1aa;
+        font-size: 0.875rem;
+        margin-bottom: 0.25rem;
+      }
+
+      .stat-value {
+        font-size: 1.5rem;
+        font-weight: 600;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <circle cx="12" cy="12" r="10" />
+          <polyline points="12 6 12 12 16 14" />
+        </svg>
+        History
+      </h1>
+      <p class="subtitle">Your browsing history across all sessions</p>
+
+      <div class="stats">
+        <div class="stat-card">
+          <div class="stat-label">Total Visits</div>
+          <div class="stat-value" id="totalVisits">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Today</div>
+          <div class="stat-value" id="todayVisits">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">This Week</div>
+          <div class="stat-value" id="weekVisits">0</div>
+        </div>
+      </div>
+
+      <div class="controls">
+        <input
+          type="text"
+          class="search-box"
+          placeholder="Search history by title or URL..."
+          id="searchInput"
+        />
+        <button class="clear-all-btn" onclick="clearAllHistory()">
+          Clear All History
+        </button>
+      </div>
+
+      <div id="historyContainer"></div>
+    </div>
+
+    <script>
+      // Get history from parent window
+      function getHistory() {
+        if (window.parent && window.parent.atlasState) {
+          return window.parent.atlasState.history || [];
+        }
+        return [];
+      }
+
+      // Format time ago
+      function timeAgo(timestamp) {
+        const date = new Date(timestamp);
+        const now = new Date();
+        const seconds = Math.floor((now - date) / 1000);
+
+        if (seconds < 60) return "Just now";
+        if (seconds < 3600) return `${Math.floor(seconds / 60)}m ago`;
+        if (seconds < 86400) return `${Math.floor(seconds / 3600)}h ago`;
+        if (seconds < 604800) return `${Math.floor(seconds / 86400)}d ago`;
+
+        return date.toLocaleDateString();
+      }
+
+      // Group history by time
+      function groupHistory(history) {
+        const now = new Date();
+        const today = new Date(
+          now.getFullYear(),
+          now.getMonth(),
+          now.getDate()
+        );
+        const yesterday = new Date(today - 86400000);
+        const lastWeek = new Date(today - 604800000);
+
+        const groups = {
+          today: [],
+          yesterday: [],
+          lastWeek: [],
+          older: [],
+        };
+
+        history.forEach((item) => {
+          const itemDate = new Date(item.timestamp);
+          if (itemDate >= today) {
+            groups.today.push(item);
+          } else if (itemDate >= yesterday) {
+            groups.yesterday.push(item);
+          } else if (itemDate >= lastWeek) {
+            groups.lastWeek.push(item);
+          } else {
+            groups.older.push(item);
+          }
+        });
+
+        return groups;
+      }
+
+      // Update stats
+      function updateStats(history) {
+        const now = new Date();
+        const today = new Date(
+          now.getFullYear(),
+          now.getMonth(),
+          now.getDate()
+        );
+        const lastWeek = new Date(today - 604800000);
+
+        const todayCount = history.filter(
+          (item) => new Date(item.timestamp) >= today
+        ).length;
+        const weekCount = history.filter(
+          (item) => new Date(item.timestamp) >= lastWeek
+        ).length;
+
+        document.getElementById("totalVisits").textContent = history.length;
+        document.getElementById("todayVisits").textContent = todayCount;
+        document.getElementById("weekVisits").textContent = weekCount;
+      }
+
+      // Render history
+      function renderHistory(searchTerm = "") {
+        const container = document.getElementById("historyContainer");
+        let history = getHistory();
+
+        updateStats(history);
+
+        // Filter by search term
+        if (searchTerm) {
+          history = history.filter(
+            (item) =>
+              item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+              item.url.toLowerCase().includes(searchTerm.toLowerCase())
+          );
+        }
+
+        if (history.length === 0) {
+          container.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-icon">📭</div>
+            <div style="font-size: 1.1rem; margin-bottom: 0.5rem;">No history found</div>
+            <div style="font-size: 0.9rem;">Start browsing to build your history</div>
+          </div>
+        `;
+          return;
+        }
+
+        const groups = groupHistory(history);
+        let html = "";
+
+        const groupLabels = {
+          today: "Today",
+          yesterday: "Yesterday",
+          lastWeek: "Last 7 Days",
+          older: "Older",
+        };
+
+        Object.entries(groups).forEach(([key, items]) => {
+          if (items.length > 0) {
+            html += `
+            <div class="history-group">
+              <div class="group-title">${groupLabels[key]}</div>
+              ${items
+                .map(
+                  (item) => `
+                <div class="history-item" onclick="openUrl('${item.url}')">
+                  <div class="favicon">
+                    ${
+                      item.favicon
+                        ? `<img src="${item.favicon}" onerror="this.parentElement.innerHTML='🌐'">`
+                        : "🌐"
+                    }
+                  </div>
+                  <div class="item-content">
+                    <div class="item-title">${item.title}</div>
+                    <div class="item-url">${item.url}</div>
+                  </div>
+                  <div class="item-time">${timeAgo(item.timestamp)}</div>
+                  <button class="delete-btn" onclick="event.stopPropagation(); deleteHistoryItem('${
+                    item.url
+                  }')" title="Remove from history">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/>
+                    </svg>
+                  </button>
+                </div>
+              `
+                )
+                .join("")}
+            </div>
+          `;
+          }
+        });
+
+        container.innerHTML = html;
+      }
+
+      // Open URL in new tab
+      function openUrl(url) {
+        if (window.parent && window.parent.tabManager) {
+          window.parent.tabManager.createTab(url);
+        }
+      }
+
+      // Delete single history item
+      function deleteHistoryItem(url) {
+        if (window.parent && window.parent.atlasState) {
+          window.parent.atlasState.history =
+            window.parent.atlasState.history.filter((item) => item.url !== url);
+          renderHistory(document.getElementById("searchInput").value);
+        }
+      }
+
+      // Clear all history
+      function clearAllHistory() {
+        if (confirm("Are you sure you want to clear all browsing history?")) {
+          if (window.parent && window.parent.atlasState) {
+            window.parent.atlasState.history = [];
+            renderHistory();
+          }
+        }
+      }
+
+      // Search functionality
+      document.getElementById("searchInput").addEventListener("input", (e) => {
+        renderHistory(e.target.value);
+      });
+
+      // Initial render
+      renderHistory();
+
+      // Refresh every 30 seconds to update time labels
+      setInterval(() => {
+        renderHistory(document.getElementById("searchInput").value);
+      }, 30000);
+    </script>
+  </body>
+</html>
