@@ -1,9 +1,8 @@
 import "./tabs.js";
 import "./search.js";
 import "./utils.js";
-import "./settings.js";
+import { SettingsManager } from "./settings.ts";
 
-// Extend Window interface for TypeScript
 declare global {
   interface Window {
     __TAURI__?: {
@@ -135,6 +134,11 @@ function addDemoHistory() {
   });
 }
 
+function initializeSettings() {
+  console.log("[Settings] Initializing settings manager");
+  new SettingsManager();
+}
+
 // Initialize on DOM load
 window.addEventListener("DOMContentLoaded", () => {
   initializeToolbar();
@@ -144,6 +148,9 @@ window.addEventListener("DOMContentLoaded", () => {
     addDemoHistory();
     console.log("[Atlas] Demo history added");
   }, 2000);
+
+  // Initialize settings
+  initializeSettings();
 
   // Setup keyboard shortcuts
   document.addEventListener("keydown", (e) => {

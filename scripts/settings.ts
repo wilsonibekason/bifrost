@@ -30,7 +30,7 @@ interface SettingsState {
   };
 }
 
-class SettingsManager {
+export class SettingsManager {
   private settings: SettingsState;
   private readonly STORAGE_KEY = "browserSettings";
 
@@ -162,161 +162,68 @@ class SettingsManager {
   }
 
   private initializeEventListeners(): void {
-    // Tab switching
-    const tabButtons = document.querySelectorAll(".tab-btn");
-    tabButtons.forEach((btn) => {
-      btn.addEventListener("click", (e) => this.handleTabSwitch(e));
+    console.log("[Settings] Initializing event listeners");
+
+    document.addEventListener("click", (e) => {
+      const button = e.target as HTMLElement;
+      if (button.classList.contains("tab-btn")) {
+        this.handleTabSwitch(button);
+      }
     });
 
-    // Privacy settings
-    this.addRadioListener("cookies", (value) => {
-      this.settings.privacy.cookies = value;
-      this.saveSettings();
-    });
-    this.addRadioListener("tracking", (value) => {
-      this.settings.privacy.tracking = value;
-      this.saveSettings();
-    });
-    this.addRadioListener("ads", (value) => {
-      this.settings.privacy.ads = value;
-      this.saveSettings();
+    document.addEventListener("click", (e) => {
+      const button = e.target as HTMLElement;
+      if (button.classList.contains("color-btn")) {
+        this.handleColorSelection(button);
+      }
     });
 
-    // Appearance settings
-    this.addRadioListener("font-size", (value) => {
-      this.settings.appearance.fontSize = value;
-      this.saveSettings();
-    });
-    this.addRadioListener("language", (value) => {
-      this.settings.appearance.language = value;
-      this.saveSettings();
-    });
-
-    // Color picker
-    const colorButtons = document.querySelectorAll(".color-btn");
-    colorButtons.forEach((btn) => {
-      btn.addEventListener("click", (e) => this.handleColorSelection(e));
+    document.addEventListener("click", (e) => {
+      const button = e.target as HTMLElement;
+      if (button.id === "resetBtn") {
+        this.handleReset();
+      }
+      if (button.id === "cancelBtn") {
+        this.handleCancel();
+      }
     });
 
-    // Permissions settings
-    this.addRadioListener("location", (value) => {
-      this.settings.permissions.location = value;
-      this.saveSettings();
-    });
-    this.addRadioListener("microphone", (value) => {
-      this.settings.permissions.microphone = value;
-      this.saveSettings();
-    });
-    this.addRadioListener("camera", (value) => {
-      this.settings.permissions.camera = value;
-      this.saveSettings();
-    });
-    this.addRadioListener("autoplay", (value) => {
-      this.settings.permissions.autoplay = value;
-      this.saveSettings();
+    document.addEventListener("change", (e) => {
+      const target = e.target as HTMLInputElement;
+      if (target.type === "radio") {
+        this.handleRadioChange(target);
+      }
+      if (target.type === "checkbox") {
+        this.handleCheckboxChange(target);
+      }
     });
 
-    // Downloads settings
-    this.addCheckboxListener("ask-where-save", (checked) => {
-      this.settings.downloads.askWhereSave = checked;
-      this.saveSettings();
-    });
-    this.addCheckboxListener("other", (checked) => {
-      this.settings.downloads.other = checked;
-      this.saveSettings();
-    });
-    this.addRadioListener("auto-delete", (value) => {
-      this.settings.downloads.autoDelete = value;
-      this.saveSettings();
+    document.addEventListener("input", (e) => {
+      const input = e.target as HTMLInputElement;
+      if (input.id === "searchInput") {
+        this.handleSearch(input.value);
+      }
     });
 
-    // Search Engine settings
-    this.addRadioListener("search-engine", (value) => {
-      this.settings.searchEngine = value;
-      this.saveSettings();
-    });
-
-    // Reset settings
-    this.addCheckboxListener("all-downloads", (checked) => {
-      this.settings.reset.allDownloads = checked;
-    });
-    this.addCheckboxListener("browsing-history", (checked) => {
-      this.settings.reset.browsingHistory = checked;
-    });
-    this.addCheckboxListener("cookies-data", (checked) => {
-      this.settings.reset.cookiesData = checked;
-    });
-    this.addCheckboxListener("cached-files", (checked) => {
-      this.settings.reset.cachedFiles = checked;
-    });
-    this.addCheckboxListener("browser-settings", (checked) => {
-      this.settings.reset.browserSettings = checked;
-    });
-
-    // Reset buttons
-    const resetBtn = document.getElementById("resetBtn");
-    const cancelBtn = document.getElementById("cancelBtn");
-    if (resetBtn) {
-      resetBtn.addEventListener("click", () => this.handleReset());
-    }
-    if (cancelBtn) {
-      cancelBtn.addEventListener("click", () => this.handleCancel());
-    }
-
-    // Search functionality
-    const searchInput = document.getElementById(
-      "searchInput"
-    ) as HTMLInputElement;
-    if (searchInput) {
-      searchInput.addEventListener("input", (e) => this.handleSearch(e));
-    }
+    console.log("[Settings] Event listeners initialized with delegation");
   }
 
-  private addRadioListener(
-    name: string,
-    callback: (value: string) => void
-  ): void {
-    const radios = document.querySelectorAll(`input[name="${name}"]`);
-    radios.forEach((radio) => {
-      radio.addEventListener("change", (e) => {
-        const target = e.target as HTMLInputElement;
-        callback(target.value);
-        console.log(`[Settings] ${name} changed to: ${target.value}`);
-      });
-    });
-  }
-
-  private addCheckboxListener(
-    id: string,
-    callback: (checked: boolean) => void
-  ): void {
-    const checkbox = document.getElementById(id) as HTMLInputElement;
-    if (checkbox) {
-      checkbox.addEventListener("change", (e) => {
-        const target = e.target as HTMLInputElement;
-        callback(target.checked);
-        console.log(`[Settings] ${id} changed to: ${target.checked}`);
-      });
-    }
-  }
-
-  private handleTabSwitch(event: Event): void {
-    const button = event.target as HTMLElement;
+  private handleTabSwitch(button: HTMLElement): void {
     const tabName = button.getAttribute("data-tab");
 
     if (!tabName) return;
 
+    console.log(`[Settings] Switching to tab: ${tabName}`);
+
     // Update active tab button
     const tabButtons = document.querySelectorAll(".tab-btn");
     tabButtons.forEach((btn) => {
-      btn.classList.remove("active");
+      btn.classList.remove("active", "border-blue-500", "text-blue-600");
       btn.classList.add("border-transparent", "text-gray-600");
-      btn.classList.remove("border-blue-500", "text-blue-600");
     });
 
-    button.classList.add("active");
+    button.classList.add("active", "border-blue-500", "text-blue-600");
     button.classList.remove("border-transparent", "text-gray-600");
-    button.classList.add("border-blue-500", "text-blue-600");
 
     // Update active tab content
     const tabContents = document.querySelectorAll(".tab-content");
@@ -327,13 +234,71 @@ class SettingsManager {
     const activeContent = document.getElementById(tabName);
     if (activeContent) {
       activeContent.classList.remove("hidden");
+      console.log(`[Settings] Tab content displayed: ${tabName}`);
     }
-
-    console.log(`[Settings] Switched to tab: ${tabName}`);
   }
 
-  private handleColorSelection(event: Event): void {
-    const button = event.target as HTMLElement;
+  private handleRadioChange(radio: HTMLInputElement): void {
+    const name = radio.name;
+    const value = radio.value;
+
+    console.log(`[Settings] Radio changed - ${name}: ${value}`);
+
+    // Update settings based on radio name
+    if (name === "cookies") {
+      this.settings.privacy.cookies = value;
+    } else if (name === "tracking") {
+      this.settings.privacy.tracking = value;
+    } else if (name === "ads") {
+      this.settings.privacy.ads = value;
+    } else if (name === "font-size") {
+      this.settings.appearance.fontSize = value;
+    } else if (name === "language") {
+      this.settings.appearance.language = value;
+    } else if (name === "location") {
+      this.settings.permissions.location = value;
+    } else if (name === "microphone") {
+      this.settings.permissions.microphone = value;
+    } else if (name === "camera") {
+      this.settings.permissions.camera = value;
+    } else if (name === "autoplay") {
+      this.settings.permissions.autoplay = value;
+    } else if (name === "auto-delete") {
+      this.settings.downloads.autoDelete = value;
+    } else if (name === "search-engine") {
+      this.settings.searchEngine = value;
+    }
+
+    this.saveSettings();
+  }
+
+  private handleCheckboxChange(checkbox: HTMLInputElement): void {
+    const id = checkbox.id;
+    const checked = checkbox.checked;
+
+    console.log(`[Settings] Checkbox changed - ${id}: ${checked}`);
+
+    // Update settings based on checkbox id
+    if (id === "ask-where-save") {
+      this.settings.downloads.askWhereSave = checked;
+    } else if (id === "other") {
+      this.settings.downloads.other = checked;
+    } else if (id === "all-downloads") {
+      this.settings.reset.allDownloads = checked;
+    } else if (id === "browsing-history") {
+      this.settings.reset.browsingHistory = checked;
+    } else if (id === "cookies-data") {
+      this.settings.reset.cookiesData = checked;
+    } else if (id === "cached-files") {
+      this.settings.reset.cachedFiles = checked;
+    } else if (id === "browser-settings") {
+      this.settings.reset.browserSettings = checked;
+    }
+
+    this.saveSettings();
+  }
+
+  private handleColorSelection(button: HTMLElement): void {
     const color = button.getAttribute("data-color");
 
     if (!color) return;
@@ -363,20 +328,17 @@ class SettingsManager {
 
   private handleCancel(): void {
     console.log("[Settings] Reset cancelled");
-    // Reset checkboxes to saved state
     this.applySettingsToUI();
   }
 
-  private handleSearch(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    const searchTerm = input.value.toLowerCase();
-
-    console.log(`[Settings] Searching for: ${searchTerm}`);
+  private handleSearch(searchTerm: string): void {
+    const term = searchTerm.toLowerCase();
+    console.log(`[Settings] Searching for: ${term}`);
 
     const tabContents = document.querySelectorAll(".tab-content");
     tabContents.forEach((content) => {
       const text = content.textContent?.toLowerCase() || "";
-      if (searchTerm === "" || text.includes(searchTerm)) {
+      if (term === "" || text.includes(term)) {
         content.classList.remove("hidden");
       } else {
         content.classList.add("hidden");
@@ -384,9 +346,3 @@ class SettingsManager {
     });
   }
 }
-
-// Initialize settings when DOM is ready
-document.addEventListener("DOMContentLoaded", () => {
-  console.log("[Settings] Initializing Settings Manager");
-  new SettingsManager();
-});
