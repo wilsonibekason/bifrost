@@ -52,7 +52,7 @@ async function loadComponent(elementId: string, componentPath: string) {
 
 // Initialize toolbar
 async function initializeToolbar() {
-  await loadComponent("toolbar-container", "./window/toolbar.html");
+  await loadComponent("toolbar-container", "./toolbar.html");
 
   // Initialize Tauri commands
   await invoke("create_window").catch(console.error);
