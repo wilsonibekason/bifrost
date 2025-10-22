@@ -1,4 +1,4 @@
-import "./tabs.js";
+import "./privacy-tabs.js";
 import "./search.js";
 import "./utils.js";
 import { SettingsManager } from "./settings.ts";
