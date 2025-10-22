@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Settings</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          sans-serif;
+        background: #18181b;
+        color: #ffffff;
+        padding: 2rem;
+        min-height: 100vh;
+      }
+
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+      }
+
+      h1 {
+        font-size: 2rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      .subtitle {
+        color: #a1a1aa;
+        margin-bottom: 2rem;
+        font-size: 0.95rem;
+      }
+
+      .settings-section {
+        background: #27272a;
+        border: 1px solid #3f3f46;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .section-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .section-description {
+        color: #a1a1aa;
+        font-size: 0.875rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .setting-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 0;
+        border-bottom: 1px solid #3f3f46;
+      }
+
+      .setting-item:last-child {
+        border-bottom: none;
+      }
+
+      .setting-info {
+        flex: 1;
+      }
+
+      .setting-label {
+        font-weight: 500;
+        margin-bottom: 0.25rem;
+      }
+
+      .setting-desc {
+        color: #a1a1aa;
+        font-size: 0.875rem;
+      }
+
+      .toggle-switch {
+        position: relative;
+        width: 48px;
+        height: 24px;
+        background: #3f3f46;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+
+      .toggle-switch.active {
+        background: #3b82f6;
+      }
+
+      .toggle-slider {
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 20px;
+        height: 20px;
+        background: white;
+        border-radius: 50%;
+        transition: transform 0.3s;
+      }
+
+      .toggle-switch.active .toggle-slider {
+        transform: translateX(24px);
+      }
+
+      select,
+      input[type="text"],
+      input[type="number"] {
+        background: #3f3f46;
+        border: 1px solid #52525b;
+        color: white;
+        padding: 0.5rem 0.75rem;
+        border-radius: 6px;
+        font-size: 0.95rem;
+        cursor: pointer;
+      }
+
+      select:focus,
+      input:focus {
+        outline: none;
+        border-color: #3b82f6;
+      }
+
+      .button {
+        background: #3f3f46;
+        border: 1px solid #52525b;
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 0.95rem;
+        font-weight: 500;
+        transition: all 0.2s;
+      }
+
+      .button:hover {
+        background: #52525b;
+      }
+
+      .button-primary {
+        background: #3b82f6;
+        border-color: #3b82f6;
+      }
+
+      .button-primary:hover {
+        background: #2563eb;
+      }
+
+      .button-danger {
+        background: #ef4444;
+        border-color: #ef4444;
+      }
+
+      .button-danger:hover {
+        background: #dc2626;
+      }
+
+      .button-group {
+        display: flex;
+        gap: 0.5rem;
+        margin-top: 1rem;
+      }
+
+      .info-card {
+        background: #3f3f46;
+        border-left: 4px solid #3b82f6;
+        padding: 1rem;
+        border-radius: 6px;
+        margin: 1rem 0;
+      }
+
+      .info-card-title {
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+
+      .info-card-text {
+        color: #d4d4d8;
+        font-size: 0.875rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <circle cx="12" cy="12" r="3" />
+          <path d="M12 1v6m0 6v6m-8-8h6m6 0h6" />
+          <path
+            d="M19.07 4.93l-4.24 4.24m0 5.66l4.24 4.24M4.93 4.93l4.24 4.24m0 5.66l-4.24 4.24"
+          />
+        </svg>
+        Settings
+      </h1>
+      <p class="subtitle">Customize your browsing experience</p>
+
+      <!-- Appearance Settings -->
+      <div class="settings-section">
+        <div class="section-title">
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+          </svg>
+          Appearance
+        </div>
+        <div class="section-description">
+          Customize the look and feel of your browser
+        </div>
+
+        <div class="setting-item">
+          <div class="setting-info">
+            <div class="setting-label">Theme</div>
+            <div class="setting-desc">
+              Choose between light, dark, or system theme
+            </div>
+          </div>
+          <select id="themeSelect" onchange="changeTheme(this.value)">
+            <option value="dark">Dark</option>
+            <option value="light">Light</option>
+            <option value="system">System</option>
+          </select>
+        </div>
+
+        <div class="setting-item">
+          <div class="setting-info">
+            <div class="setting-label">Compact Mode</div>
+            <div class="setting-desc">
+              Reduce spacing for a more compact interface
+            </div>
+          </div>
+          <div
+            class="toggle-switch"
+            id="compactToggle"
+            onclick="toggleSetting(this, 'compactMode')"
+          >
+            <div class="toggle-slider"></div>
+          </div>
+        </div>
+
+        <div class="setting-item">
+          <div class="setting-info">
+            <div class="setting-label">Show Favicons</div>
+            <div class="setting-desc">
+              Display website icons in tabs and history
+            </div>
+          </div>
+          <div
+            class="toggle-switch active"
+            id="faviconsToggle"
+            onclick="toggleSetting(this, 'showFavicons')"
+          >
+            <div class="toggle-slider"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Privacy Settings -->
+      <div class="settings-section">
+        <div class="section-title">
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+          </svg>
+          Privacy & Security
+        </div>
+        <div class="section-description">
+          Control your privacy and security settings
+        </div>
+
+        <div class="setting-item">
+          <div class="setting-info">
+            <div class="setting-label">Save Browsing History</div>
+            <div class="setting-desc">Store visited websites in history</div>
+          </div>
+          <div
+            class="toggle-switch active"
+            id="historyToggle"
+            onclick="toggleSetting(this, 'saveHistory')"
+          >
+            <div class="toggle-slider"></div>
+          </div>
+        </div>
+
+        <div class="setting-item">
+          <div class="setting-info">
+            <div class="setting-label">Block Third-Party Cookies</div>
+            <div class="setting-desc">Prevent tracking across websites</div>
+          </div>
+          <div
+            class="toggle-switch active"
+            id="cookiesToggle"
+            onclick="toggleSetting(this, 'blockCookies')"
+          >
+            <div class="toggle-slider"></div>
+          </div>
+        </div>
+
+        <div class="setting-item">
+          <div class="setting-info">
+            <div class="setting-label">Do Not Track</div>
+            <div class="setting-desc">
+              Send Do Not Track requests to websites
+            </div>
+          </div>
+          <div
+            class="toggle-switch"
+            id="dntToggle"
+            onclick="toggleSetting(this, 'doNotTrack')"
+          >
+            <div class="toggle-slider"></div>
+          </div>
+        </div>
+
+        <div class="button-group">
+          <button class="button button-danger" onclick="clearBrowsingData()">
+            Clear Browsing Data
+          </button>
+        </div>
+      </div>
+
+      <!-- General Settings -->
+      <div class="settings-section">
+        <div class="section-title">
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <circle cx="12" cy="12" r="10" />
+            <line x1="2" y1="12" x2="22" y2="12" />
+            <path
+              d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
+            />
+          </svg>
+          General
+        </div>
+        <div class="section-description">General browser settings</div>
+
+        <div class="setting-item">
+          <div class="setting-info">
+            <div class="setting-label">Home Page</div>
+            <div class="setting-desc">Page to show when opening new tabs</div>
+          </div>
+          <input
+            type="text"
+            id="homePageInput"
+            value="about:blank"
+            placeholder="https://example.com"
+            style="width: 300px"
+          />
+        </div>
+
+        <div class="setting-item">
+          <div class="setting-info">
+            <div class="setting-label">Search Engine</div>
+            <div class="setting-desc">
+              Default search engine for address bar
+            </div>
+          </div>
+          <select id="searchEngineSelect">
+            <option value="google">Google</option>
+            <option value="bing">Bing</option>
+            <option value="duckduckgo">DuckDuckGo</option>
+            <option value="brave">Brave Search</option>
+          </select>
+        </div>
+
+        <div class="setting-item">
+          <div class="setting-info">
+            <div class="setting-label">Open Links in New Tab</div>
+            <div class="setting-desc">
+              Open external links in new tabs by default
+            </div>
+          </div>
+          <div
+            class="toggle-switch active"
+            id="newTabToggle"
+            onclick="toggleSetting(this, 'openInNewTab')"
+          >
+            <div class="toggle-slider"></div>
+          </div>
+        </div>
+
+        <div class="button-group">
+          <button class="button button-primary" onclick="saveSettings()">
+            Save Changes
+          </button>
+          <button class="button" onclick="resetSettings()">
+            Reset to Defaults
+          </button>
+        </div>
+      </div>
+
+      <!-- About Section -->
+      <div class="settings-section">
+        <div class="section-title">
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <circle cx="12" cy="12" r="10" />
+            <path d="M12 16v-4m0-4h.01" />
+          </svg>
+          About
+        </div>
+
+        <div class="info-card">
+          <div class="info-card-title">BiFrost Browser</div>
+          <div class="info-card-text">Version 1.0.0</div>
+          <div class="info-card-text" style="margin-top: 0.5rem">
+            A modern, fast, and privacy-focused web browser built with Tauri and
+            TypeScript.
+          </div>
+        </div>
+
+        <div class="button-group">
+          <button class="button" onclick="checkUpdates()">
+            Check for Updates
+          </button>
+          <button class="button" onclick="viewLicenses()">View Licenses</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- <script>
+      // Load settings from parent window
+      function loadSettings() {
+        // In a real implementation, you'd load from storage
+        console.log("[Settings] Loaded settings");
+      }
+
+      // Toggle switch handler
+      function toggleSetting(element, settingName) {
+        element.classList.toggle("active");
+        const isActive = element.classList.contains("active");
+        console.log(`[Settings] ${settingName}:`, isActive);
+
+        // Save to parent window state if needed
+        if (window.parent && window.parent.atlasState) {
+          if (!window.parent.atlasState.settings) {
+            window.parent.atlasState.settings = {};
+          }
+          window.parent.atlasState.settings[settingName] = isActive;
+        }
+      }
+
+      // Change theme
+      function changeTheme(theme) {
+        console.log("[Settings] Theme changed to:", theme);
+
+        if (window.parent) {
+          const html = window.parent.document.documentElement;
+          if (theme === "dark") {
+            html.classList.add("dark");
+          } else if (theme === "light") {
+            html.classList.remove("dark");
+          } else {
+            // System theme
+            const prefersDark = window.matchMedia(
+              "(prefers-color-scheme: dark)"
+            ).matches;
+            html.classList.toggle("dark", prefersDark);
+          }
+        }
+      }
+
+      // Save settings
+      function saveSettings() {
+        const settings = {
+          theme: document.getElementById("themeSelect").value,
+          homePage: document.getElementById("homePageInput").value,
+          searchEngine: document.getElementById("searchEngineSelect").value,
+        };
+
+        console.log("[Settings] Saving settings:", settings);
+
+        // In real implementation, save to storage
+        alert("Settings saved successfully!");
+      }
+
+      // Reset settings
+      function resetSettings() {
+        if (confirm("Reset all settings to defaults?")) {
+          document.getElementById("themeSelect").value = "dark";
+          document.getElementById("homePageInput").value = "about:blank";
+          document.getElementById("searchEngineSelect").value = "google";
+
+          // Reset all toggles
+          document.querySelectorAll(".toggle-switch").forEach((toggle) => {
+            toggle.classList.remove("active");
+          });
+
+          // Re-enable default toggles
+          document.getElementById("faviconsToggle").classList.add("active");
+          document.getElementById("historyToggle").classList.add("active");
+          document.getElementById("cookiesToggle").classList.add("active");
+          document.getElementById("newTabToggle").classList.add("active");
+
+          console.log("[Settings] Reset to defaults");
+          alert("Settings reset to defaults");
+        }
+      }
+
+      // Clear browsing data
+      function clearBrowsingData() {
+        if (
+          confirm(
+            "This will clear your browsing history, cookies, and cache. Continue?"
+          )
+        ) {
+          if (window.parent && window.parent.atlasState) {
+            window.parent.atlasState.history = [];
+            window.parent.atlasState.downloads = [];
+          }
+          console.log("[Settings] Cleared browsing data");
+          alert("Browsing data cleared successfully!");
+        }
+      }
+
+      // Check for updates
+      function checkUpdates() {
+        console.log("[Settings] Checking for updates...");
+        alert("You are running the latest version of BiFrost Browser!");
+      }
+
+      // View licenses
+      function viewLicenses() {
+        console.log("[Settings] Opening licenses...");
+        alert("Third-party licenses would be displayed here.");
+      }
+
+      // Load settings on page load
+      loadSettings();
+    </script> -->
+  </body>
+</html>
