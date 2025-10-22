@@ -72,7 +72,7 @@ export class TabManager {
         const initialTab: Tab = {
           id: initialTabId,
           title: "Private Browsing",
-          url: "private-mode", // Keep this as is
+          url: "private-mode",
           favicon: "",
           isActive: true,
           isSpecial: true,
@@ -222,8 +222,8 @@ export class TabManager {
 
     try {
       if (tab.contentType === "html" && tab.isSpecial) {
-        // FIX: Check for "private-mode" instead of "bifrost://private"
-        if (tab.url === "private-mode") {
+        // Handle Private Mode initial tab
+        if (tab.url === "bifrost://private") {
           element.innerHTML = this.getPrivateModeHTML();
           contentPanel.loaded = true;
           console.log("[BiFrost] Loaded Private Mode content for tab:", tab.id);
@@ -489,8 +489,8 @@ export class TabManager {
   }
 
   private getSpecialTabIcon(tabId: string, url: string): string {
-    // FIX: Check for "private-mode" instead of "bifrost://private"
-    if (url === "private-mode") {
+    // Private mode icon
+    if (url === "bifrost://private") {
       return `<svg class="w-4 h-4 text-zinc-400" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect width="16" height="16" rx="8" fill="#212529"/>
         <path d="M10.6663 7.41663C10.1663 7.41663 9.83301 7.58329 9.66634 8.41663M5.33301 7.41663C5.83301 7.41663 6.16634 7.58329 6.33301 8.41663M4.33301 5.33329C4.14512 5.33329 3.96479 5.40805 3.83352 5.53932C3.70226 5.67058 3.62749 5.85091 3.62749 6.03879V7.99996C3.62749 8.68693 3.90063 9.34585 4.38822 9.83344C4.87581 10.321 5.53473 10.5941 6.22169 10.5941C7.04574 10.6309 7.83715 10.9275 8.47469 11.4416C9.11224 10.9275 9.90365 10.6309 10.7277 10.5941C11.4147 10.5941 12.0736 10.321 12.5612 9.83344C13.0488 9.34585 13.3219 8.68693 13.3219 7.99996V6.03879C13.3219 5.85091 13.2471 5.67058 13.1159 5.53932C12.9846 5.40805 12.8043 5.33329 12.6164 5.33329H10.7277C9.90365 5.36998 9.11224 5.66656 8.47469 6.18063C7.83715 5.66656 7.04574 5.36998 6.22169 5.33329H4.33301Z" stroke="#F1F3F5" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
