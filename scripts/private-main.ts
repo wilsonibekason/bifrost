@@ -1,9 +1,13 @@
 import "./tabs.js";
 import "./search.js";
 import "./utils.js";
-// import { TabManager } from "./tabs.js";
+import { SettingsManager } from "./settings.ts";
+import "./history.js";
+// import "./tab-groups.ts";
+import { initializeTabGroups } from "./tab-groups.ts";
 
-// Extend Window interface for TypeScript
+(window as any).initializeTabGroups = initializeTabGroups;
+
 declare global {
   interface Window {
     __TAURI__?: {
@@ -19,12 +23,14 @@ declare global {
       downloads: any[];
       notes: any[];
       tasks: any[];
+      settings?: any;
     };
     showPanel: (panelName: string) => void;
     hidePanel: () => void;
-    // tabManager?: TabManager;
     searchAutocomplete?: any;
     addToHistory?: (url: string, title: string) => void;
+    openHistory?: () => void;
+    openSettings?: () => void;
   }
 }
 
@@ -46,7 +52,7 @@ async function loadComponent(elementId: string, componentPath: string) {
 
 // Initialize toolbar
 async function initializeToolbar() {
-  await loadComponent("toolbar-container", "./components/toolbar.html");
+  await loadComponent("toolbar-container", "./window/toolbar.html");
 
   // Initialize Tauri commands
   await invoke("create_window").catch(console.error);
@@ -61,9 +67,10 @@ window.atlasState = {
   downloads: [],
   notes: [],
   tasks: [],
+  settings: {},
 };
 
-// Panel management
+// Panel management (for overlay panels like old history/downloads)
 window.showPanel = (panelName: string) => {
   const panelsContainer = document.getElementById("overlay-panels");
   if (!panelsContainer) return;
@@ -101,19 +108,76 @@ window.addToHistory = (url: string, title: string) => {
   if (window.atlasState.history.length > 100) {
     window.atlasState.history = window.atlasState.history.slice(0, 100);
   }
+
+  console.log("[Atlas] Added to history:", title);
 };
 
 function getFaviconUrl(url: string): string {
   if (url === "about:blank") return "";
   try {
     const urlObj = new URL(url);
-    return `${urlObj.origin}/favicon.ico`;
+    return `https://www.google.com/s2/favicons?domain=${urlObj.hostname}&sz=32`;
   } catch {
     return "";
   }
 }
 
+// Add some demo history for testing
+function addDemoHistory() {
+  const demoSites = [
+    { url: "https://github.com", title: "GitHub" },
+    { url: "https://stackoverflow.com", title: "Stack Overflow" },
+    { url: "https://developer.mozilla.org", title: "MDN Web Docs" },
+    { url: "https://www.youtube.com", title: "YouTube" },
+    { url: "https://twitter.com", title: "Twitter" },
+  ];
+
+  demoSites.forEach((site, index) => {
+    setTimeout(() => {
+      window.addToHistory?.(site.url, site.title);
+    }, index * 100);
+  });
+}
+
+function initializeSettings() {
+  console.log("[Settings] Initializing settings manager");
+  new SettingsManager();
+}
+
 // Initialize on DOM load
 window.addEventListener("DOMContentLoaded", () => {
   initializeToolbar();
+
+  // Add demo history after a short delay (for testing)
+  setTimeout(() => {
+    addDemoHistory();
+    console.log("[Atlas] Demo history added");
+  }, 2000);
+
+  // Initialize settings
+  initializeSettings();
+
+  // (window as any).initializeTabGroups = initializeTabGroups;
+
+  // Setup keyboard shortcuts
+  document.addEventListener("keydown", (e) => {
+    // Ctrl/Cmd + H for History
+    if ((e.ctrlKey || e.metaKey) && e.key === "h") {
+      e.preventDefault();
+      window.openHistory?.();
+    }
+
+    // Ctrl/Cmd + , for Settings
+    if ((e.ctrlKey || e.metaKey) && e.key === ",") {
+      e.preventDefault();
+      window.openSettings?.();
+    }
+  });
+
+  console.log("[Atlas] Keyboard shortcuts initialized:");
+  console.log("  Ctrl/Cmd + H - Open History");
+  console.log("  Ctrl/Cmd + , - Open Settings");
+  console.log("  Ctrl/Cmd + T - New Tab");
+  console.log("  Ctrl/Cmd + W - Close Tab");
+  console.log("  Ctrl/Cmd + Tab - Switch Tabs");
 });

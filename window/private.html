@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BiFrost Private Browser</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/lucide-static@latest/font/lucide.css"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              zinc: {
+                50: "#fafafa",
+                100: "#f4f4f5",
+                200: "#e4e4e7",
+                300: "#d4d4d8",
+                400: "#a1a1aa",
+                500: "#71717a",
+                600: "#52525b",
+                700: "#3f3f46",
+                750: "#35353b",
+                800: "#27272a",
+                900: "#18181b",
+              },
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="stylesheet" href="/styles/globals.css" />
+    <style>
+      body {
+        overflow: hidden;
+      }
+      #browser-content {
+        position: relative;
+        height: calc(100vh - 64px); /* Adjust based on toolbar height */
+        overflow: hidden;
+      }
+    </style>
+  </head>
+  <body class="bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white">
+    <!-- Main Toolbar Container -->
+    <div id="toolbar-container" class="bg-zinc-800 border-b border-zinc-700">
+      <!-- Toolbar content will be loaded here -->
+    </div>
+
+    <!-- Main Browser Content Area -->
+    <div
+      id="private-browser-content"
+      class="w-full h-screen flex items-center justify-center bg-zinc-200 relative"
+    >
+      <!-- Main Content Container -->
+      <div
+        class="flex flex-col items-center justify-center px-4 max-w-2xl mx-auto text-center"
+      >
+        <!-- Icon Container -->
+        <div class="mb-8">
+          <svg
+            width="66"
+            height="66"
+            viewBox="0 0 66 66"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            class="mx-auto"
+          >
+            <rect width="66" height="66" rx="33" fill="#212529" />
+            <path
+              d="M43.998 31.1667C41.498 31.1667 39.832 31.9999 39.0986 34.8333M21.998 31.1667C24.498 31.1667 26.1646 31.9999 26.898 34.8333M18.3313 22C17.4471 22 16.5992 22.3863 15.9741 23.0739C15.349 23.7616 14.998 24.6942 14.998 25.6667V33C14.998 35.4754 15.9813 37.8493 17.7317 39.6016C19.4821 41.3539 21.8541 42.3333 24.3313 42.3333C27.6189 42.4928 30.7573 43.9886 32.998 46.6333C35.2388 43.9886 38.3772 42.4928 41.6647 42.3333C44.142 42.3333 46.514 41.3539 48.2644 39.6016C50.0147 37.8493 50.998 35.4754 50.998 33V25.6667C50.998 24.6942 50.647 23.7616 50.0219 23.0739C49.3968 22.3863 48.5489 22 47.6647 22H42.3313C38.3772 22.126 34.5722 23.6217 31.498 26.3333C28.4237 23.6217 24.6187 22.126 20.6647 22H18.3313Z"
+              stroke="#F1F3F5"
+              stroke-width="3.66667"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </div>
+
+        <!-- Title -->
+        <h1 class="text-zinc-900 text-2xl font-semibold mb-6">
+          You are now in Private Mode.
+        </h1>
+
+        <!-- Description -->
+        <p class="text-zinc-900 text-base leading-relaxed max-w-md">
+          Browse with more privacy. Websites may still collect data, but once
+          you close this window, Bifrost won't save your browsing history,
+          search records, or site data, helping you keep your activity private.
+        </p>
+      </div>
+
+      <!-- Floating Button - Bottom Right -->
+      <div class="fixed bottom-8 right-8">
+        <button
+          class="w-14 h-14 rounded-full bg-zinc-800 hover:bg-zinc-700 flex items-center justify-center shadow-lg transition-colors duration-200"
+        >
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"
+              fill="#60A5FA"
+              stroke="#60A5FA"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Overlay Panels (for legacy panels if needed) -->
+    <div
+      id="overlay-panels"
+      class="fixed inset-0 pointer-events-none z-50"
+    ></div>
+
+    <!-- Scripts -->
+    <script type="module" src="/scripts/private-main.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,1632 @@
+<div class="toolbar-container">
+  <!-- Window Controls (macOS style) -->
+  <div
+    class="flex items-center justify-between bg-zinc-800 px-3 py-2 toolbar-drag-region"
+  >
+    <!-- Left: Window Controls -->
+    <div class="flex items-center space-x-2 no-drag">
+      <div class="flex space-x-2">
+        <button
+          onclick="window.__TAURI__?.window?.getCurrent().close()"
+          class="w-3 h-3 rounded-full bg-red-500 hover:bg-red-600 transition"
+        ></button>
+        <button
+          onclick="window.__TAURI__?.window?.getCurrent().minimize()"
+          class="w-3 h-3 rounded-full bg-yellow-500 hover:bg-yellow-600 transition"
+        ></button>
+        <button
+          onclick="window.__TAURI__?.window?.getCurrent().toggleMaximize()"
+          class="w-3 h-3 rounded-full bg-green-500 hover:bg-green-600 transition"
+        ></button>
+      </div>
+    </div>
+
+    <!-- Center: BiFrost Logo/Title -->
+    <div class="text-xs font-semibold text-zinc-400 select-none">
+      BiFrost Browser
+    </div>
+
+    <!-- Right: Utility Icons -->
+    <div class="flex items-center space-x-3 no-drag">
+      <!-- Location Intelligence Indicator -->
+      <button
+        class="icon hover:text-blue-400 transition"
+        title="Location: Ibadan, NG"
+      >
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M16.6663 8.33464C16.6663 12.4955 12.0505 16.8288 10.5005 18.1671C10.3561 18.2757 10.1803 18.3344 9.99967 18.3344C9.81901 18.3344 9.64324 18.2757 9.49884 18.1671C7.94884 16.8288 3.33301 12.4955 3.33301 8.33464C3.33301 6.56653 4.03539 4.87083 5.28563 3.62059C6.53587 2.37035 8.23156 1.66797 9.99967 1.66797C11.7678 1.66797 13.4635 2.37035 14.7137 3.62059C15.964 4.87083 16.6663 6.56653 16.6663 8.33464Z"
+            stroke="currentColor"
+            stroke-width="1.41667"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M9.99967 10.8346C11.3804 10.8346 12.4997 9.71535 12.4997 8.33464C12.4997 6.95392 11.3804 5.83464 9.99967 5.83464C8.61896 5.83464 7.49967 6.95392 7.49967 8.33464C7.49967 9.71535 8.61896 10.8346 9.99967 10.8346Z"
+            stroke="currentColor"
+            stroke-width="1.41667"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
+
+      <!-- Privacy Shield -->
+      <button
+        class="icon text-green-500 hover:text-green-400 transition"
+        title="Privacy Protection: Active"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+          />
+        </svg>
+      </button>
+
+      <!-- Extensions/Plugins -->
+      <button class="icon hover:text-zinc-300 transition" title="Extensions">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"
+          />
+        </svg>
+      </button>
+
+      <!-- User Profile -->
+      <button class="icon hover:text-zinc-300 transition" title="User Profile">
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M9.99967 10.8333C12.3009 10.8333 14.1663 8.96785 14.1663 6.66667C14.1663 4.36548 12.3009 2.5 9.99967 2.5C7.69849 2.5 5.83301 4.36548 5.83301 6.66667C5.83301 8.96785 7.69849 10.8333 9.99967 10.8333ZM9.99967 10.8333C11.7678 10.8333 13.4635 11.5357 14.7137 12.786C15.964 14.0362 16.6663 15.7319 16.6663 17.5M9.99967 10.8333C8.23156 10.8333 6.53587 11.5357 5.28563 12.786C4.03539 14.0362 3.33301 15.7319 3.33301 17.5"
+            stroke="currentColor"
+            stroke-width="1.66667"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
+
+      <!-- Theme Toggle Button -->
+      <button
+        id="theme-toggle"
+        onclick="toggleTheme()"
+        class="icon hover:text-blue-400 transition"
+        title="Toggle Theme"
+      >
+        <svg
+          id="theme-icon-light"
+          class="hidden"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+          />
+        </svg>
+        <svg
+          id="theme-icon-dark"
+          class="hidden"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+          />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Tab Bar -->
+  <div
+    id="tab-bar"
+    class="flex items-center bg-zinc-900 px-2 py-1 overflow-x-auto no-drag"
+  >
+    <!-- Tabs will be loaded here -->
+    <div class="flex items-center space-x-1 flex-1">
+      <!-- Tabs will be dynamically rendered by TabManager -->
+    </div>
+
+    <!-- Tab Actions -->
+    <div class="flex items-center space-x-1 ml-2">
+      <!-- New Tab Button -->
+      <button
+        onclick="window.createNewTab()"
+        class="p-1.5 rounded hover:bg-zinc-700 transition"
+        title="New Tab"
+      >
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          class="text-zinc-400"
+        >
+          <path
+            d="M4.16699 10.0013H15.8337M10.0003 4.16797V15.8346"
+            stroke="currentColor"
+            stroke-width="1.66667"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
+
+      <!-- Gallery Vertical End Button -->
+      <button
+        onclick="window.openTabGroups()"
+        class="p-1.5 rounded hover:bg-zinc-700 transition"
+        title="Split View Vertically"
+      >
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          class="text-zinc-400"
+        >
+          <path
+            d="M5.83333 1.66797H14.1667M4.16667 5.0013H15.8333M4.16667 8.33464H15.8333C16.7538 8.33464 17.5 9.08083 17.5 10.0013V16.668C17.5 17.5884 16.7538 18.3346 15.8333 18.3346H4.16667C3.24619 18.3346 2.5 17.5884 2.5 16.668V10.0013C2.5 9.08083 3.24619 8.33464 4.16667 8.33464Z"
+            stroke="currentColor"
+            stroke-width="1.66667"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
+
+      <!-- Square Split Horizontal Button -->
+      <button
+        class="p-1.5 rounded hover:bg-zinc-700 transition"
+        title="Split View Horizontally"
+      >
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          class="text-zinc-400"
+        >
+          <path
+            d="M6.66667 15.832H4.16667C3.33333 15.832 2.5 14.9987 2.5 14.1654V5.83203C2.5 4.9987 3.33333 4.16536 4.16667 4.16536H6.66667M13.3333 4.16536H15.8333C16.6667 4.16536 17.5 4.9987 17.5 5.83203V14.1654C17.5 14.9987 16.6667 15.832 15.8333 15.832H13.3333M10 3.33203V16.6654"
+            stroke="currentColor"
+            stroke-width="1.41667"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Navigation Bar -->
+  <div class="flex items-center space-x-2 bg-zinc-800 px-3 py-2 no-drag">
+    <!-- Navigation Controls -->
+    <div class="flex items-center space-x-1">
+      <button
+        class="p-1.5 rounded hover:bg-zinc-700 transition disabled:opacity-30 text-zinc-400"
+        disabled
+        title="Back"
+      >
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M12.5 15L7.5 10L12.5 5"
+            stroke="currentColor"
+            stroke-width="1.66667"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
+      <button
+        class="p-1.5 rounded hover:bg-zinc-700 transition disabled:opacity-30 text-zinc-400"
+        disabled
+        title="Forward"
+      >
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M7.5 15L12.5 10L7.5 5"
+            stroke="currentColor"
+            stroke-width="1.66667"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
+      <button
+        class="p-1.5 rounded hover:bg-zinc-700 transition text-zinc-400"
+        title="Reload"
+      >
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M2.5 10C2.5 11.4834 2.93987 12.9334 3.76398 14.1668C4.58809 15.4001 5.75943 16.3614 7.12987 16.9291C8.50032 17.4968 10.0083 17.6453 11.4632 17.3559C12.918 17.0665 14.2544 16.3522 15.3033 15.3033C16.3522 14.2544 17.0665 12.918 17.3559 11.4632C17.6453 10.0083 17.4968 8.50032 16.9291 7.12987C16.3614 5.75943 15.4001 4.58809 14.1668 3.76398C12.9334 2.93987 11.4834 2.5 10 2.5C7.90329 2.50789 5.89081 3.32602 4.38333 4.78333L2.5 6.66667M2.5 6.66667V2.5M2.5 6.66667H6.66667"
+            stroke="currentColor"
+            stroke-width="1.66667"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Address Bar -->
+    <div class="flex-1 relative hidden">
+      <div
+        class="flex items-center bg-zinc-900 rounded-md px-3 py-1.5 focus-within:ring-1 focus-within:ring-zinc-600"
+      >
+        <!-- Bookmark Icon -->
+        <button
+          class="p-0.5 hover:text-yellow-400 transition text-zinc-500"
+          title="Bookmark this page"
+        >
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 20 20"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M15.8337 17.5L10.0003 14.1667L4.16699 17.5V4.16667C4.16699 3.72464 4.34259 3.30072 4.65515 2.98816C4.96771 2.67559 5.39163 2.5 5.83366 2.5H14.167C14.609 2.5 15.0329 2.67559 15.3455 2.98816C15.6581 3.30072 15.8337 3.72464 15.8337 4.16667V17.5Z"
+              stroke="currentColor"
+              stroke-width="1.66667"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+
+        <!-- Search Icon -->
+        <button class="p-0.5 mx-2 text-zinc-500" title="Search">
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 20 20"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M17.5 17.5L13.9167 13.9167M15.8333 9.16667C15.8333 12.8486 12.8486 15.8333 9.16667 15.8333C5.48477 15.8333 2.5 12.8486 2.5 9.16667C2.5 5.48477 5.48477 2.5 9.16667 2.5C12.8486 2.5 15.8333 5.48477 15.8333 9.16667Z"
+              stroke="currentColor"
+              stroke-width="1.66667"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+
+        <!-- URL Input -->
+        <input
+          type="text"
+          id="address-bar"
+          value="Search"
+          class="flex-1 bg-transparent text-sm text-zinc-400 placeholder-zinc-500 focus:outline-none"
+          placeholder="Search"
+        />
+
+        <!-- Share Icon -->
+        <button
+          class="p-0.5 ml-2 hover:text-zinc-300 transition text-zinc-500"
+          title="Share"
+        >
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 20 20"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M3.33301 10.0013V16.668C3.33301 17.11 3.5086 17.5339 3.82116 17.8465C4.13372 18.159 4.55765 18.3346 4.99967 18.3346H14.9997C15.4417 18.3346 15.8656 18.159 16.1782 17.8465C16.4907 17.5339 16.6663 17.11 16.6663 16.668V10.0013M13.333 5.0013L9.99967 1.66797M9.99967 1.66797L6.66634 5.0013M9.99967 1.66797V12.5013"
+              stroke="currentColor"
+              stroke-width="1.66667"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Address Bar -->
+    <div class="flex-1 flex items-center justify-center gap-2">
+      <!-- Bookmark Icon (Outside) -->
+      <button
+        onclick="toggleBookmarksDropdown()"
+        class="p-1.5 hover:text-yellow-400 transition text-zinc-400"
+        title="Bookmark this page"
+      >
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M15.8337 17.5L10.0003 14.1667L4.16699 17.5V4.16667C4.16699 3.72464 4.34259 3.30072 4.65515 2.98816C4.96771 2.67559 5.39163 2.5 5.83366 2.5H14.167C14.609 2.5 15.0329 2.67559 15.3455 2.98816C15.6581 3.30072 15.8337 3.72464 15.8337 4.16667V17.5Z"
+            stroke="currentColor"
+            stroke-width="1.66667"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
+
+      <!-- Search Input Container -->
+      <div
+        class="flex items-center bg-zinc-900 rounded-md px-3 py-1.5 focus-within:ring-1 focus-within:ring-zinc-600"
+        style="width: 520px"
+      >
+        <!-- Search Icon -->
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          class="text-zinc-500 flex-shrink-0"
+        >
+          <path
+            d="M17.5 17.5L13.9167 13.9167M15.8333 9.16667C15.8333 12.8486 12.8486 15.8333 9.16667 15.8333C5.48477 15.8333 2.5 12.8486 2.5 9.16667C2.5 5.48477 5.48477 2.5 9.16667 2.5C12.8486 2.5 15.8333 5.48477 15.8333 9.16667Z"
+            stroke="currentColor"
+            stroke-width="1.66667"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+
+        <!-- URL Input -->
+        <input
+          type="text"
+          id="address-bar"
+          value=""
+          class="flex-1 bg-transparent text-sm text-zinc-400 placeholder-zinc-400 focus:outline-none text-center mx-2"
+          placeholder="Search"
+        />
+      </div>
+
+      <!-- Share Icon (Outside) -->
+      <button
+        class="p-1.5 hover:text-zinc-300 transition text-zinc-400"
+        title="Share"
+      >
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M3.33301 10.0013V16.668C3.33301 17.11 3.5086 17.5339 3.82116 17.8465C4.13372 18.159 4.55765 18.3346 4.99967 18.3346H14.9997C15.4417 18.3346 15.8656 18.159 16.1782 17.8465C16.4907 17.5339 16.6663 17.11 16.6663 16.668V10.0013M13.333 5.0013L9.99967 1.66797M9.99967 1.66797L6.66634 5.0013M9.99967 1.66797V12.5013"
+            stroke="currentColor"
+            stroke-width="1.66667"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
+    </div>
+    <!-- Right Actions -->
+    <div class="items-center space-x-1 hidden">
+      <!-- Mask Icon -->
+      <button
+        class="p-1.5 rounded hover:bg-zinc-700 transition text-zinc-400"
+        title="Mask"
+      >
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          class="text-zinc-400"
+        >
+          <path
+            d="M15.0003 9.16667C13.7503 9.16667 12.917 9.58333 12.5003 10.8333M5.00033 9.16667C6.25033 9.16667 7.08366 9.58333 7.50033 10.8333M3.33366 5C2.89163 5 2.46771 5.17559 2.15515 5.48816C1.84259 5.80072 1.66699 6.22464 1.66699 6.66667V10C1.66699 11.1051 2.10598 12.1649 2.88738 12.9463C3.66878 13.7277 4.72859 14.1667 5.83366 14.1667C7.37342 14.224 8.84577 14.813 10.0003 15.8333C11.1549 14.813 12.6272 14.224 14.167 14.1667C15.2721 14.1667 16.3319 13.7277 17.1133 12.9463C17.8947 12.1649 18.3337 11.1051 18.3337 10V6.66667C18.3337 6.22464 18.1581 5.80072 17.8455 5.48816C17.5329 5.17559 17.109 5 16.667 5H14.167C12.6272 5.05735 11.1549 5.6463 10.0003 6.66667C8.84577 5.6463 7.37342 5.05735 5.83366 5H3.33366Z"
+            stroke="#868E96"
+            stroke-width="1.66667"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
+
+      <!-- Privacy Profile -->
+      <button
+        class="p-1.5 rounded hover:bg-zinc-700 transition text-zinc-400"
+        title="User Profile"
+      >
+        <svg
+          width="30"
+          height="30"
+          viewBox="0 0 30 30"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect width="30" height="30" rx="15" fill="#212529" />
+          <path
+            d="M19.9993 14.1667C18.7493 14.1667 17.916 14.5833 17.4993 15.8333M9.99935 14.1667C11.2493 14.1667 12.0827 14.5833 12.4993 15.8333M8.33268 10C7.89065 10 7.46673 10.1756 7.15417 10.4882C6.84161 10.8007 6.66602 11.2246 6.66602 11.6667V15C6.66602 16.1051 7.105 17.1649 7.8864 17.9463C8.66781 18.7277 9.72761 19.1667 10.8327 19.1667C12.3724 19.224 13.8448 19.813 14.9993 20.8333C16.1539 19.813 17.6263 19.224 19.166 19.1667C20.2711 19.1667 21.3309 18.7277 22.1123 17.9463C22.8937 17.1649 23.3327 16.1051 23.3327 15V11.6667C23.3327 11.2246 23.1571 10.8007 22.8445 10.4882C22.532 10.1756 22.108 10 21.666 10H19.166C17.6263 10.0574 16.1539 10.6463 14.9993 11.6667C13.8448 10.6463 12.3724 10.0574 10.8327 10H8.33268Z"
+            stroke="#F1F3F5"
+            stroke-width="1.66667"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
+
+      <!-- More Options -->
+      <button
+        class="p-1.5 rounded hover:bg-zinc-700 transition text-zinc-400"
+        title="More"
+        onclick="toggleMainMenu()"
+      >
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M10.0003 10.832C10.4606 10.832 10.8337 10.4589 10.8337 9.9987C10.8337 9.53846 10.4606 9.16536 10.0003 9.16536C9.54009 9.16536 9.16699 9.53846 9.16699 9.9987C9.16699 10.4589 9.54009 10.832 10.0003 10.832Z"
+            stroke="currentColor"
+            stroke-width="1.41667"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M10.0003 4.9987C10.4606 4.9987 10.8337 4.6256 10.8337 4.16536C10.8337 3.70513 10.4606 3.33203 10.0003 3.33203C9.54009 3.33203 9.16699 3.70513 9.16699 4.16536C9.16699 4.6256 9.54009 4.9987 10.0003 4.9987Z"
+            stroke="currentColor"
+            stroke-width="1.41667"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M10.0003 16.6654C10.4606 16.6654 10.8337 16.2923 10.8337 15.832C10.8337 15.3718 10.4606 14.9987 10.0003 14.9987C9.54009 14.9987 9.16699 15.3718 9.16699 15.832C9.16699 16.2923 9.54009 16.6654 10.0003 16.6654Z"
+            stroke="currentColor"
+            stroke-width="1.41667"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Bookmarks Bar -->
+  <div
+    id="bookmarks-bar"
+    class="bg-zinc-800 px-3 py-1.5 flex items-center space-x-3 text-xs overflow-x-auto no-drag border-t border-zinc-700"
+  >
+    <button
+      class="flex items-center space-x-1 px-2 py-1 rounded hover:bg-zinc-700 transition whitespace-nowrap"
+    >
+      <svg
+        class="w-3 h-3 text-zinc-400"
+        fill="currentColor"
+        viewBox="0 0 20 20"
+      >
+        <path
+          d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
+        />
+      </svg>
+      <span class="text-zinc-300">Work</span>
+    </button>
+    <button
+      class="px-2 py-1 rounded hover:bg-zinc-700 transition text-zinc-300 whitespace-nowrap"
+    >
+      GitHub
+    </button>
+    <button
+      class="px-2 py-1 rounded hover:bg-zinc-700 transition text-zinc-300 whitespace-nowrap"
+    >
+      Documentation
+    </button>
+    <button
+      class="px-2 py-1 rounded hover:bg-zinc-700 transition text-zinc-300 whitespace-nowrap"
+    >
+      Design Resources
+    </button>
+    <button
+      class="ml-auto p-1 rounded hover:bg-zinc-700 transition"
+      title="Manage Bookmarks"
+    >
+      <svg
+        width="20"
+        height="20"
+        viewBox="0 0 20 20"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        class="w-4 h-4 text-zinc-400"
+      >
+        <path
+          d="M4.16699 10.0013H15.8337M10.0003 4.16797V15.8346"
+          stroke="currentColor"
+          stroke-width="1.66667"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </button>
+  </div>
+
+  <!-- Main Menu Dropdown (Hidden by default) -->
+  <div
+    id="main-menu-dropdown"
+    class="hidden absolute top-16 right-3 bg-zinc-800 rounded-lg shadow-2xl border border-zinc-700 w-72 z-50 no-drag dropdown-enter"
+  >
+    <div class="py-2">
+      <!-- Notes -->
+      <!-- onclick="window.showPanel('notes')" -->
+      <button
+        onclick="toggleNotesDropdown()"
+        class="flex items-center space-x-3 w-full px-4 py-2.5 hover:bg-zinc-700 transition text-left"
+      >
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          class="text-zinc-300"
+        >
+          <path
+            d="M1.66699 5.0013H5.00033M1.66699 8.33464H5.00033M1.66699 11.668H5.00033M1.66699 15.0013H5.00033M13.3337 1.66797V18.3346M5.00033 1.66797H15.0003C15.9208 1.66797 16.667 2.41416 16.667 3.33464V16.668C16.667 17.5884 15.9208 18.3346 15.0003 18.3346H5.00033C4.07985 18.3346 3.33366 17.5884 3.33366 16.668V3.33464C3.33366 2.41416 4.07985 1.66797 5.00033 1.66797Z"
+            stroke="currentColor"
+            stroke-width="1.66667"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+        <span class="text-sm text-zinc-100">Show Notes</span>
+      </button>
+
+      <!-- Tasks -->
+      <!-- onclick="window.showPanel('tasks')" -->
+      <button
+        onclick="toggleTasksDropdown()"
+        class="flex items-center space-x-3 w-full px-4 py-2.5 hover:bg-zinc-700 transition text-left"
+      >
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          class="text-zinc-300"
+        >
+          <path
+            d="M2.5 10H2.50833M2.5 15H2.50833M2.5 5H2.50833M6.66667 10H17.5M6.66667 15H17.5M6.66667 5H17.5"
+            stroke="currentColor"
+            stroke-width="1.66667"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+        <span class="text-sm text-zinc-100">Show Tasks</span>
+      </button>
+
+      <hr class="my-2 border-zinc-700" />
+
+      <!-- Downloads -->
+      <!-- onclick="window.showPanel('downloads')" -->
+      <button
+        onclick="toggleDownloadsDropdown()"
+        class="flex items-center space-x-3 w-full px-4 py-2.5 hover:bg-zinc-700 transition text-left"
+      >
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          class="text-zinc-300"
+        >
+          <path
+            d="M10.0003 14.1667V2.5M10.0003 14.1667L5.00033 9.16667M10.0003 14.1667L15.0003 9.16667M15.833717.5H4.16699"
+            stroke="currentColor"
+            stroke-width="1.66667"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+        <span class="text-sm text-zinc-100">Downloads</span>
+      </button>
+
+      <!-- Bookmarks -->
+      <!-- onclick="window.showPanel('bookmarks')"-->
+      <button
+        onclick="toggleBookmarksDropdown()"
+        class="flex items-center space-x-3 w-full px-4 py-2.5 hover:bg-zinc-700 transition text-left"
+      >
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          class="text-zinc-300"
+        >
+          <path
+            d="M15.8337 17.5L10.0003 14.1667L4.16699 17.5V4.16667C4.16699 3.72464 4.34259 3.30072 4.65515 2.98816C4.96771 2.67559 5.39163 2.5 5.83366 2.5H14.167C14.609 2.5 15.0329 2.67559 15.3455 2.98816C15.6581 3.30072 15.8337 3.72464 15.8337 4.16667V17.5Z"
+            stroke="currentColor"
+            stroke-width="1.66667"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+        <span class="text-sm text-zinc-100">Bookmarks</span>
+      </button>
+
+      <!-- History -->
+      <!-- onclick="window.showPanel('history')" -->
+      <button
+        onclick="toggleHistoryDropdown()"
+        class="flex items-center space-x-3 w-full px-4 py-2.5 hover:bg-zinc-700 transition text-left"
+      >
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          class="text-zinc-300"
+        >
+          <path
+            d="M2.5 10C2.5 11.4834 2.93987 12.9334 3.76398 14.1668C4.58809 15.4001 5.75943 16.3614 7.12987 16.9291C8.50032 17.4968 10.0083 17.6453 11.4632 17.3559C12.918 17.0665 14.2544 16.3522 15.3033 15.3033C16.3522 14.2544 17.0665 12.918 17.3559 11.4632C17.6453 10.0083 17.4968 8.50032 16.9291 7.12987C16.3614 5.75943 15.4001 4.58809 14.1668 3.76398C12.9334 2.93987 11.4834 2.5 10 2.5C7.90329 2.50789 5.89081 3.32602 4.38333 4.78333L2.5 6.66667M2.5 6.66667V2.5M2.5 6.66667H6.66667M10 5.83333V10L13.3333 11.6667"
+            stroke="currentColor"
+            stroke-width="1.66667"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+        <span class="text-sm text-zinc-100">History</span>
+      </button>
+
+      <hr class="my-2 border-zinc-700" />
+
+      <!-- Settings -->
+      <!-- onclick="window.showPanel('settings')"  onclick="toggleSettingsDropdown()" -->
+      <button
+        onclick="window.openSettings()"
+        class="flex items-center space-x-3 w-full px-4 py-2.5 hover:bg-zinc-700 transition text-left"
+      >
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          class="text-zinc-300"
+        >
+          <path
+            d="M10.1833 1.66797H9.81667C9.37464 1.66797 8.95072 1.84356 8.63816 2.15612C8.3256 2.46868 8.15 2.89261 8.15 3.33464V3.48464C8.1497 3.77691 8.07255 4.06396 7.92628 4.317C7.78002 4.57004 7.56978 4.78017 7.31667 4.9263L6.95834 5.13464C6.70497 5.28092 6.41756 5.35793 6.125 5.35793C5.83244 5.35793 5.54503 5.28092 5.29167 5.13464L5.16667 5.06797C4.78422 4.84735 4.32987 4.78751 3.90334 4.90156C3.47681 5.01561 3.11296 5.29425 2.89167 5.6763L2.70833 5.99297C2.48772 6.37541 2.42787 6.82977 2.54192 7.2563C2.65598 7.68283 2.93461 8.04668 3.31667 8.26797L3.44167 8.3513C3.69356 8.49673 3.90302 8.70554 4.04921 8.95699C4.1954 9.20845 4.27325 9.49378 4.275 9.78464V10.2096C4.27617 10.5033 4.19971 10.7921 4.05337 11.0467C3.90703 11.3014 3.69601 11.5128 3.44167 11.6596L3.31667 11.7346C2.93461 11.9559 2.65598 12.3198 2.54192 12.7463C2.42787 13.1728 2.48772 13.6272 2.70833 14.0096L2.89167 14.3263C3.11296 14.7084 3.47681 14.987 3.90334 15.101C4.32987 15.2151 4.78422 15.1552 5.16667 14.9346L5.29167 14.868C5.54503 14.7217 5.83244 14.6447 6.125 14.6447C6.41756 14.6447 6.70497 14.7217 6.95834 14.868L7.31667 15.0763C7.56978 15.2224 7.78002 15.4326 7.92628 15.6856C8.07255 15.9386 8.1497 16.2257 8.15 16.518V16.668C8.15 17.11 8.3256 17.5339 8.63816 17.8465C8.95072 18.159 9.37464 18.3346 9.81667 18.3346H10.1833C10.6254 18.3346 11.0493 18.159 11.3618 17.8465C11.6744 17.5339 11.85 17.11 11.85 16.668V16.518C11.8503 16.2257 11.9275 15.9386 12.0737 15.6856C12.22 15.4326 12.4302 15.2224 12.6833 15.0763L13.0417 14.868C13.295 14.7217 13.5824 14.6447 13.875 14.6447C14.1676 14.6447 14.455 14.7217 14.7083 14.868L14.8333 14.9346C15.2158 15.1552 15.6701 15.2151 16.0967 15.101C16.5232 14.987 16.887 14.7084 17.1083 14.3263L17.2917 14.0013C17.5123 13.6189 17.5721 13.1645 17.4581 12.738C17.344 12.3114 17.0654 11.9476 16.6833 11.7263L16.5583 11.6596C16.304 11.5128 16.093 11.3014 15.9466 11.0467C15.8003 10.7921 15.7238 10.5033 15.725 10.2096V9.79297C15.7238 9.49929 15.8003 9.21051 15.9466 8.95588C16.093 8.70125 16.304 8.48981 16.5583 8.34297L16.6833 8.26797C17.0654 8.04668 17.344 7.68283 17.4581 7.2563C17.5721 6.82977 17.5123 6.37541 17.2917 5.99297L17.1083 5.6763C16.887 5.29425 16.5232 5.01561 16.0967 4.90156C15.6701 4.78751 15.2158 4.84735 14.8333 5.06797L14.7083 5.13464C14.455 5.28092 14.1676 5.35793 13.875 5.35793C13.5824 5.35793 13.295 5.28092 13.0417 5.13464L12.6833 4.9263C12.4302 4.78017 12.22 4.57004 12.0737 4.317C11.9275 4.06396 11.8503 3.77691 11.85 3.48464V3.33464C11.85 2.89261 11.6744 2.46868 11.3618 2.15612C11.0493 1.84356 10.6254 1.66797 10.1833 1.66797Z"
+            stroke="currentColor"
+            stroke-width="1.66667"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M10 12.5013C11.3807 12.5013 12.5 11.382 12.5 10.0013C12.5 8.62059 11.3807 7.5013 10 7.5013C8.61929 7.5013 7.5 8.62059 7.5 10.0013C7.5 11.382 8.61929 12.5013 10 12.5013Z"
+            stroke="currentColor"
+            stroke-width="1.66667"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+        <span class="text-sm text-zinc-100">Settings</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Bookmarks Panel Container -->
+
+  <div
+    id="bookmarks-dropdown"
+    class="hidden fixed top-16 right-20 bg-white dark:bg-zinc-800 rounded-lg shadow-2xl border border-zinc-200 dark:border-zinc-700 w-72 max-h-96 overflow-hidden z-50"
+  >
+    <!-- Search Bar -->
+    <div class="p-3 border-b border-zinc-200">
+      <div class="relative">
+        <svg
+          class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-zinc-400"
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M17.5 17.5L13.9167 13.9167M15.8333 9.16667C15.8333 12.8486 12.8486 15.8333 9.16667 15.8333C5.48477 15.8333 2.5 12.8486 2.5 9.16667C2.5 5.48477 5.48477 2.5 9.16667 2.5C12.8486 2.5 15.8333 5.48477 15.8333 9.16667Z"
+            stroke="currentColor"
+            stroke-width="1.66667"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+        <input
+          type="text"
+          placeholder="Search Bookmarks"
+          class="w-full bg-white border border-zinc-200 text-sm text-zinc-900 placeholder-zinc-400 rounded-md pl-9 pr-3 py-1.5 focus:outline-none focus:ring-1 focus:ring-zinc-300 focus:border-zinc-300"
+        />
+      </div>
+    </div>
+
+    <!-- Bookmarks List -->
+    <div class="py-2 max-h-80 overflow-y-auto">
+      <!-- Bookmark Item 1 -->
+      <a
+        href="#"
+        class="flex items-center gap-3 px-3 py-2 hover:bg-zinc-50 transition group"
+      >
+        <div
+          class="flex-shrink-0 w-4 h-4 bg-red-500 rounded flex items-center justify-center"
+        >
+          <span class="text-white text-xs font-semibold">Y</span>
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="text-sm text-zinc-900 font-medium truncate">
+            (148) RKG's Halloween Sleepover - Outfi...
+          </p>
+          <p class="text-xs text-zinc-500 truncate">
+            youtube.com • 5 hours ago
+          </p>
+        </div>
+      </a>
+
+      <!-- Bookmark Item 2 -->
+      <a
+        href="#"
+        class="flex items-center gap-3 px-3 py-2 hover:bg-zinc-50 transition group"
+      >
+        <div
+          class="flex-shrink-0 w-4 h-4 bg-purple-500 rounded flex items-center justify-center"
+        >
+          <span class="text-white text-xs font-semibold">M</span>
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="text-sm text-zinc-900 font-medium truncate">
+            Midjourney - Discover the World's Top Desig...
+          </p>
+          <p class="text-xs text-zinc-500 truncate">
+            midcode.com • 6 hours ago
+          </p>
+        </div>
+      </a>
+
+      <!-- Bookmark Item 3 -->
+      <a
+        href="#"
+        class="flex items-center gap-3 px-3 py-2 hover:bg-zinc-50 transition group"
+      >
+        <div
+          class="flex-shrink-0 w-4 h-4 bg-green-500 rounded flex items-center justify-center"
+        >
+          <span class="text-white text-xs font-semibold">S</span>
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="text-sm text-zinc-900 font-medium truncate">
+            Spotify - Web Player: Music for Everyone...
+          </p>
+          <p class="text-xs text-zinc-500 truncate">
+            open.spotify.com • 2 hours ago
+          </p>
+        </div>
+      </a>
+
+      <!-- Bookmark Item 4 -->
+      <a
+        href="#"
+        class="flex items-center gap-3 px-3 py-2 hover:bg-zinc-50 transition group"
+      >
+        <div
+          class="flex-shrink-0 w-4 h-4 bg-blue-500 rounded flex items-center justify-center"
+        >
+          <span class="text-white text-xs font-semibold">(3)</span>
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="text-sm text-zinc-900 font-medium truncate">
+            (3) Feed - LinkedIn
+          </p>
+          <p class="text-xs text-zinc-500 truncate">
+            linkedin.com • 4 hours ago
+          </p>
+        </div>
+      </a>
+
+      <!-- Bookmark Item 5 -->
+      <a
+        href="#"
+        class="flex items-center gap-3 px-3 py-2 hover:bg-zinc-50 transition group"
+      >
+        <div
+          class="flex-shrink-0 w-4 h-4 bg-red-600 rounded flex items-center justify-center"
+        >
+          <span class="text-white text-xs font-semibold">N</span>
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="text-sm text-zinc-900 font-medium truncate">
+            Netflix Nigeria - Watch TV Shows Online W...
+          </p>
+          <p class="text-xs text-zinc-500 truncate">
+            netflix.com • 4 hours ago
+          </p>
+        </div>
+      </a>
+
+      <!-- Bookmark Item 6 -->
+      <a
+        href="#"
+        class="flex items-center gap-3 px-3 py-2 hover:bg-zinc-50 transition group"
+      >
+        <div
+          class="flex-shrink-0 w-4 h-4 bg-orange-500 rounded flex items-center justify-center"
+        >
+          <span class="text-white text-xs font-semibold">J</span>
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="text-sm text-zinc-900 font-medium truncate">
+            Jamick || Loved Leather Platform Boots in...
+          </p>
+          <p class="text-xs text-zinc-500 truncate">
+            nordstrom.com • 1 hours ago
+          </p>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- History Dropdown -->
+  <div
+    id="history-dropdown"
+    class="hidden fixed top-16 right-20 bg-white dark:bg-zinc-800 rounded-lg shadow-2xl border border-zinc-200 dark:border-zinc-700 w-72 max-h-96 overflow-hidden z-50"
+  >
+    <!-- Search Bar -->
+    <div class="p-3 border-b border-zinc-200">
+      <div class="relative">
+        <svg
+          class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-zinc-400"
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M17.5 17.5L13.9167 13.9167M15.8333 9.16667C15.8333 12.8486 12.8486 15.8333 9.16667 15.8333C5.48477 15.8333 2.5 12.8486 2.5 9.16667C2.5 5.48477 5.48477 2.5 9.16667 2.5C12.8486 2.5 15.8333 5.48477 15.8333 9.16667Z"
+            stroke="currentColor"
+            stroke-width="1.66667"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+        <input
+          type="text"
+          placeholder="Search History"
+          class="w-full bg-white border border-zinc-200 text-sm text-zinc-900 placeholder-zinc-400 rounded-md pl-9 pr-3 py-1.5 focus:outline-none focus:ring-1 focus:ring-zinc-300 focus:border-zinc-300"
+        />
+      </div>
+    </div>
+    <!-- History List -->
+    <div class="py-2 max-h-80 overflow-y-auto">
+      <!-- History Item 1 -->
+      <a
+        href="#"
+        class="flex items-center gap-3 px-3 py-2 hover:bg-zinc-50 transition group"
+      >
+        <div
+          class="flex-shrink-0 w-4 h-4 bg-red-500 rounded flex items-center justify-center"
+        >
+          <span class="text-white text-xs font-semibold">Y</span>
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="text-sm text-zinc-900 font-medium truncate">
+            (148) RKG's Halloween Sleepover - Outfi...
+          </p>
+          <p class="text-xs text-zinc-500 truncate">
+            youtube.com • 5 hours ago
+          </p>
+        </div>
+      </a>
+
+      <!-- History Item 2 -->
+      <a
+        href="#"
+        class="flex items-center gap-3 px-3 py-2 hover:bg-zinc-50 transition group"
+      >
+        <div
+          class="flex-shrink-0 w-4 h-4 bg-purple-500 rounded flex items-center justify-center"
+        >
+          <span class="text-white text-xs font-semibold">D</span>
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="text-sm text-zinc-900 font-medium truncate">
+            Dribbble - Discover the World's Top Desig...
+          </p>
+          <p class="text-xs text-zinc-500 truncate">
+            dribbble.com • 6 hours ago
+          </p>
+        </div>
+      </a>
+
+      <!-- History Item 3 -->
+      <a
+        href="#"
+        class="flex items-center gap-3 px-3 py-2 hover:bg-zinc-50 transition group"
+      >
+        <div
+          class="flex-shrink-0 w-4 h-4 bg-green-500 rounded flex items-center justify-center"
+        >
+          <span class="text-white text-xs font-semibold">S</span>
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="text-sm text-zinc-900 font-medium truncate">
+            Spotify - Web Player: Music for Everyone...
+          </p>
+          <p class="text-xs text-zinc-500 truncate">
+            open.spotify.com • 2 hours ago
+          </p>
+        </div>
+      </a>
+
+      <!-- History Item 4 -->
+      <a
+        href="#"
+        class="flex items-center gap-3 px-3 py-2 hover:bg-zinc-50 transition group"
+      >
+        <div
+          class="flex-shrink-0 w-4 h-4 bg-blue-500 rounded flex items-center justify-center"
+        >
+          <span class="text-white text-xs font-semibold">L</span>
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="text-sm text-zinc-900 font-medium truncate">
+            (3) Feed - LinkedIn
+          </p>
+          <p class="text-xs text-zinc-500 truncate">
+            linkedin.com • 4 hours ago
+          </p>
+        </div>
+      </a>
+
+      <!-- History Item 5 -->
+      <a
+        href="#"
+        class="flex items-center gap-3 px-3 py-2 hover:bg-zinc-50 transition group"
+      >
+        <div
+          class="flex-shrink-0 w-4 h-4 bg-red-600 rounded flex items-center justify-center"
+        >
+          <span class="text-white text-xs font-semibold">N</span>
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="text-sm text-zinc-900 font-medium truncate">
+            Netflix Nigeria - Watch TV Shows Online W...
+          </p>
+          <p class="text-xs text-zinc-500 truncate">
+            netflix.com • 4 hours ago
+          </p>
+        </div>
+      </a>
+
+      <!-- History Item 6 -->
+      <a
+        href="#"
+        class="flex items-center gap-3 px-3 py-2 hover:bg-zinc-50 transition group"
+      >
+        <div
+          class="flex-shrink-0 w-4 h-4 bg-orange-500 rounded flex items-center justify-center"
+        >
+          <span class="text-white text-xs font-semibold">J</span>
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="text-sm text-zinc-900 font-medium truncate">
+            Jamick || Loved Leather Platform Boots in...
+          </p>
+          <p class="text-xs text-zinc-500 truncate">
+            pinterest.com • 5 hours ago
+          </p>
+        </div>
+      </a>
+
+      <!-- Show All Button -->
+      <div class="border-t border-zinc-200 dark:border-zinc-700 p-2">
+        <button
+          onclick="window.openHistory()"
+          class="w-full text-sm text-zinc-700 dark:text-zinc-300 font-medium py-1.5 hover:bg-zinc-50 dark:hover:bg-zinc-700 rounded flex items-center justify-start gap-1 px-3"
+        >
+          Show All
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M3.33398 7.9987H12.6673M12.6673 7.9987L8.00065 3.33203M12.6673 7.9987L8.00065 12.6654"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Downloads Dropdown -->
+  <div
+    id="downloads-dropdown"
+    class="hidden fixed top-16 right-96 bg-white dark:bg-zinc-800 rounded-lg shadow-2xl border border-zinc-200 dark:border-zinc-700 w-72 max-h-96 overflow-hidden z-50"
+  >
+    <!-- Search Bar -->
+    <div class="p-3 border-b border-zinc-200">
+      <div class="relative">
+        <svg
+          class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-zinc-400"
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M17.5 17.5L13.9167 13.9167M15.8333 9.16667C15.8333 12.8486 12.8486 15.8333 9.16667 15.8333C5.48477 15.8333 2.5 12.8486 2.5 9.16667C2.5 5.48477 5.48477 2.5 9.16667 2.5C12.8486 2.5 15.8333 5.48477 15.8333 9.16667Z"
+            stroke="currentColor"
+            stroke-width="1.66667"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+        <input
+          type="text"
+          placeholder="Search Downloads"
+          class="w-full bg-white border border-zinc-200 text-sm text-zinc-900 placeholder-zinc-400 rounded-md pl-9 pr-3 py-1.5 focus:outline-none focus:ring-1 focus:ring-zinc-300 focus:border-zinc-300"
+        />
+      </div>
+    </div>
+
+    <!-- Downloads List -->
+    <div class="py-2 max-h-80 overflow-y-auto">
+      <!-- Download Item 1 -->
+      <div
+        class="flex items-center gap-3 px-3 py-2 hover:bg-zinc-50 transition group"
+      >
+        <div
+          class="flex-shrink-0 w-8 h-8 bg-zinc-100 rounded flex items-center justify-center"
+        >
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 20 20"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M17.5 12.5V15.8333C17.5 16.2754 17.3244 16.6993 17.0118 17.0118C16.6993 17.3244 16.2754 17.5 15.8333 17.5H4.16667C3.72464 17.5 3.30072 17.3244 2.98816 17.0118C2.67559 16.6993 2.5 16.2754 2.5 15.8333V12.5M5.83333 8.33333L10 12.5M10 12.5L14.1667 8.33333M10 12.5V2.5"
+              stroke="#868E96"
+              stroke-width="1.66667"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="text-sm text-zinc-900 font-medium truncate">
+            AUDIO-2020-05-05-10-30-22.rt
+          </p>
+          <div class="flex items-center gap-2 text-xs text-zinc-500">
+            <span>35 MB</span>
+            <span>•</span>
+            <span>5 hours ago</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-1">
+          <button class="p-1 hover:bg-zinc-200 rounded" title="Pause">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.1667 3.33203H12.5C12.0398 3.33203 11.6667 3.70513 11.6667 4.16536V15.832C11.6667 16.2923 12.0398 16.6654 12.5 16.6654H14.1667C14.6269 16.6654 15 16.2923 15 15.832V4.16536C15 3.70513 14.6269 3.33203 14.1667 3.33203Z"
+                stroke="#868E96"
+                stroke-width="1.66667"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M7.5 3.33203H5.83333C5.3731 3.33203 5 3.70513 5 4.16536V15.832C5 16.2923 5.3731 16.6654 5.83333 16.6654H7.5C7.96024 16.6654 8.33333 16.2923 8.33333 15.832V4.16536C8.33333 3.70513 7.96024 3.33203 7.5 3.33203Z"
+                stroke="#868E96"
+                stroke-width="1.66667"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+          <button class="p-1 hover:bg-zinc-200 rounded" title="Cancel">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M15 5L5 15M5 5L15 15"
+                stroke="#868E96"
+                stroke-width="1.66667"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Download Item 2 -->
+      <div
+        class="flex items-center gap-3 px-3 py-2 hover:bg-zinc-50 transition group"
+      >
+        <div
+          class="flex-shrink-0 w-8 h-8 bg-zinc-100 rounded flex items-center justify-center"
+        >
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 20 20"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M17.5 12.5V15.8333C17.5 16.2754 17.3244 16.6993 17.0118 17.0118C16.6993 17.3244 16.2754 17.5 15.8333 17.5H4.16667C3.72464 17.5 3.30072 17.3244 2.98816 17.0118C2.67559 16.6993 2.5 16.2754 2.5 15.8333V12.5M5.83333 8.33333L10 12.5M10 12.5L14.1667 8.33333M10 12.5V2.5"
+              stroke="#868E96"
+              stroke-width="1.66667"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="text-sm text-zinc-900 font-medium truncate">
+            AUDIO-2020-05-05-10-30-22.rt
+          </p>
+          <div class="flex items-center gap-2 text-xs text-zinc-500">
+            <span>40 MB</span>
+            <span>•</span>
+            <span>5 hours ago</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-1">
+          <button class="p-1 hover:bg-zinc-200 rounded" title="Pause">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.1667 3.33203H12.5C12.0398 3.33203 11.6667 3.70513 11.6667 4.16536V15.832C11.6667 16.2923 12.0398 16.6654 12.5 16.6654H14.1667C14.6269 16.6654 15 16.2923 15 15.832V4.16536C15 3.70513 14.6269 3.33203 14.1667 3.33203Z"
+                stroke="#868E96"
+                stroke-width="1.66667"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M7.5 3.33203H5.83333C5.3731 3.33203 5 3.70513 5 4.16536V15.832C5 16.2923 5.3731 16.6654 5.83333 16.6654H7.5C7.96024 16.6654 8.33333 16.2923 8.33333 15.832V4.16536C8.33333 3.70513 7.96024 3.33203 7.5 3.33203Z"
+                stroke="#868E96"
+                stroke-width="1.66667"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+          <button class="p-1 hover:bg-zinc-200 rounded" title="Cancel">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M15 5L5 15M5 5L15 15"
+                stroke="#868E96"
+                stroke-width="1.66667"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Download Item 3 -->
+      <div
+        class="flex items-center gap-3 px-3 py-2 hover:bg-zinc-50 transition group"
+      >
+        <div
+          class="flex-shrink-0 w-8 h-8 bg-zinc-100 rounded flex items-center justify-center"
+        >
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 20 20"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M17.5 12.5V15.8333C17.5 16.2754 17.3244 16.6993 17.0118 17.0118C16.6993 17.3244 16.2754 17.5 15.8333 17.5H4.16667C3.72464 17.5 3.30072 17.3244 2.98816 17.0118C2.67559 16.6993 2.5 16.2754 2.5 15.8333V12.5M5.83333 8.33333L10 12.5M10 12.5L14.1667 8.33333M10 12.5V2.5"
+              stroke="#868E96"
+              stroke-width="1.66667"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="text-sm text-zinc-900 font-medium truncate">
+            AUDIO-2020-05-05-10-30-22.rt
+          </p>
+          <div class="flex items-center gap-2 text-xs text-zinc-500">
+            <span>36 MB</span>
+            <span>•</span>
+            <span>5 hours ago</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-1">
+          <button class="p-1 hover:bg-zinc-200 rounded" title="Pause">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.1667 3.33203H12.5C12.0398 3.33203 11.6667 3.70513 11.6667 4.16536V15.832C11.6667 16.2923 12.0398 16.6654 12.5 16.6654H14.1667C14.6269 16.6654 15 16.2923 15 15.832V4.16536C15 3.70513 14.6269 3.33203 14.1667 3.33203Z"
+                stroke="#868E96"
+                stroke-width="1.66667"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M7.5 3.33203H5.83333C5.3731 3.33203 5 3.70513 5 4.16536V15.832C5 16.2923 5.3731 16.6654 5.83333 16.6654H7.5C7.96024 16.6654 8.33333 16.2923 8.33333 15.832V4.16536C8.33333 3.70513 7.96024 3.33203 7.5 3.33203Z"
+                stroke="#868E96"
+                stroke-width="1.66667"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+          <button class="p-1 hover:bg-zinc-200 rounded" title="Cancel">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M15 5L5 15M5 5L15 15"
+                stroke="#868E96"
+                stroke-width="1.66667"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Download Item 4 with Progress Bar -->
+      <div class="px-3 py-2 hover:bg-zinc-50 transition group">
+        <div class="flex items-center gap-3 mb-2">
+          <div
+            class="flex-shrink-0 w-8 h-8 bg-zinc-100 rounded flex items-center justify-center"
+          >
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M17.5 12.5V15.8333C17.5 16.2754 17.3244 16.6993 17.0118 17.0118C16.6993 17.3244 16.2754 17.5 15.8333 17.5H4.16667C3.72464 17.5 3.30072 17.3244 2.98816 17.0118C2.67559 16.6993 2.5 16.2754 2.5 15.8333V12.5M5.83333 8.33333L10 12.5M10 12.5L14.1667 8.33333M10 12.5V2.5"
+                stroke="#868E96"
+                stroke-width="1.66667"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+          <div class="flex-1 min-w-0">
+            <p class="text-sm text-zinc-900 font-medium truncate">
+              AUDIO-2020-05-05-10-30-22.rt
+            </p>
+            <div class="flex items-center gap-2 text-xs text-zinc-500">
+              <span>20/36 MB</span>
+            </div>
+          </div>
+          <div class="flex items-center gap-1">
+            <button class="p-1 hover:bg-zinc-200 rounded" title="Pause">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M14.1667 3.33203H12.5C12.0398 3.33203 11.6667 3.70513 11.6667 4.16536V15.832C11.6667 16.2923 12.0398 16.6654 12.5 16.6654H14.1667C14.6269 16.6654 15 16.2923 15 15.832V4.16536C15 3.70513 14.6269 3.33203 14.1667 3.33203Z"
+                  stroke="#868E96"
+                  stroke-width="1.66667"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M7.5 3.33203H5.83333C5.3731 3.33203 5 3.70513 5 4.16536V15.832C5 16.2923 5.3731 16.6654 5.83333 16.6654H7.5C7.96024 16.6654 8.33333 16.2923 8.33333 15.832V4.16536C8.33333 3.70513 7.96024 3.33203 7.5 3.33203Z"
+                  stroke="#868E96"
+                  stroke-width="1.66667"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </button>
+            <button class="p-1 hover:bg-zinc-200 rounded" title="Cancel">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M15 5L5 15M5 5L15 15"
+                  stroke="#868E96"
+                  stroke-width="1.66667"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div class="ml-11 mr-14">
+          <div class="w-full bg-zinc-200 rounded-full h-1.5">
+            <div
+              class="bg-blue-600 h-1.5 rounded-full"
+              style="width: 55%"
+            ></div>
+          </div>
+          <p class="text-xs text-zinc-500 mt-1">55%</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tasks Dropdown -->
+  <div
+    id="tasks-dropdown"
+    class="hidden fixed top-16 right-20 bg-white dark:bg-zinc-800 rounded-lg shadow-2xl border border-zinc-200 dark:border-zinc-700 w-72 overflow-hidden z-50"
+  >
+    <!-- Header -->
+    <div
+      class="flex items-center justify-between p-3 border-b border-zinc-200 dark:border-zinc-700 bg-zinc-900"
+    >
+      <div class="flex items-center gap-2">
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g clip-path="url(#clip0_1_145499)">
+            <path
+              d="M16.6667 2.50151V5.83484M18.3334 4.16818H15M3.33336 14.1682V15.8348M4.1667 15.0015H2.50003M8.28086 12.9182C8.20647 12.6298 8.05615 12.3666 7.84555 12.156C7.63494 11.9454 7.37176 11.7951 7.08336 11.7207L1.97086 10.4023C1.88364 10.3776 1.80687 10.3251 1.75221 10.2527C1.69754 10.1804 1.66797 10.0922 1.66797 10.0015C1.66797 9.91084 1.69754 9.82264 1.75221 9.7503C1.80687 9.67797 1.88364 9.62543 1.97086 9.60068L7.08336 8.28151C7.37166 8.20718 7.63477 8.05699 7.84537 7.84654C8.05596 7.6361 8.20634 7.37308 8.28086 7.08484L9.5992 1.97234C9.6237 1.88477 9.67618 1.80763 9.74863 1.75267C9.82108 1.69772 9.90951 1.66797 10.0004 1.66797C10.0914 1.66797 10.1798 1.69772 10.2523 1.75267C10.3247 1.80763 10.3772 1.88477 10.4017 1.97234L11.7192 7.08484C11.7936 7.37324 11.9439 7.63642 12.1545 7.84702C12.3651 8.05762 12.6283 8.20794 12.9167 8.28234L18.0292 9.59984C18.1171 9.62409 18.1946 9.67652 18.2499 9.74907C18.3051 9.82163 18.3351 9.91031 18.3351 10.0015C18.3351 10.0927 18.3051 10.1814 18.2499 10.2539C18.1946 10.3265 18.1171 10.3789 18.0292 10.4032L12.9167 11.7207C12.6283 11.7951 12.3651 11.9454 12.1545 12.156C11.9439 12.3666 11.7936 12.6298 11.7192 12.9182L10.4009 18.0307C10.3764 18.1182 10.3239 18.1954 10.2514 18.2503C10.179 18.3053 10.0905 18.3351 9.99961 18.3351C9.90868 18.3351 9.82025 18.3053 9.7478 18.2503C9.67535 18.1954 9.62287 18.1182 9.59836 18.0307L8.28086 12.9182Z"
+              stroke="white"
+              stroke-width="1.41667"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </g>
+          <defs>
+            <clipPath id="clip0_1_145499">
+              <rect width="20" height="20" fill="white" />
+            </clipPath>
+          </defs>
+        </svg>
+        <h3 class="text-white font-medium text-sm">Tasks</h3>
+      </div>
+      <button onclick="toggleTasks()" class="text-white hover:text-zinc-300">
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M15 5L5 15M5 5L15 15"
+            stroke="currentColor"
+            stroke-width="1.25"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Add Task Input -->
+    <div class="p-3 border-b border-zinc-200 dark:border-zinc-700">
+      <div class="flex gap-2">
+        <input
+          id="task-input"
+          type="text"
+          placeholder="Add a new task..."
+          class="flex-1 bg-white dark:bg-zinc-700 border border-zinc-200 dark:border-zinc-600 text-sm text-zinc-900 dark:text-white placeholder-zinc-400 rounded-md px-3 py-1.5 focus:outline-none focus:ring-1 focus:ring-zinc-300 focus:border-zinc-300"
+          onkeypress="if(event.key === 'Enter') addTask()"
+        />
+        <button
+          onclick="addTask()"
+          class="px-3 py-1.5 bg-zinc-900 text-white text-sm rounded-md hover:bg-zinc-800"
+        >
+          Add
+        </button>
+      </div>
+    </div>
+
+    <!-- Tasks List -->
+    <div id="tasks-list" class="py-2 max-h-80 overflow-y-auto">
+      <!-- Tasks will be dynamically added here -->
+    </div>
+
+    <!-- Empty State -->
+    <div id="tasks-empty" class="py-8 text-center text-zinc-400 text-sm hidden">
+      No tasks yet. Add one above!
+    </div>
+  </div>
+
+  <!-- Quick Note Dropdown -->
+  <div
+    id="notes-dropdown"
+    class="hidden fixed top-16 right-20 bg-white dark:bg-zinc-800 rounded-lg shadow-2xl border border-zinc-200 dark:border-zinc-700 w-[400px] overflow-hidden z-50"
+  >
+    <!-- Header -->
+    <div
+      class="flex items-center justify-between p-3 border-b border-zinc-200 dark:border-zinc-700 bg-zinc-900"
+    >
+      <div class="flex items-center gap-2">
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g clip-path="url(#clip0_1_145499_2)">
+            <path
+              d="M16.6667 2.50151V5.83484M18.3334 4.16818H15M3.33336 14.1682V15.8348M4.1667 15.0015H2.50003M8.28086 12.9182C8.20647 12.6298 8.05615 12.3666 7.84555 12.156C7.63494 11.9454 7.37176 11.7951 7.08336 11.7207L1.97086 10.4023C1.88364 10.3776 1.80687 10.3251 1.75221 10.2527C1.69754 10.1804 1.66797 10.0922 1.66797 10.0015C1.66797 9.91084 1.69754 9.82264 1.75221 9.7503C1.80687 9.67797 1.88364 9.62543 1.97086 9.60068L7.08336 8.28151C7.37166 8.20718 7.63477 8.05699 7.84537 7.84654C8.05596 7.6361 8.20634 7.37308 8.28086 7.08484L9.5992 1.97234C9.6237 1.88477 9.67618 1.80763 9.74863 1.75267C9.82108 1.69772 9.90951 1.66797 10.0004 1.66797C10.0914 1.66797 10.1798 1.69772 10.2523 1.75267C10.3247 1.80763 10.3772 1.88477 10.4017 1.97234L11.7192 7.08484C11.7936 7.37324 11.9439 7.63642 12.1545 7.84702C12.3651 8.05762 12.6283 8.20794 12.9167 8.28234L18.0292 9.59984C18.1171 9.62409 18.1946 9.67652 18.2499 9.74907C18.3051 9.82163 18.3351 9.91031 18.3351 10.0015C18.3351 10.0927 18.3051 10.1814 18.2499 10.2539C18.1946 10.3265 18.1171 10.3789 18.0292 10.4032L12.9167 11.7207C12.6283 11.7951 12.3651 11.9454 12.1545 12.156C11.9439 12.3666 11.7936 12.6298 11.7192 12.9182L10.4009 18.0307C10.3764 18.1182 10.3239 18.1954 10.2514 18.2503C10.179 18.3053 10.0905 18.3351 9.99961 18.3351C9.90868 18.3351 9.82025 18.3053 9.7478 18.2503C9.67535 18.1954 9.62287 18.1182 9.59836 18.0307L8.28086 12.9182Z"
+              stroke="white"
+              stroke-width="1.41667"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </g>
+          <defs>
+            <clipPath id="clip0_1_145499_2">
+              <rect width="20" height="20" fill="white" />
+            </clipPath>
+          </defs>
+        </svg>
+        <h3 class="text-white font-medium text-sm">Quick Note</h3>
+      </div>
+      <button
+        onclick="toggleQuickNote()"
+        class="text-white hover:text-zinc-300"
+      >
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M15 5L5 15M5 5L15 15"
+            stroke="currentColor"
+            stroke-width="1.25"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Note Textarea -->
+    <div class="p-3">
+      <textarea
+        id="quicknote-textarea"
+        placeholder="Start typing your note..."
+        class="w-full h-64 bg-white dark:bg-zinc-700 border border-zinc-200 dark:border-zinc-600 text-sm text-zinc-900 dark:text-white placeholder-zinc-400 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-zinc-300 focus:border-zinc-300 resize-none"
+      ></textarea>
+      <div class="mt-2 flex justify-between items-center">
+        <span id="char-count" class="text-xs text-zinc-400">0 characters</span>
+        <button
+          onclick="clearNote()"
+          class="text-xs text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-300"
+        >
+          Clear Note
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!--  -->
+</div>
