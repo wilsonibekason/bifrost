@@ -34,10 +34,7 @@ export class TabManager {
     const maxRetries = 20;
 
     const initializeDOM = () => {
-      this.tabBarElement =
-        document.querySelector("#tab-bar .flex-1") ||
-        document.querySelector("#tab-bar") ||
-        document.querySelector("[data-tab-container]");
+      this.tabBarElement = document.querySelector("#tabs-container");
 
       this.contentContainer =
         document.querySelector("#private-browser-content") ||
@@ -72,7 +69,7 @@ export class TabManager {
         const initialTab: Tab = {
           id: initialTabId,
           title: "Private Browsing",
-          url: "private-mode", // Keep this as is
+          url: "private-mode",
           favicon: "",
           isActive: true,
           isSpecial: true,
@@ -436,13 +433,18 @@ export class TabManager {
     const tabBar = this.tabBarElement.parentElement;
     if (!tabBar) return 240;
 
-    // Calculate available width (account for actions buttons ~100px and padding)
-    const availableWidth = tabBar.clientWidth - 120; // Reserve space for action buttons
+    // Calculate width of fixed elements
+    const windowControlsWidth = 120; // Window controls on left
+    const actionsWidth = 120; // Action buttons on right
+    const padding = 20; // Extra padding/margins
+
+    const availableWidth =
+      tabBar.clientWidth - windowControlsWidth - actionsWidth - padding;
     const tabCount = this.tabs.length;
 
     // Define max and min widths
     const MAX_TAB_WIDTH = 240;
-    const MIN_TAB_WIDTH = 100;
+    const MIN_TAB_WIDTH = 5; // Reduced from 100 to allow more tabs
 
     // Calculate ideal width per tab
     let tabWidth = availableWidth / tabCount;

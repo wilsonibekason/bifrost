@@ -1,11 +1,8 @@
 <div class="toolbar-container">
   <!-- Tab Bar -->
-  <div
-    id="tab-bar"
-    class="flex items-center bg-zinc-900 px-2 py-1 overflow-x-auto no-drag"
-  >
+  <div id="tab-bar" class="flex items-center bg-zinc-900 px-2 py-1 no-drag">
     <!-- Left: Window Controls -->
-    <div class="flex items-center space-x-2 px-6 no-drag">
+    <div class="flex items-center space-x-2 px-6 no-drag flex-shrink-0">
       <div class="flex space-x-2">
         <button
           onclick="window.__TAURI__?.window?.getCurrent().close()"
@@ -26,12 +23,12 @@
     </div>
 
     <!-- Tabs will be loaded here -->
-    <div class="flex items-center space-x-1 flex-1">
+    <div id="tabs-container" class="flex items-center space-x-1 flex-1 min-w-0">
       <!-- Tabs will be dynamically rendered by TabManager -->
     </div>
 
     <!-- Tab Actions -->
-    <div class="flex items-center space-x-1 ml-2">
+    <div class="flex items-center space-x-1 ml-2 flex-shrink-0">
       <!-- New Tab Button -->
       <button
         onclick="window.createNewTab()"
@@ -104,6 +101,7 @@
       </button>
     </div>
   </div>
+
   <!-- Navigation Bar -->
   <div class="flex items-center space-x-2 bg-zinc-800 px-3 py-2 no-drag">
     <!-- Navigation Controls -->

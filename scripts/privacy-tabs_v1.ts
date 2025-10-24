@@ -417,8 +417,11 @@ export class TabManager {
 
     const fragment = document.createDocumentFragment();
 
+    // Calculate dynamic tab width
+    const tabWidth = this.calculateTabWidth();
+
     this.tabs.forEach((tab) => {
-      const tabElement = this.createTabElement(tab);
+      const tabElement = this.createTabElement(tab, tabWidth);
       fragment.appendChild(tabElement);
     });
 
@@ -426,15 +429,63 @@ export class TabManager {
     this.tabBarElement.appendChild(fragment);
   }
 
-  private createTabElement(tab: Tab): HTMLElement {
+  private calculateTabWidth(): number {
+    if (!this.tabBarElement) return 240;
+
+    // Get the parent container (tab-bar)
+    const tabBar = this.tabBarElement.parentElement;
+    if (!tabBar) return 240;
+
+    // Calculate available width (account for actions buttons ~100px and padding)
+    const availableWidth = tabBar.clientWidth - 120; // Reserve space for action buttons
+    const tabCount = this.tabs.length;
+
+    // Define max and min widths
+    const MAX_TAB_WIDTH = 240;
+    const MIN_TAB_WIDTH = 100;
+
+    // Calculate ideal width per tab
+    let tabWidth = availableWidth / tabCount;
+
+    // Clamp between min and max
+    tabWidth = Math.max(MIN_TAB_WIDTH, Math.min(MAX_TAB_WIDTH, tabWidth));
+
+    return tabWidth;
+  }
+
+  private calculateTabWidth_DONOT_REMOVE(): number {
+    if (!this.tabBarElement) return 240;
+
+    // Get the parent container (tab-bar)
+    const tabBar = this.tabBarElement.parentElement;
+    if (!tabBar) return 240;
+
+    // Calculate available width (account for window controls ~120px, actions buttons ~100px and padding)
+    const availableWidth = tabBar.clientWidth - 220; // Reserve space for both window controls and action buttons
+    const tabCount = this.tabs.length;
+
+    // Define max and min widths
+    const MAX_TAB_WIDTH = 240;
+    const MIN_TAB_WIDTH = 100;
+
+    // Calculate ideal width per tab
+    let tabWidth = availableWidth / tabCount;
+
+    // Clamp between min and max
+    tabWidth = Math.max(MIN_TAB_WIDTH, Math.min(MAX_TAB_WIDTH, tabWidth));
+
+    return tabWidth;
+  }
+
+  private createTabElement(tab: Tab, width: number): HTMLElement {
     const tabDiv = document.createElement("div");
     tabDiv.className = `flex items-center gap-2 px-4 py-2.5 transition cursor-pointer group relative ${
       tab.isActive
         ? "bg-zinc-800 text-white"
         : "bg-zinc-700 text-zinc-300 hover:bg-zinc-700/80"
     }`;
-    tabDiv.style.cssText =
-      "width: 240px; height: 52px; border-radius: 8px 8px 0 0;";
+    // Updated: Dynamic width with flex-shrink-0 to prevent unwanted compression
+    tabDiv.style.cssText = `width: ${width}px; height: 52px; border-radius: 8px 8px 0 0; flex-shrink: 0;`;
     tabDiv.setAttribute("role", "tab");
     tabDiv.setAttribute("aria-selected", tab.isActive.toString());
     tabDiv.setAttribute("data-tab-id", tab.id);
@@ -474,10 +525,10 @@ export class TabManager {
       closeBtn.className =
         "opacity-0 group-hover:opacity-100 hover:bg-zinc-600 rounded p-1 transition flex-shrink-0";
       closeBtn.innerHTML = `
-        <svg width="14" height="14" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M15 5L5 15M5 5L15 15" stroke="currentColor" stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      `;
+      <svg width="14" height="14" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M15 5L5 15M5 5L15 15" stroke="currentColor" stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    `;
       closeBtn.addEventListener("click", (e) => {
         e.stopPropagation();
         this.closeTab(tab.id);
