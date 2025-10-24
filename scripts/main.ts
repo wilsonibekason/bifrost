@@ -3,6 +3,7 @@ import "./search.js";
 import "./utils.js";
 import { SettingsManager } from "./settings.ts";
 import "./history.js";
+import { initializeToolbarManager } from "./toolbar.ts";
 // import "./tab-groups.ts";
 import { initializeTabGroups } from "./tab-groups.ts";
 
@@ -56,6 +57,10 @@ async function initializeToolbar() {
 
   // Initialize Tauri commands
   await invoke("create_window").catch(console.error);
+
+  // Initialize ToolbarManager AFTER toolbar HTML is loaded
+  console.log("[Toolbar] Toolbar HTML loaded, initializing manager");
+  initializeToolbarManager();
 }
 
 // Global state management
@@ -109,7 +114,7 @@ window.addToHistory = (url: string, title: string) => {
     window.atlasState.history = window.atlasState.history.slice(0, 100);
   }
 
-  console.log("[Atlas] Added to history:", title);
+  console.log("[Bifrost] Added to history:", title);
 };
 
 function getFaviconUrl(url: string): string {
@@ -151,7 +156,7 @@ window.addEventListener("DOMContentLoaded", () => {
   // Add demo history after a short delay (for testing)
   setTimeout(() => {
     addDemoHistory();
-    console.log("[Atlas] Demo history added");
+    console.log("[Bifrost] Demo history added");
   }, 2000);
 
   // Initialize settings
@@ -174,7 +179,7 @@ window.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  console.log("[Atlas] Keyboard shortcuts initialized:");
+  console.log("[Bifrost] Keyboard shortcuts initialized:");
   console.log("  Ctrl/Cmd + H - Open History");
   console.log("  Ctrl/Cmd + , - Open Settings");
   console.log("  Ctrl/Cmd + T - New Tab");

@@ -1,7 +1,7 @@
 <div class="toolbar-container">
   <!-- Window Controls (macOS style) -->
   <div
-    class="flex items-center justify-between bg-zinc-800 px-3 py-2 toolbar-drag-region"
+    class="hidden items-center justify-between bg-zinc-800 px-3 py-2 toolbar-drag-region"
   >
     <!-- Left: Window Controls -->
     <div class="flex items-center space-x-2 no-drag">
@@ -159,6 +159,27 @@
     id="tab-bar"
     class="flex items-center bg-zinc-900 px-2 py-1 overflow-x-auto no-drag"
   >
+    <!-- Left: Window Controls -->
+    <div class="flex items-center space-x-2 px-6 no-drag">
+      <div class="flex space-x-2">
+        <button
+          onclick="window.__TAURI__?.window?.getCurrent().close()"
+          class="w-3 h-3 rounded-full bg-red-500 hover:bg-red-600 transition"
+          title="Close"
+        ></button>
+        <button
+          onclick="window.__TAURI__?.window?.getCurrent().minimize()"
+          class="w-3 h-3 rounded-full bg-yellow-500 hover:bg-yellow-600 transition"
+          title="Minimize"
+        ></button>
+        <button
+          onclick="window.__TAURI__?.window?.getCurrent().toggleMaximize()"
+          class="w-3 h-3 rounded-full bg-green-500 hover:bg-green-600 transition"
+          title="Maximize"
+        ></button>
+      </div>
+    </div>
+
     <!-- Tabs will be loaded here -->
     <div class="flex items-center space-x-1 flex-1">
       <!-- Tabs will be dynamically rendered by TabManager -->
@@ -387,7 +408,8 @@
     </div>
 
     <!-- Address Bar -->
-    <div class="flex-1 flex items-center justify-center gap-2">
+    <div class="flex-1 flex items-center justify-center gap-2 relative">
+      <!-- Add 'relative' class to this parent div -->
       <!-- Bookmark Icon (Outside) -->
       <button
         onclick="toggleBookmarksDropdown()"
@@ -555,7 +577,7 @@
   <!-- Bookmarks Bar -->
   <div
     id="bookmarks-bar"
-    class="bg-zinc-800 px-3 py-1.5 flex items-center space-x-3 text-xs overflow-x-auto no-drag border-t border-zinc-700"
+    class="bg-zinc-800 px-3 py-1.5 flex items-center space-x-3 text-xs overflow-x-auto no-drag border-t border-zinc-700 hidden"
   >
     <button
       class="flex items-center space-x-1 px-2 py-1 rounded hover:bg-zinc-700 transition whitespace-nowrap"

@@ -1,3 +1,4 @@
+//  SETTINGS MANAGER FOR BROWSER EXTENSION
 interface SettingsState {
   privacy: {
     cookies: string;
