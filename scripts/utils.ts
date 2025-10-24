@@ -485,6 +485,290 @@ function initializeNotesTextarea() {
   }
 }
 
+// Account Management
+let userEmail = "";
+
+function toggleCreateAccountDropdown() {
+  const dropdown = document.getElementById("create-account-dropdown");
+  const menu = document.getElementById("main-menu-dropdown");
+
+  if (!dropdown) {
+    console.error("[BiFrost] Create account dropdown not found");
+    return;
+  }
+
+  // Close main menu
+  menu?.classList.add("hidden");
+
+  // Toggle create account dropdown
+  dropdown.classList.toggle("hidden");
+
+  // Clear email input and error when opening
+  if (!dropdown.classList.contains("hidden")) {
+    const emailInput = document.getElementById(
+      "create-account-email"
+    ) as HTMLInputElement;
+    const emailError = document.getElementById("email-error");
+    if (emailInput) emailInput.value = "";
+    if (emailError) emailError.classList.add("hidden");
+  }
+
+  console.log("[BiFrost] Create account dropdown toggled");
+}
+
+function toggleVerifyEmailDropdown() {
+  const dropdown = document.getElementById("verify-email-dropdown");
+
+  if (!dropdown) {
+    console.error("[BiFrost] Verify email dropdown not found");
+    return;
+  }
+
+  // Toggle verify email dropdown
+  dropdown.classList.toggle("hidden");
+
+  // Clear OTP inputs and error when opening
+  if (!dropdown.classList.contains("hidden")) {
+    const otpInputs = document.querySelectorAll(
+      ".otp-input"
+    ) as NodeListOf<HTMLInputElement>;
+    otpInputs.forEach((input) => (input.value = ""));
+    const otpError = document.getElementById("otp-error");
+    if (otpError) otpError.classList.add("hidden");
+
+    // Initialize OTP inputs NOW (when dropdown is visible)
+    initializeOTPInputs();
+
+    // Focus first input
+    setTimeout(() => {
+      if (otpInputs[0]) otpInputs[0].focus();
+    }, 50);
+  }
+
+  console.log("[BiFrost] Verify email dropdown toggled");
+}
+
+function validateEmail(email: string): boolean {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+}
+
+function handleCreateAccount() {
+  const emailInput = document.getElementById(
+    "create-account-email"
+  ) as HTMLInputElement;
+  const emailError = document.getElementById("email-error");
+
+  if (!emailInput || !emailError) {
+    console.error("[BiFrost] Email input or error element not found");
+    return;
+  }
+
+  const email = emailInput.value.trim();
+
+  // Validate email
+  if (!email || !validateEmail(email)) {
+    emailError.classList.remove("hidden");
+    emailInput.focus();
+    console.log("[BiFrost] Invalid email entered");
+    return;
+  }
+
+  // Hide error if visible
+  emailError.classList.add("hidden");
+
+  // Store email
+  userEmail = email;
+
+  console.log("[BiFrost] Email validated:", email);
+
+  // Update verify email display
+  const emailDisplay = document.getElementById("verify-email-display");
+  if (emailDisplay) {
+    emailDisplay.textContent = email;
+    console.log("[BiFrost] Email display updated");
+  }
+
+  // Close create account dropdown
+  const createAccountDropdown = document.getElementById(
+    "create-account-dropdown"
+  );
+  if (createAccountDropdown) {
+    createAccountDropdown.classList.add("hidden");
+    console.log("[BiFrost] Create account dropdown closed");
+  }
+
+  // Open verify email dropdown with a small delay
+  setTimeout(() => {
+    const verifyDropdown = document.getElementById("verify-email-dropdown");
+    console.log("[BiFrost] Verify dropdown element:", verifyDropdown);
+
+    if (verifyDropdown) {
+      verifyDropdown.classList.remove("hidden");
+      console.log("[BiFrost] Verify email dropdown opened");
+
+      // Clear OTP inputs
+      const otpInputs = document.querySelectorAll(
+        ".otp-input"
+      ) as NodeListOf<HTMLInputElement>;
+      console.log("[BiFrost] OTP inputs found:", otpInputs.length);
+      otpInputs.forEach((input) => (input.value = ""));
+
+      // Initialize OTP inputs to attach event listeners
+      initializeOTPInputs();
+
+      // Focus first input with another small delay
+      setTimeout(() => {
+        if (otpInputs[0]) {
+          otpInputs[0].focus();
+          console.log("[BiFrost] First OTP input focused");
+        }
+      }, 100);
+    } else {
+      console.error("[BiFrost] Verify email dropdown not found in DOM!");
+    }
+  }, 100);
+
+  console.log("[BiFrost] Account creation initiated for:", email);
+}
+
+function handleVerifyEmail() {
+  const otpInputs = document.querySelectorAll(
+    ".otp-input"
+  ) as NodeListOf<HTMLInputElement>;
+  const otpError = document.getElementById("otp-error");
+
+  if (!otpError) {
+    console.error("[BiFrost] OTP error element not found");
+    return;
+  }
+
+  // Collect OTP values
+  let otp = "";
+  otpInputs.forEach((input) => {
+    otp += input.value.trim();
+  });
+
+  // Validate OTP (must be 6 digits)
+  if (otp.length !== 6 || !/^\d{6}$/.test(otp)) {
+    otpError.classList.remove("hidden");
+    otpInputs[0]?.focus();
+    console.log("[BiFrost] Invalid OTP entered");
+    return;
+  }
+
+  // Hide error if visible
+  otpError.classList.add("hidden");
+
+  // Close verify email dropdown
+  const verifyDropdown = document.getElementById("verify-email-dropdown");
+  if (verifyDropdown) {
+    verifyDropdown.classList.add("hidden");
+  }
+
+  console.log(
+    "[BiFrost] Email verified successfully for:",
+    userEmail,
+    "with OTP:",
+    otp
+  );
+
+  // Here you would typically send the OTP to your backend for verification
+  // For now, just log success
+  alert("Email verified successfully!");
+}
+
+function initializeOTPInputs() {
+  const otpInputs = document.querySelectorAll(
+    ".otp-input"
+  ) as NodeListOf<HTMLInputElement>;
+
+  if (otpInputs.length === 0) {
+    console.log("[BiFrost] No OTP inputs found");
+    return;
+  }
+
+  console.log("[BiFrost] Initializing", otpInputs.length, "OTP inputs");
+
+  // Create a new array to hold the fresh inputs
+  const freshInputs: HTMLInputElement[] = [];
+
+  otpInputs.forEach((input, index) => {
+    // Clone the input to remove all existing event listeners
+    const newInput = input.cloneNode(true) as HTMLInputElement;
+    input.parentNode?.replaceChild(newInput, input);
+    freshInputs.push(newInput);
+  });
+
+  // Now add event listeners to the fresh inputs
+  freshInputs.forEach((input, index) => {
+    // Only allow numbers - input event
+    input.addEventListener("input", (e) => {
+      const target = e.target as HTMLInputElement;
+      const value = target.value.replace(/[^0-9]/g, "");
+      target.value = value;
+
+      console.log("[BiFrost] Input in field", index, ":", value);
+
+      // Auto-advance to next field
+      if (value.length === 1 && index < freshInputs.length - 1) {
+        console.log("[BiFrost] Moving to field", index + 1);
+        freshInputs[index + 1].focus();
+        freshInputs[index + 1].select();
+      }
+    });
+
+    // Handle keydown for backspace and navigation
+    input.addEventListener("keydown", (e) => {
+      const target = e.target as HTMLInputElement;
+
+      if (e.key === "Backspace") {
+        if (!target.value && index > 0) {
+          e.preventDefault();
+          freshInputs[index - 1].focus();
+          freshInputs[index - 1].select();
+        }
+      }
+
+      if (e.key === "ArrowLeft" && index > 0) {
+        e.preventDefault();
+        freshInputs[index - 1].focus();
+        freshInputs[index - 1].select();
+      }
+
+      if (e.key === "ArrowRight" && index < freshInputs.length - 1) {
+        e.preventDefault();
+        freshInputs[index + 1].focus();
+        freshInputs[index + 1].select();
+      }
+    });
+
+    // Handle paste
+    input.addEventListener("paste", (e) => {
+      e.preventDefault();
+      const pastedData = e.clipboardData?.getData("text") || "";
+      const digits = pastedData.replace(/[^0-9]/g, "").slice(0, 6);
+
+      digits.split("").forEach((digit, i) => {
+        if (freshInputs[index + i]) {
+          freshInputs[index + i].value = digit;
+        }
+      });
+
+      const nextIndex = Math.min(index + digits.length, freshInputs.length - 1);
+      freshInputs[nextIndex]?.focus();
+      freshInputs[nextIndex]?.select();
+    });
+
+    // Handle focus
+    input.addEventListener("focus", () => {
+      setTimeout(() => input.select(), 0);
+    });
+  });
+
+  console.log("[BiFrost] OTP inputs initialized successfully");
+}
+
 // Helper functions
 function getFaviconUrl(url: string): string {
   try {
@@ -510,17 +794,23 @@ function getFaviconUrl(url: string): string {
 (window as any).addToHistory = addToHistory;
 (window as any).addBookmark = addBookmark;
 
-// Export new Tasks functions
+// Export Tasks functions
 (window as any).addTask = addTask;
 (window as any).toggleTask = toggleTask;
 (window as any).deleteTask = deleteTask;
 (window as any).renderTasks = renderTasks;
 
-// Export new Notes functions
+// Export Notes functions
 (window as any).saveNote = saveNote;
 (window as any).loadNote = loadNote;
 (window as any).clearNote = clearNote;
 (window as any).updateCharCount = updateCharCount;
+
+// Export Account functions
+(window as any).toggleCreateAccountDropdown = toggleCreateAccountDropdown;
+(window as any).toggleVerifyEmailDropdown = toggleVerifyEmailDropdown;
+(window as any).handleCreateAccount = handleCreateAccount;
+(window as any).handleVerifyEmail = handleVerifyEmail;
 
 // Export close button handlers (aliases for consistency)
 (window as any).toggleQuickNote = toggleNotesDropdown;
@@ -537,6 +827,10 @@ document.addEventListener("click", (event) => {
   const tasksDropdown = document.getElementById("tasks-dropdown");
   const downloadsDropdown = document.getElementById("downloads-dropdown");
   const settingsDropdown = document.getElementById("settings-dropdown");
+  const createAccountDropdown = document.getElementById(
+    "create-account-dropdown"
+  );
+  const verifyEmailDropdown = document.getElementById("verify-email-dropdown");
   const panelsContainer = document.getElementById("overlay-panels");
 
   // Check if click is on a toggle button
@@ -551,6 +845,12 @@ document.addEventListener("click", (event) => {
     '[onclick*="toggleDownloadsDropdown"]'
   );
   const settingsButton = target.closest('[onclick*="toggleSettingsDropdown"]');
+  const createAccountButton = target.closest(
+    '[onclick*="toggleCreateAccountDropdown"]'
+  );
+  const verifyEmailButton = target.closest(
+    '[onclick*="toggleVerifyEmailDropdown"]'
+  );
   const panelButton = target.closest('[onclick*="showPanel"]');
 
   // Close main menu if clicked outside
@@ -603,6 +903,24 @@ document.addEventListener("click", (event) => {
     settingsDropdown.classList.add("hidden");
   }
 
+  // Close create account dropdown if clicked outside
+  if (
+    !createAccountButton &&
+    createAccountDropdown &&
+    !createAccountDropdown.contains(target)
+  ) {
+    createAccountDropdown.classList.add("hidden");
+  }
+
+  // Close verify email dropdown if clicked outside
+  if (
+    !verifyEmailButton &&
+    verifyEmailDropdown &&
+    !verifyEmailDropdown.contains(target)
+  ) {
+    verifyEmailDropdown.classList.add("hidden");
+  }
+
   // Close panels if clicked outside
   if (!panelButton && panelsContainer && !panelsContainer.contains(target)) {
     hidePanel();
@@ -623,6 +941,12 @@ document.addEventListener("keydown", (event) => {
     const tasksDropdown = document.getElementById("tasks-dropdown");
     const downloadsDropdown = document.getElementById("downloads-dropdown");
     const settingsDropdown = document.getElementById("settings-dropdown");
+    const createAccountDropdown = document.getElementById(
+      "create-account-dropdown"
+    );
+    const verifyEmailDropdown = document.getElementById(
+      "verify-email-dropdown"
+    );
 
     // Save note before closing
     if (notesDropdown && !notesDropdown.classList.contains("hidden")) {
@@ -637,6 +961,8 @@ document.addEventListener("keydown", (event) => {
     tasksDropdown?.classList.add("hidden");
     downloadsDropdown?.classList.add("hidden");
     settingsDropdown?.classList.add("hidden");
+    createAccountDropdown?.classList.add("hidden");
+    verifyEmailDropdown?.classList.add("hidden");
 
     // Close panels
     hidePanel();
@@ -652,10 +978,11 @@ document.addEventListener("keypress", (event) => {
   }
 });
 
-// Initialize theme and notes textarea when the page loads
+// Initialize theme, notes textarea, and OTP inputs when the page loads
 if (typeof window !== "undefined") {
   window.addEventListener("DOMContentLoaded", () => {
     initializeTheme();
     initializeNotesTextarea();
+    // initializeOTPInputs();
   });
 }
