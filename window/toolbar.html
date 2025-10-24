@@ -1,168 +1,37 @@
 <div class="toolbar-container">
-  <!-- Window Controls (macOS style) -->
+  <!-- Tab Bar -->
   <div
-    class="flex items-center justify-between bg-zinc-800 px-3 py-2 toolbar-drag-region"
+    id="tab-bar"
+    class="flex items-center bg-zinc-900 px-2 py-1 overflow-x-auto no-drag"
   >
     <!-- Left: Window Controls -->
-    <div class="flex items-center space-x-2 no-drag">
+    <div class="flex items-center space-x-2 px-6 no-drag">
       <div class="flex space-x-2">
         <button
           onclick="window.__TAURI__?.window?.getCurrent().close()"
           class="w-3 h-3 rounded-full bg-red-500 hover:bg-red-600 transition"
+          title="Close"
         ></button>
         <button
           onclick="window.__TAURI__?.window?.getCurrent().minimize()"
           class="w-3 h-3 rounded-full bg-yellow-500 hover:bg-yellow-600 transition"
+          title="Minimize"
         ></button>
         <button
           onclick="window.__TAURI__?.window?.getCurrent().toggleMaximize()"
           class="w-3 h-3 rounded-full bg-green-500 hover:bg-green-600 transition"
+          title="Maximize"
         ></button>
       </div>
     </div>
 
-    <!-- Center: BiFrost Logo/Title -->
-    <div class="text-xs font-semibold text-zinc-400 select-none">
-      Private BiFrost Browser
-    </div>
-
-    <!-- Right: Utility Icons -->
-    <div class="flex items-center space-x-3 no-drag">
-      <!-- Location Intelligence Indicator -->
-      <button
-        class="icon hover:text-blue-400 transition"
-        title="Location: Ibadan, NG"
-      >
-        <svg
-          width="20"
-          height="20"
-          viewBox="0 0 20 20"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M16.6663 8.33464C16.6663 12.4955 12.0505 16.8288 10.5005 18.1671C10.3561 18.2757 10.1803 18.3344 9.99967 18.3344C9.81901 18.3344 9.64324 18.2757 9.49884 18.1671C7.94884 16.8288 3.33301 12.4955 3.33301 8.33464C3.33301 6.56653 4.03539 4.87083 5.28563 3.62059C6.53587 2.37035 8.23156 1.66797 9.99967 1.66797C11.7678 1.66797 13.4635 2.37035 14.7137 3.62059C15.964 4.87083 16.6663 6.56653 16.6663 8.33464Z"
-            stroke="currentColor"
-            stroke-width="1.41667"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-          <path
-            d="M9.99967 10.8346C11.3804 10.8346 12.4997 9.71535 12.4997 8.33464C12.4997 6.95392 11.3804 5.83464 9.99967 5.83464C8.61896 5.83464 7.49967 6.95392 7.49967 8.33464C7.49967 9.71535 8.61896 10.8346 9.99967 10.8346Z"
-            stroke="currentColor"
-            stroke-width="1.41667"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
-      </button>
-
-      <!-- Privacy Shield -->
-      <button
-        class="icon text-green-500 hover:text-green-400 transition"
-        title="Privacy Protection: Active"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
-          />
-        </svg>
-      </button>
-
-      <!-- Extensions/Plugins -->
-      <button class="icon hover:text-zinc-300 transition" title="Extensions">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"
-          />
-        </svg>
-      </button>
-
-      <!-- User Profile -->
-      <button class="icon hover:text-zinc-300 transition" title="User Profile">
-        <svg
-          width="20"
-          height="20"
-          viewBox="0 0 20 20"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M9.99967 10.8333C12.3009 10.8333 14.1663 8.96785 14.1663 6.66667C14.1663 4.36548 12.3009 2.5 9.99967 2.5C7.69849 2.5 5.83301 4.36548 5.83301 6.66667C5.83301 8.96785 7.69849 10.8333 9.99967 10.8333ZM9.99967 10.8333C11.7678 10.8333 13.4635 11.5357 14.7137 12.786C15.964 14.0362 16.6663 15.7319 16.6663 17.5M9.99967 10.8333C8.23156 10.8333 6.53587 11.5357 5.28563 12.786C4.03539 14.0362 3.33301 15.7319 3.33301 17.5"
-            stroke="currentColor"
-            stroke-width="1.66667"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
-      </button>
-
-      <!-- Theme Toggle Button -->
-      <button
-        id="theme-toggle"
-        onclick="toggleTheme()"
-        class="icon hover:text-blue-400 transition"
-        title="Toggle Theme"
-      >
-        <svg
-          id="theme-icon-light"
-          class="hidden"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
-          />
-        </svg>
-        <svg
-          id="theme-icon-dark"
-          class="hidden"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
-          />
-        </svg>
-      </button>
-    </div>
-  </div>
-
-  <!-- Tab Bar -->
-  <div id="tab-bar" class="flex items-center bg-zinc-900 px-2 py-1 no-drag">
     <!-- Tabs will be loaded here -->
-    <div class="flex items-center space-x-1 flex-1 overflow-hidden">
+    <div class="flex items-center space-x-1 flex-1">
       <!-- Tabs will be dynamically rendered by TabManager -->
     </div>
 
     <!-- Tab Actions -->
-    <div class="flex items-center space-x-1 ml-2 flex-shrink-0">
+    <div class="flex items-center space-x-1 ml-2">
       <!-- New Tab Button -->
       <button
         onclick="window.createNewTab()"
@@ -304,86 +173,8 @@
     </div>
 
     <!-- Address Bar -->
-    <div class="flex-1 relative hidden">
-      <div
-        class="flex items-center bg-zinc-900 rounded-md px-3 py-1.5 focus-within:ring-1 focus-within:ring-zinc-600"
-      >
-        <!-- Bookmark Icon -->
-        <button
-          class="p-0.5 hover:text-yellow-400 transition text-zinc-500"
-          title="Bookmark this page"
-        >
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 20 20"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M15.8337 17.5L10.0003 14.1667L4.16699 17.5V4.16667C4.16699 3.72464 4.34259 3.30072 4.65515 2.98816C4.96771 2.67559 5.39163 2.5 5.83366 2.5H14.167C14.609 2.5 15.0329 2.67559 15.3455 2.98816C15.6581 3.30072 15.8337 3.72464 15.8337 4.16667V17.5Z"
-              stroke="currentColor"
-              stroke-width="1.66667"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-        </button>
-
-        <!-- Search Icon -->
-        <button class="p-0.5 mx-2 text-zinc-500" title="Search">
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 20 20"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M17.5 17.5L13.9167 13.9167M15.8333 9.16667C15.8333 12.8486 12.8486 15.8333 9.16667 15.8333C5.48477 15.8333 2.5 12.8486 2.5 9.16667C2.5 5.48477 5.48477 2.5 9.16667 2.5C12.8486 2.5 15.8333 5.48477 15.8333 9.16667Z"
-              stroke="currentColor"
-              stroke-width="1.66667"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-        </button>
-
-        <!-- URL Input -->
-        <input
-          type="text"
-          id="address-bar"
-          value="Search"
-          class="flex-1 bg-transparent text-sm text-zinc-400 placeholder-zinc-500 focus:outline-none"
-          placeholder="Search"
-        />
-
-        <!-- Share Icon -->
-        <button
-          class="p-0.5 ml-2 hover:text-zinc-300 transition text-zinc-500"
-          title="Share"
-        >
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 20 20"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M3.33301 10.0013V16.668C3.33301 17.11 3.5086 17.5339 3.82116 17.8465C4.13372 18.159 4.55765 18.3346 4.99967 18.3346H14.9997C15.4417 18.3346 15.8656 18.159 16.1782 17.8465C16.4907 17.5339 16.6663 17.11 16.6663 16.668V10.0013M13.333 5.0013L9.99967 1.66797M9.99967 1.66797L6.66634 5.0013M9.99967 1.66797V12.5013"
-              stroke="currentColor"
-              stroke-width="1.66667"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-        </button>
-      </div>
-    </div>
-
-    <!-- Address Bar -->
-    <div class="flex-1 flex items-center justify-center gap-2">
+    <div class="flex-1 flex items-center justify-center gap-2 relative">
+      <!-- Add 'relative' class to this parent div -->
       <!-- Bookmark Icon (Outside) -->
       <button
         onclick="toggleBookmarksDropdown()"
@@ -547,63 +338,6 @@
         </svg>
       </button>
     </div>
-  </div>
-
-  <!-- Bookmarks Bar -->
-  <div
-    id="bookmarks-bar"
-    class="bg-zinc-800 px-3 py-1.5 flex items-center space-x-3 text-xs overflow-x-auto no-drag border-t border-zinc-700"
-  >
-    <button
-      class="flex items-center space-x-1 px-2 py-1 rounded hover:bg-zinc-700 transition whitespace-nowrap"
-    >
-      <svg
-        class="w-3 h-3 text-zinc-400"
-        fill="currentColor"
-        viewBox="0 0 20 20"
-      >
-        <path
-          d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
-        />
-      </svg>
-      <span class="text-zinc-300">Work</span>
-    </button>
-    <button
-      class="px-2 py-1 rounded hover:bg-zinc-700 transition text-zinc-300 whitespace-nowrap"
-    >
-      GitHub
-    </button>
-    <button
-      class="px-2 py-1 rounded hover:bg-zinc-700 transition text-zinc-300 whitespace-nowrap"
-    >
-      Documentation
-    </button>
-    <button
-      class="px-2 py-1 rounded hover:bg-zinc-700 transition text-zinc-300 whitespace-nowrap"
-    >
-      Design Resources
-    </button>
-    <button
-      class="ml-auto p-1 rounded hover:bg-zinc-700 transition"
-      title="Manage Bookmarks"
-    >
-      <svg
-        width="20"
-        height="20"
-        viewBox="0 0 20 20"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        class="w-4 h-4 text-zinc-400"
-      >
-        <path
-          d="M4.16699 10.0013H15.8337M10.0003 4.16797V15.8346"
-          stroke="currentColor"
-          stroke-width="1.66667"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        />
-      </svg>
-    </button>
   </div>
 
   <!-- Main Menu Dropdown (Hidden by default) -->

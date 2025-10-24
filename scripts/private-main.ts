@@ -5,6 +5,7 @@ import { SettingsManager } from "./settings.ts";
 import "./history.js";
 // import "./tab-groups.ts";
 import { initializeTabGroups } from "./tab-groups.ts";
+import { initializeToolbarManager } from "./toolbar.ts";
 
 (window as any).initializeTabGroups = initializeTabGroups;
 
@@ -56,6 +57,10 @@ async function initializeToolbar() {
 
   // Initialize Tauri commands
   await invoke("create_window").catch(console.error);
+
+  // Initialize ToolbarManager AFTER toolbar HTML is loaded
+  console.log("[Toolbar] Toolbar HTML loaded, initializing manager");
+  initializeToolbarManager();
 }
 
 // Global state management
