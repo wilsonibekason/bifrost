@@ -34,6 +34,77 @@ export class TabManager {
     const maxRetries = 20;
 
     const initializeDOM = () => {
+      this.tabBarElement = document.querySelector("#public-tabs-container");
+
+      this.contentContainer =
+        document.querySelector("#browser-content") ||
+        document.querySelector("[data-content-container]");
+
+      if (!this.tabBarElement || !this.contentContainer) {
+        console.warn(
+          `[BiFrost] Elements not found (attempt ${
+            retryCount + 1
+          }/${maxRetries})`
+        );
+
+        retryCount++;
+        if (retryCount < maxRetries) {
+          setTimeout(initializeDOM, 100);
+          return false;
+        } else {
+          console.error("[BiFrost] Failed to find required elements");
+          return false;
+        }
+      }
+
+      // Set content container to relative positioning
+      this.contentContainer.style.position = "relative";
+
+      // Create initial tab
+      if (this.tabs.length === 0) {
+        const initialTabId = `tab-${Date.now()}-${Math.random()
+          .toString(36)
+          .substr(2, 9)}`;
+
+        const initialTab: Tab = {
+          id: initialTabId,
+          title: "New Tab",
+          url: "about:blank",
+          favicon: this.getDefaultFavicon("about:blank"),
+          isActive: true,
+          isSpecial: false,
+          closable: true,
+          contentType: "webview",
+        };
+
+        this.tabs.push(initialTab);
+        this.createContentPanel(initialTab);
+      }
+
+      this.isInitialized = true;
+      console.log("[BiFrost] TabManager initialized successfully");
+
+      this.renderTabs();
+      this.setupKeyboardNavigation();
+
+      return true;
+    };
+
+    if (
+      document.readyState === "complete" ||
+      document.readyState === "interactive"
+    ) {
+      initializeDOM();
+    } else {
+      document.addEventListener("DOMContentLoaded", initializeDOM);
+    }
+  }
+
+  private initialize_del() {
+    let retryCount = 0;
+    const maxRetries = 20;
+
+    const initializeDOM = () => {
       this.tabBarElement =
         document.querySelector("#tab-bar .flex-1") ||
         document.querySelector("#tab-bar") ||
@@ -375,8 +446,11 @@ export class TabManager {
 
     const fragment = document.createDocumentFragment();
 
+    // Calculate dynamic tab width
+    const tabWidth = this.calculateTabWidth();
+
     this.tabs.forEach((tab) => {
-      const tabElement = this.createTabElement(tab);
+      const tabElement = this.createTabElement(tab, tabWidth);
       fragment.appendChild(tabElement);
     });
 
@@ -384,7 +458,98 @@ export class TabManager {
     this.tabBarElement.appendChild(fragment);
   }
 
-  private createTabElement(tab: Tab): HTMLElement {
+  private calculateTabWidth(): number {
+    if (!this.tabBarElement) return 240;
+
+    // Get the parent container (tab-bar)
+    const tabBar = this.tabBarElement.parentElement;
+    if (!tabBar) return 240;
+
+    // Calculate width of fixed elements
+    const windowControlsWidth = 120; // Window controls on left
+    const actionsWidth = 120; // Action buttons on right
+    const padding = 20; // Extra padding/margins
+
+    const availableWidth =
+      tabBar.clientWidth - windowControlsWidth - actionsWidth - padding;
+    const tabCount = this.tabs.length;
+
+    // Define max and min widths
+    const MAX_TAB_WIDTH = 240;
+    const MIN_TAB_WIDTH = 5; // Reduced from 100 to allow more tabs
+
+    // Calculate ideal width per tab
+    let tabWidth = availableWidth / tabCount;
+
+    // Clamp between min and max
+    tabWidth = Math.max(MIN_TAB_WIDTH, Math.min(MAX_TAB_WIDTH, tabWidth));
+
+    return tabWidth;
+  }
+
+  private createTabElement(tab: Tab, width: number): HTMLElement {
+    const tabDiv = document.createElement("div");
+    tabDiv.className = `flex items-center gap-2 px-4 py-2.5 transition cursor-pointer group relative ${
+      tab.isActive
+        ? "bg-zinc-800 text-white"
+        : "bg-zinc-700 text-zinc-300 hover:bg-zinc-700/80"
+    }`;
+    // Updated: Dynamic width with flex-shrink-0 to prevent unwanted compression
+    tabDiv.style.cssText = `width: ${width}px; height: 52px; border-radius: 8px 8px 0 0; flex-shrink: 0;`;
+    tabDiv.setAttribute("role", "tab");
+    tabDiv.setAttribute("aria-selected", tab.isActive.toString());
+    tabDiv.setAttribute("data-tab-id", tab.id);
+
+    // Add click handler
+    tabDiv.addEventListener("click", (e) => {
+      e.stopPropagation();
+      this.switchToTab(tab.id);
+    });
+
+    // Icon/Favicon
+    const iconSpan = document.createElement("span");
+    iconSpan.className = "flex-shrink-0";
+    if (tab.isSpecial) {
+      iconSpan.innerHTML = this.getSpecialTabIcon(tab.id);
+    } else {
+      const img = document.createElement("img");
+      img.src = tab.favicon || this.getDefaultFavicon(tab.url);
+      img.className = "w-4 h-4";
+      img.onerror = () => {
+        img.src =
+          'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><rect width="16" height="16" fill="%23666"/></svg>';
+      };
+      iconSpan.appendChild(img);
+    }
+    tabDiv.appendChild(iconSpan);
+
+    // Title
+    const titleSpan = document.createElement("span");
+    titleSpan.className = "text-sm truncate flex-1 font-medium";
+    titleSpan.textContent = tab.title;
+    tabDiv.appendChild(titleSpan);
+
+    // Close button
+    if (tab.closable) {
+      const closeBtn = document.createElement("button");
+      closeBtn.className =
+        "opacity-0 group-hover:opacity-100 hover:bg-zinc-600 rounded p-1 transition flex-shrink-0";
+      closeBtn.innerHTML = `
+      <svg width="14" height="14" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M15 5L5 15M5 5L15 15" stroke="currentColor" stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    `;
+      closeBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        this.closeTab(tab.id);
+      });
+      tabDiv.appendChild(closeBtn);
+    }
+
+    return tabDiv;
+  }
+
+  private createTabElement_delete(tab: Tab): HTMLElement {
     const tabDiv = document.createElement("div");
     tabDiv.className = `flex items-center gap-2 px-4 py-2.5 transition cursor-pointer group relative ${
       tab.isActive
