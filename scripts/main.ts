@@ -3,6 +3,7 @@ import "./search.js";
 import "./utils.js";
 import { SettingsManager } from "./settings.ts";
 import "./history.js";
+import "./default-window.js";
 import { initializeToolbarManager } from "./toolbar.ts";
 // import "./tab-groups.ts";
 import { initializeTabGroups } from "./tab-groups.ts";

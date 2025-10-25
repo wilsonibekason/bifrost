@@ -285,7 +285,7 @@ export class TabManager {
     }
   }
 
-  private async loadPanelContent(tab: Tab) {
+  private async loadPanelContent_del(tab: Tab) {
     const contentPanel = this.contentPanels.get(tab.id);
     if (!contentPanel || contentPanel.loaded) return;
 
@@ -335,6 +335,7 @@ export class TabManager {
           <div class="flex items-center justify-center h-full text-zinc-400">
             <div class="text-center">
               <div class="text-6xl mb-4">🌐</div>
+              <div class="text-6xl mb-4">jejjff</div>
               <div class="text-lg">${tab.title}</div>
               <div class="text-sm mt-2">${tab.url}</div>
             </div>
@@ -355,6 +356,102 @@ export class TabManager {
           </div>
         </div>
       `;
+    }
+  }
+
+  private async loadPanelContent(tab: Tab) {
+    const contentPanel = this.contentPanels.get(tab.id);
+    if (!contentPanel || contentPanel.loaded) return;
+
+    const { element } = contentPanel;
+
+    try {
+      if (tab.contentType === "html" && tab.isSpecial) {
+        // Load special tabs (History, Settings, Tab Groups)
+        if (tab.url === "history") {
+          const historyContent = await this.loadExternalHTML(
+            "../components/tabs/history/history.html"
+          );
+          element.innerHTML = historyContent;
+          this.executeScripts(element);
+        } else if (tab.url === "settings") {
+          const settingsContent = await this.loadExternalHTML(
+            "../components/tabs/settings/settings.html"
+          );
+          element.innerHTML = settingsContent;
+          this.executeScripts(element);
+        } else if (tab.url === "tabgroups") {
+          const tabGroupsContent = await this.loadExternalHTML(
+            "../components/tabs/tabGroups/tabGroups.html"
+          );
+          element.innerHTML = tabGroupsContent;
+
+          // Initialize TabGroups after DOM is ready
+          setTimeout(() => {
+            if (typeof (window as any).initializeTabGroups === "function") {
+              (window as any).initializeTabGroups();
+            }
+          }, 100);
+          this.executeScripts(element);
+        }
+      } else if (tab.contentType === "iframe") {
+        // Load iframe content
+        element.innerHTML = `
+        <iframe 
+          src="${tab.url}" 
+          class="w-full h-full border-0"
+          title="${tab.title}"
+          sandbox="allow-scripts allow-same-origin allow-forms"
+        ></iframe>
+      `;
+      } else if (tab.url === "about:blank" || !tab.url || tab.url === "") {
+        // Load default window view for new tabs
+        const defaultWindowContent = await this.loadExternalHTML(
+          "../components/tabs/default-window/default-window.html"
+        );
+        element.innerHTML = defaultWindowContent;
+
+        // Load and execute the default-window TypeScript logic
+        // const scriptTag = document.createElement("script");
+        // scriptTag.src = "../components/tabs/default-window/default-window.js";
+        // scriptTag.type = "module";
+        // element.appendChild(scriptTag);
+
+        // this.executeScripts(element);
+
+        console.log("[BiFrost] Loaded default window view for tab:", tab.id);
+      } else {
+        // Regular webview behavior for actual URLs
+        element.innerHTML = `
+        <div class="flex items-center justify-center h-full text-zinc-400">
+          <div class="text-center">
+            <div class="text-6xl mb-4">🌐</div>
+            <div class="text-lg">${tab.title}</div>
+            <div class="text-sm mt-2">${tab.url}</div>
+            <div class="text-xs mt-4 text-zinc-500">
+              Web content loading will be implemented with Tauri WebView
+            </div>
+          </div>
+        </div>
+      `;
+      }
+
+      contentPanel.loaded = true;
+      console.log("[BiFrost] Loaded content for tab:", tab.id);
+    } catch (error) {
+      console.error("[BiFrost] Error loading content:", error);
+      element.innerHTML = `
+      <div class="flex items-center justify-center h-full text-red-400">
+        <div class="text-center">
+          <div class="text-6xl mb-4">⚠️</div>
+          <div class="text-lg">Failed to load content</div>
+          <div class="text-sm mt-2">${tab.url}</div>
+          <div class="text-xs mt-4">${
+            error instanceof Error ? error.message : "Unknown error"
+          }</div>
+        </div>
+      </div>
+    `;
     }
   }
 
@@ -658,11 +755,21 @@ export class TabManager {
     }
   }
 
-  private getDefaultFavicon(url: string): string {
+  private getDefaultFavicon_del(url: string): string {
     if (url === "about:blank") {
       return 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><rect width="16" height="16" fill="%23444"/><text x="8" y="12" font-size="10" text-anchor="middle" fill="%23fff">📄</text></svg>';
     }
     return 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><rect width="16" height="16" fill="%23666"/></svg>';
+  }
+  private getDefaultFavicon(url: string): string {
+    const svgData =
+      'data:image/svg+xml,<svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.16319 1.62685C8.19423 1.56414 8.24218 1.51135 8.30163 1.47444C8.36109 1.43753 8.42967 1.41797 8.49965 1.41797C8.56962 1.41797 8.63821 1.43753 8.69766 1.47444C8.75711 1.51135 8.80506 1.56414 8.83611 1.62685L10.4724 4.94114C10.5801 5.15929 10.7393 5.34802 10.936 5.49113C11.1328 5.63425 11.3614 5.72747 11.6021 5.76281L15.2614 6.29831C15.3307 6.30836 15.3959 6.3376 15.4495 6.38274C15.503 6.42788 15.5429 6.48712 15.5646 6.55374C15.5862 6.62036 15.5888 6.69172 15.5721 6.75974C15.5553 6.82777 15.5198 6.88973 15.4696 6.93864L12.8233 9.51556C12.6488 9.68563 12.5182 9.89557 12.4428 10.1273C12.3674 10.359 12.3495 10.6056 12.3905 10.8458L13.0153 14.4866C13.0275 14.5559 13.02 14.6273 12.9937 14.6925C12.9673 14.7578 12.9231 14.8143 12.8662 14.8557C12.8093 14.897 12.7418 14.9216 12.6716 14.9264C12.6014 14.9313 12.5313 14.9164 12.4691 14.8833L9.19806 13.1635C8.98253 13.0503 8.74273 12.9912 8.49929 12.9912C8.25585 12.9912 8.01606 13.0503 7.80052 13.1635L4.53015 14.8833C4.46805 14.9162 4.39797 14.931 4.32788 14.926C4.2578 14.921 4.19051 14.8965 4.13369 14.8551C4.07686 14.8138 4.03278 14.7574 4.00645 14.6922C3.98011 14.6271 3.97259 14.5559 3.98473 14.4866L4.60877 10.8465C4.64999 10.6062 4.63214 10.3595 4.55674 10.1276C4.48134 9.89572 4.35066 9.68567 4.17598 9.51556L1.52965 6.93935C1.47907 6.8905 1.44323 6.82842 1.4262 6.7602C1.40918 6.69197 1.41167 6.62033 1.43337 6.55345C1.45507 6.48656 1.49513 6.42711 1.54897 6.38188C1.60281 6.33665 1.66827 6.30745 1.7379 6.2976L5.39644 5.76281C5.63745 5.72775 5.86634 5.63464 6.06339 5.49151C6.26045 5.34838 6.41977 5.1595 6.52765 4.94114L8.16319 1.62685Z" stroke="%23212529" stroke-width="1.20417" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+    if (url === "about:blank") {
+      return svgData;
+    }
+
+    return svgData;
   }
 
   private sanitizeTitle(title: string): string {
